@@ -1,0 +1,124 @@
+{
+  "name": "@ugrc/atlas",
+  "version": "5.4.11",
+  "private": true,
+  "scripts": {
+    "build": "vite build",
+    "copy:arcgis": "cpy \"./node_modules/@arcgis/core/assets/**\" ./public/assets",
+    "cypress:open": "cypress open",
+    "cypress:run": "npm start:ci & wait-on --delay 1000 -v --timeout 10000 tcp:5173 && cypress run",
+    "format": "prettier . --write",
+    "lint": "eslint .",
+    "preview": "vite preview",
+    "start": "vite",
+    "start:ci": "vite --host",
+    "dev": "npm start",
+    "test": "vitest"
+  },
+  "browserslist": {
+    "production": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "prettier": {
+    "printWidth": 120,
+    "singleQuote": true,
+    "plugins": [
+      "prettier-plugin-organize-imports",
+      "prettier-plugin-packagejson"
+    ]
+  },
+  "eslintConfig": {
+    "env": {
+      "browser": true,
+      "es2022": true,
+      "node": true
+    },
+    "parserOptions": {
+      "ecmaFeatures": {
+        "jsx": true
+      },
+      "ecmaVersion": "latest",
+      "sourceType": "module"
+    },
+    "settings": {
+      "react": {
+        "version": "detect"
+      }
+    },
+    "plugins": [
+      "cypress",
+      "react",
+      "prettier",
+      "import",
+      "jsx-a11y",
+      "react-hooks"
+    ],
+    "extends": [
+      "eslint:recommended",
+      "plugin:react/recommended",
+      "plugin:react/jsx-runtime",
+      "plugin:react-hooks/recommended",
+      "plugin:import/recommended",
+      "plugin:jsx-a11y/recommended",
+      "prettier"
+    ],
+    "globals": {
+      "Cypress": true,
+      "cy": true
+    },
+    "ignorePatterns": [
+      "dist/**"
+    ]
+  },
+  "dependencies": {
+    "@arcgis/core": "^4.28.5",
+    "@fortawesome/fontawesome-svg-core": "^6.4.2",
+    "@fortawesome/free-solid-svg-icons": "^6.4.2",
+    "@fortawesome/react-fontawesome": "^0.2.0",
+    "@ugrc/dart-board": "^5.0.7",
+    "@ugrc/layer-selector": "^6.2.2",
+    "@ugrc/sherlock": "^4.0.4",
+    "@ugrc/utilities": "^2.2.1",
+    "bootstrap": "^4.5.3",
+    "firebase": "^9.23.0",
+    "ky": "^1.1.2",
+    "lodash.debounce": "^4.0.8",
+    "lodash.escaperegexp": "^4.1.2",
+    "lodash.sortby": "^4.7.0",
+    "lodash.uniqwith": "^4.5.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-error-boundary": "^4.0.11",
+    "react-fast-compare": "^3.2.2",
+    "reactfire": "^4.2.3",
+    "reactstrap": "^9.2.0"
+  },
+  "devDependencies": {
+    "@testing-library/cypress": "^10.0.1",
+    "@vitejs/plugin-react": "^4.1.0",
+    "cpy-cli": "^5.0.0",
+    "cypress": "^13.4.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-cypress": "^2.15.1",
+    "eslint-plugin-import": "^2.29.0",
+    "eslint-plugin-jsx-a11y": "^6.7.1",
+    "eslint-plugin-prettier": "^5.0.1",
+    "eslint-plugin-react": "^7.33.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "prettier": "^3.0.3",
+    "prettier-plugin-organize-imports": "^3.2.3",
+    "prettier-plugin-packagejson": "^2.4.6",
+    "vite": "^4.5.1",
+    "vite-plugin-package-version": "^1.0.2",
+    "vitest": "^0.34.6",
+    "wait-on": "^7.2.0"
+  }
+}
