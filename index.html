@@ -1,20 +1,44 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <meta charset="utf-8" />
     <link rel="shortcut icon" href="favicon.ico" />
+
+    <meta charset="utf-8" />
     <meta
       name="viewport"
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
-    <meta name="description" content="" />
+    <meta name="description" content="quickly find bikeways in Utah" />
+
     <title>Utah Bikeways Map</title>
+
+    <!-- These are links rather than imported so that we can dynamically disable/enable -->
+    <link
+      id="arcgis-dark-theme"
+      disabled
+      rel="stylesheet"
+      href="/esri-core/assets/esri/themes/dark/main.css"
+    />
+    <link
+      id="arcgis-light-theme"
+      rel="stylesheet"
+      href="/esri-core/assets/esri/themes/light/main.css"
+    />
   </head>
 
-  <script type="module" src="/main.js"></script>
   <body class="calcite-mode-auto">
-    <h1 class="bg-gray-200" id="test">Test Calcite</h1>
-    <calcite-date-picker range></calcite-date-picker>
-    <calcite-icon icon="banana"></calcite-icon>
+    <calcite-loader
+      class="h-full p-0"
+      label="loading application"
+      scale="l"
+    ></calcite-loader>
+    <calcite-shell content-behind hidden>
+      <div class="py-2 px-3" slot="header" layout="horizontal">
+        <span class="font-bold text-xl">Utah Bikeways Map</span>
+      </div>
+      <div class="w-full h-full" id="viewDiv"></div>
+    </calcite-shell>
   </body>
+
+  <script type="module" src="/main.js"></script>
 </html>

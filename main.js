@@ -1,9 +1,10 @@
 import '@esri/calcite-components/dist/calcite/calcite.css';
 import { defineCustomElements } from '@esri/calcite-components/dist/loader';
 import './src/index.css';
+import './src/map.js';
 
 defineCustomElements(window, {
   resourcesUrl: '/esri-calcite/assets',
 });
 
-console.log(`app version: ${import.meta.env.PACKAGE_VERSION}`);
+console.log(`version: ${import.meta.env.PACKAGE_VERSION}`);
