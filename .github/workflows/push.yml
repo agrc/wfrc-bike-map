@@ -41,7 +41,6 @@ jobs:
     needs: release-please
     environment:
       name: dev
-      url: https://atlas.dev.utah.gov
     if: github.ref_name == 'dev' && needs.release-please.outputs.release_created
 
     steps:
@@ -63,7 +62,6 @@ jobs:
     needs: release-please
     environment:
       name: prod
-      url: https://atlas.utah.gov
     if: github.ref_name == 'main' && needs.release-please.outputs.release_created
 
     steps:
