@@ -5,3 +5,5 @@ import './src/index.css';
 defineCustomElements(window, {
   resourcesUrl: '/esri-calcite/assets',
 });
+
+console.log(`app version: ${import.meta.env.PACKAGE_VERSION}`);
