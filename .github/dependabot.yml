@@ -10,7 +10,7 @@ updates:
       major-dependencies:
         update-types: ['major']
         exclude-patterns:
-        - "bootstrap"
+          - 'bootstrap'
     commit-message:
       prefix: deps
       prefix-development: deps(dev)
