@@ -12,5 +12,8 @@
     "vite",
     "wkid"
   ],
-  "editor.formatOnSave": true
+  "editor.formatOnSave": true,
+  "prettier.documentSelectors": [
+    "*.html"
+  ]
 }
