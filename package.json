@@ -1,6 +1,7 @@
 {
   "name": "@ugrc/atlas",
   "version": "5.4.11",
+  "type": "module",
   "private": true,
   "scripts": {
     "build": "vite build",
