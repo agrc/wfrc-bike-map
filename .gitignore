@@ -3,26 +3,18 @@
 
 # testing
 /coverage
-cypress/videos
 
 # production
 /build
 /deploy
 /dist
 
-# secrets
-.env.local
-*.odc
-*.pyc
-*.sde
-
 # misc
 .eslintcache
 .DS_Store
 npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
 
 # deploy
 /.firebase
-/public/assets
+/public/esri-core
+/public/esri-calcite

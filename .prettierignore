@@ -1,9 +1,5 @@
 .vscode
-/data
-/forklift
-/maps
-/mockups
-/scripts
 /dist
-/public/assets
+/public/esri-calcite
+/public/esri-core
 CHANGELOG.md
