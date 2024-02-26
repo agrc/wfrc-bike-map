@@ -39,20 +39,20 @@
     </calcite-modal>
 
     <calcite-shell content-behind hidden>
-      <div
-        class="flex justify-between items-center"
-        slot="header"
-        layout="horizontal"
-      >
-        <span class="ml-5 font-bold text-xl">Utah Bikeways Map</span>
+      <calcite-navigation slot="header">
+        <calcite-navigation-logo
+          slot="logo"
+          heading="Utah Bikeways Map"
+          description="description text"
+        ></calcite-navigation-logo>
         <calcite-action
           id="about-button"
           icon="information"
           text="About this map"
           scale="l"
-          appearance="transparent"
+          slot="content-end"
         ></calcite-action>
-      </div>
+      </calcite-navigation>
       <div class="w-full h-full" id="viewDiv"></div>
     </calcite-shell>
   </body>
