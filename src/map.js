@@ -27,7 +27,7 @@ const view = new MapView({
   container: 'viewDiv',
   zoom: 5,
   ui: {
-    components: ['attribution'],
+    components: [],
   },
 });
 
