@@ -1,5 +1,6 @@
 import '@esri/calcite-components/dist/calcite/calcite.css';
 import { defineCustomElements } from '@esri/calcite-components/dist/loader';
+import './src/about.js';
 import './src/index.css';
 import './src/map.js';
 

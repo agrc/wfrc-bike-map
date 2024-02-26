@@ -32,9 +32,28 @@
       label="loading application"
       scale="l"
     ></calcite-loader>
+
+    <calcite-modal id="about-modal" aria-labelledby="About this map">
+      <div slot="header">About This Map</div>
+      <div slot="content">lorum ipsum</div>
+    </calcite-modal>
+
     <calcite-shell content-behind hidden>
-      <div class="py-2 px-3" slot="header" layout="horizontal">
-        <span class="font-bold text-xl">Utah Bikeways Map</span>
+      <div
+        class="flex justify-between items-center"
+        slot="header"
+        layout="horizontal"
+      >
+        <span class="ml-5 font-bold text-xl">Utah Bikeways Map</span>
+        <calcite-action
+          id="about-button"
+          icon="information"
+          text="About this map"
+          scale="l"
+          appearance="transparent"
+          round
+          kind="info"
+        ></calcite-action>
       </div>
       <div class="w-full h-full" id="viewDiv"></div>
     </calcite-shell>
