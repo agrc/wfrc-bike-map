@@ -1,6 +1,6 @@
 import WebMap from '@arcgis/core/WebMap';
 import MapView from '@arcgis/core/views/MapView';
-import { mediaQuery } from './utils';
+import { mediaMinWidth, mediaQuery } from './utils';
 
 function initMap() {
   mediaQuery('(prefers-color-scheme: dark)', (result) => {
@@ -13,10 +13,21 @@ function initMap() {
     },
   });
 
-  new MapView({
+  const view = new MapView({
     map: map,
     container: 'viewDiv',
     zoom: 5,
+    ui: {
+      components: ['attribution'],
+    },
+  });
+
+  mediaMinWidth('m', (result) => {
+    if (result.matches) {
+      view.ui.components = ['attribution', 'zoom'];
+    } else {
+      view.ui.components = ['attribution'];
+    }
   });
 
   map.when(() => {
