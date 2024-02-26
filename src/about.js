@@ -1,4 +1,4 @@
-import { mediaQuery } from './utils';
+import { mediaMinWidth } from './utils';
 
 const modal = document.getElementById('about-modal');
 const button = document.getElementById('about-button');
@@ -7,6 +7,6 @@ button.onclick = () => {
   modal.open = true;
 };
 
-mediaQuery('(min-width: 600px)', (media) => {
-  button.textEnabled = media.matches;
+mediaMinWidth('m', (result) => {
+  button.textEnabled = result.matches;
 });

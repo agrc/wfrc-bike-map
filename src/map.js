@@ -3,8 +3,8 @@ import MapView from '@arcgis/core/views/MapView';
 import { mediaQuery } from './utils';
 
 function initMap() {
-  mediaQuery('(prefers-color-scheme: dark)', (media) => {
-    setTheme(media.matches ? 'dark' : 'light');
+  mediaQuery('(prefers-color-scheme: dark)', (result) => {
+    setTheme(result.matches ? 'dark' : 'light');
   });
 
   const map = new WebMap({
