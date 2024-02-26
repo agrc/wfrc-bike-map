@@ -41,9 +41,9 @@ view.when(() => {
 
 mediaMinWidth('m', (result) => {
   if (result.matches) {
-    view.ui.components = ['attribution', 'zoom'];
+    view.ui.components = ['zoom'];
   } else {
-    view.ui.components = ['attribution'];
+    view.ui.components = [];
   }
 });
 
