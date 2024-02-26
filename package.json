@@ -64,7 +64,7 @@
     ]
   },
   "dependencies": {
-    "@arcgis/core": "^4.28.10",
+    "@arcgis/core": "^4.29.0",
     "@esri/calcite-components": "^2.5.1"
   },
   "devDependencies": {
