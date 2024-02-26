@@ -1,13 +1,10 @@
 import WebMap from '@arcgis/core/WebMap';
 import MapView from '@arcgis/core/views/MapView';
+import { mediaQuery } from './utils';
 
 function initMap() {
-  const media = matchMedia('(prefers-color-scheme: dark)');
-  if (media.matches) {
-    setTheme('dark');
-  }
-  media.addEventListener('change', (event) => {
-    setTheme(event.matches ? 'dark' : 'light');
+  mediaQuery('(prefers-color-scheme: dark)', (media) => {
+    setTheme(media.matches ? 'dark' : 'light');
   });
 
   const map = new WebMap({
