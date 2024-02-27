@@ -53,10 +53,13 @@
           slot="content-end"
         ></calcite-action>
       </calcite-navigation>
+
       <div class="w-full h-full" id="viewDiv"></div>
+
       <calcite-panel slot="footer">
         <calcite-block
           class="m-0 border-none"
+          id="filter-block"
           collapsible
           open
           heading="Route Types"
@@ -65,10 +68,24 @@
           <calcite-icon scale="s" icon="filter" slot="icon"></calcite-icon>
           <calcite-switch
             class="self-center mx-3"
+            id="filter-switch"
             scale="l"
             slot="control"
           ></calcite-switch>
-          filter content
+          <div id="route-types-controls">
+            <my-checkbox label="Paved Path"></my-checkbox>
+            <my-checkbox label="Protected Bike Lane"></my-checkbox>
+            <my-checkbox label="Bike Lane"></my-checkbox>
+            <my-checkbox label="Marked Route"></my-checkbox>
+            <my-checkbox label="Unmarked Route"></my-checkbox>
+          </div>
+          <div class="hidden" id="traffic-stress-controls">
+            <my-checkbox label="Most Comfortable"></my-checkbox>
+            <my-checkbox label="Comfortable"></my-checkbox>
+            <my-checkbox label="Less Comfortable"></my-checkbox>
+            <my-checkbox label="Higher Traffic"></my-checkbox>
+            <my-checkbox label="Traffic Lights"></my-checkbox>
+          </div>
         </calcite-block>
       </calcite-panel>
     </calcite-shell>
