@@ -6,7 +6,16 @@
 
 [Mockups](https://docs.google.com/presentation/d/1FZjX4FpiWq74R5NJUhI3lR-AuOMo_z28XR0BxEGwxEQ/edit#slide=id.p)
 
-## Develop & Test
+## Development Environment
+
+### Set Up
+
+1. Install [Node.js](https://nodejs.org/en/download/)
+1. Clone this repository `git clone https://github.com/agrc/wfrc-bike-map`
+1. Change to the directory `cd wfrc-bike-map`
+1. Install the dependencies `npm install`
+
+### Run
 
 Execute `npm start` to start a web server and view the website
 
@@ -16,13 +25,13 @@ Run `npm run format` to format the code
 
 Run `npm run lint` to lint the code
 
-## Optimize
+### Optimize
 
 Execute `npm run build` to create an optimized production build
 
 _The files will be placed in `/dist`_
 
-Execute `npm run preview` to view the website
+Execute `npm run preview` to view the built version of the website
 
 ## Deploy
 
