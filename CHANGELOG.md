@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.3.0-0](https://github.com/agrc/wfrc-bike-map/compare/v0.2.0-0...v0.3.0-0) (2024-02-27)
+
+
+### 🚀 Features
+
+* add filter toggle ([844ddfa](https://github.com/agrc/wfrc-bike-map/commit/844ddfacd16157da534db16ffe67b40a999c899b))
+* switch filter header and contents ([56115f7](https://github.com/agrc/wfrc-bike-map/commit/56115f727ec8a29f5887f016f2d9e909939bff57))
+
+
+### 🐛 Bug Fixes
+
+* bring a little utah design system into the mix ([cd5ace2](https://github.com/agrc/wfrc-bike-map/commit/cd5ace2ba773fb7ed2cdfbe23cd7c78b1dd228ad))
+* finish removing attribution ([e39e905](https://github.com/agrc/wfrc-bike-map/commit/e39e905d34e1d73fbad7af554e6075419357566d))
+
 ## [0.2.0-0](https://github.com/agrc/wfrc-bike-map/compare/v0.1.0-0...v0.2.0-0) (2024-02-26)
 
 
