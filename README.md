@@ -14,6 +14,8 @@
 1. Clone this repository `git clone https://github.com/agrc/wfrc-bike-map`
 1. Change to the directory `cd wfrc-bike-map`
 1. Install the dependencies `npm install`
+1. Switch to `dev` branch `git switch dev`
+1. Create a new branch `git switch -c feature/your-feature-name` or `git switch -c fix/your-bug-name`
 
 ### Run
 
@@ -25,13 +27,11 @@ Run `npm run format` to format the code
 
 Run `npm run lint` to lint the code
 
-### Optimize
+### Pull Request
 
-Execute `npm run build` to create an optimized production build
+Make commits following the [Angular Conventional Commits Format](https://github.com/angular/angular/blob/main/CONTRIBUTING.md#-commit-message-format). This will allow the automated change log to work correctly.
 
-_The files will be placed in `/dist`_
-
-Execute `npm run preview` to view the built version of the website
+Once you have committed your updates, push your branch to GitHub and create a pull request against the `dev` branch. This will trigger a GitHub Action to run the tests and linting and deploy your version to a firebase preview channel for review.
 
 ## Deploy
 
