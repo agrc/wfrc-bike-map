@@ -9,3 +9,17 @@ body {
   padding: 0;
   margin: 0;
 }
+
+.esri-widget,
+calcite-button {
+  @apply rounded-full;
+}
+
+.esri-ui-top-right {
+  @apply flex-row space-x-3;
+}
+
+#filter-switch {
+  --calcite-color-brand: var(--calcite-color-border-2);
+  --calcite-color-brand-hover: var(--calcite-color-border-2);
+}

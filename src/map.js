@@ -35,8 +35,8 @@ view.when(() => {
   const homeWidget = new Home({ view });
   const trackWidget = new Track({ view });
 
-  view.ui.add(homeWidget, 'top-left');
-  view.ui.add(trackWidget, 'top-left');
+  view.ui.add(homeWidget, 'top-right');
+  view.ui.add(trackWidget, 'top-right');
 });
 
 mediaMinWidth('m', (result) => {
