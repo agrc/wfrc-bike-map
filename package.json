@@ -65,7 +65,7 @@
   },
   "dependencies": {
     "@arcgis/core": "^4.29.10",
-    "@esri/calcite-components": "^2.7.1"
+    "@esri/calcite-components": "^2.8.0"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.19",
@@ -81,8 +81,8 @@
     "prettier-plugin-organize-imports": "^3.2.4",
     "prettier-plugin-packagejson": "^2.5.0",
     "tailwindcss": "^3.4.3",
-    "vite": "^5.2.9",
+    "vite": "^5.2.10",
     "vite-plugin-package-version": "^1.1.0",
-    "vitest": "^1.5.0"
+    "vitest": "^1.5.3"
   }
 }
