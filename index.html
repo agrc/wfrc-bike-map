@@ -1,95 +1,62 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <link rel="shortcut icon" href="favicon.ico" />
 
-    <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, shrink-to-fit=no"
-    />
-    <meta name="description" content="quickly find bikeways in Utah" />
+<head>
+  <link rel="shortcut icon" href="favicon.ico" />
 
-    <title>Utah Bikeways Map</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="description" content="quickly find bikeways in Utah" />
 
-    <!-- These are links rather than imported so that we can dynamically disable/enable -->
-    <link
-      id="arcgis-dark-theme"
-      disabled
-      rel="stylesheet"
-      href="/esri-core/assets/esri/themes/dark/main.css"
-    />
-    <link
-      id="arcgis-light-theme"
-      rel="stylesheet"
-      href="/esri-core/assets/esri/themes/light/main.css"
-    />
-  </head>
+  <title>Utah Bikeways Map</title>
 
-  <body class="calcite-mode-auto">
-    <calcite-loader
-      class="h-full p-0"
-      label="loading application"
-      scale="l"
-    ></calcite-loader>
+  <!-- These are links rather than imported so that we can dynamically disable/enable -->
+  <link id="arcgis-dark-theme" disabled rel="stylesheet" href="/esri-core/assets/esri/themes/dark/main.css" />
+  <link id="arcgis-light-theme" rel="stylesheet" href="/esri-core/assets/esri/themes/light/main.css" />
+</head>
 
-    <calcite-modal id="about-modal" aria-labelledby="About this map">
-      <div slot="header">About This Map</div>
-      <div slot="content">lorum ipsum</div>
-    </calcite-modal>
+<body class="calcite-mode-auto">
+  <calcite-loader class="h-full p-0" label="loading application" scale="l"></calcite-loader>
 
-    <calcite-shell content-behind hidden>
-      <calcite-navigation slot="header">
-        <calcite-navigation-logo
-          slot="logo"
-          heading="Utah Bikeways Map"
-          description="description text"
-        ></calcite-navigation-logo>
-        <calcite-action
-          id="about-button"
-          icon="information"
-          text="About this map"
-          scale="l"
-          slot="content-end"
-        ></calcite-action>
-      </calcite-navigation>
+  <calcite-modal id="about-modal" aria-labelledby="About this map">
+    <div slot="header">About This Map</div>
+    <div slot="content">lorum ipsum</div>
+  </calcite-modal>
 
-      <div class="w-full h-full" id="viewDiv"></div>
+  <calcite-shell content-behind hidden>
+    <calcite-navigation slot="header">
+      <calcite-navigation-logo slot="logo" heading="Utah Bikeways Map"
+        description="description text"></calcite-navigation-logo>
+      <calcite-action id="about-button" icon="information" text="About this map" scale="l"
+        slot="content-end"></calcite-action>
+    </calcite-navigation>
 
-      <calcite-panel slot="footer">
-        <calcite-block
-          class="m-0 border-none"
-          id="filter-block"
-          collapsible
-          open
-          heading="Route Types"
-          description="description text"
-        >
-          <calcite-icon scale="s" icon="filter" slot="icon"></calcite-icon>
-          <calcite-switch
-            class="self-center mx-3"
-            id="filter-switch"
-            scale="l"
-            slot="control"
-          ></calcite-switch>
-          <div id="route-types-controls">
-            <my-checkbox label="Paved Path"></my-checkbox>
-            <my-checkbox label="Protected Bike Lane"></my-checkbox>
-            <my-checkbox label="Bike Lane"></my-checkbox>
-            <my-checkbox label="Marked Route"></my-checkbox>
-            <my-checkbox label="Unmarked Route"></my-checkbox>
-          </div>
-          <div class="hidden" id="traffic-stress-controls">
-            <my-checkbox label="Most Comfortable"></my-checkbox>
-            <my-checkbox label="Comfortable"></my-checkbox>
-            <my-checkbox label="Less Comfortable"></my-checkbox>
-            <my-checkbox label="Higher Traffic"></my-checkbox>
-            <my-checkbox label="Traffic Lights"></my-checkbox>
-          </div>
-        </calcite-block>
-      </calcite-panel>
-    </calcite-shell>
-  </body>
+    <div class="w-full h-full" id="viewDiv"></div>
 
-  <script type="module" src="/main.js"></script>
+    <calcite-panel slot="footer">
+      <calcite-block class="m-0 border-none" id="filter-block" collapsible open heading="Route Types"
+        description="description text">
+        <calcite-icon scale="s" icon="filter" slot="icon"></calcite-icon>
+        <calcite-switch class="self-center mx-3" id="filter-switch" scale="l" slot="control"></calcite-switch>
+        <div id="route-types-controls">
+          <my-checkbox label="Paved Path"></my-checkbox>
+          <my-checkbox label="Protected Bike Lane"></my-checkbox>
+          <my-checkbox label="Bike Lane"></my-checkbox>
+          <my-checkbox label="Marked Route"></my-checkbox>
+          <my-checkbox label="Unmarked Route"></my-checkbox>
+        </div>
+        <div class="hidden" id="traffic-stress-controls">
+          <my-checkbox label="Most Comfortable"></my-checkbox>
+          <my-checkbox label="Comfortable"></my-checkbox>
+          <my-checkbox label="Less Comfortable"></my-checkbox>
+          <my-checkbox label="Higher Traffic"></my-checkbox>
+          <my-checkbox label="Traffic Lights"></my-checkbox>
+        </div>
+      </calcite-block>
+    </calcite-panel>
+  </calcite-shell>
+</body>
+
+<script type="module" src="/main.js"></script>
+
 </html>
