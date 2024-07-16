@@ -18,7 +18,7 @@ mediaQuery('(prefers-color-scheme: dark)', (result) => {
 
 const map = new WebMap({
   portalItem: {
-    id: 'e691172598f04ea8881cd2a4adaa45ba',
+    id: 'c4186ac9dbad4be79abb4d4b75c3787c',
   },
 });
 
