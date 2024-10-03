@@ -1,0 +1,66 @@
+name: Release Events
+
+on:
+  release:
+    types: [published]
+
+permissions:
+  id-token: write
+  deployments: write
+
+jobs:
+  deploy-dev:
+    name: Deploy to staging
+    runs-on: ubuntu-latest
+    if: github.event.release.prerelease == true
+    environment:
+      name: dev
+
+    steps:
+      - name: 🚀 Deploy
+        uses: agrc/firebase-website-deploy-composite-action@v1
+        with:
+          identity-provider: ${{ secrets.IDENTITY_PROVIDER }}
+          service-account-email: ${{ secrets.SERVICE_ACCOUNT_EMAIL }}
+          project-id: ${{ secrets.PROJECT_ID }}
+          build-command: npm run build -- --mode dev
+        env:
+          VITE_DISCOVER: ${{ secrets.VITE_DISCOVER }}
+          VITE_WEB_API: ${{ secrets.VITE_WEB_API }}
+          VITE_PRINT_PROXY: ${{ secrets.VITE_PRINT_PROXY }}
+
+  deploy-prod:
+    name: Deploy to production
+    runs-on: ubuntu-latest
+    if: github.event.release.prerelease == false
+    environment:
+      name: prod
+
+    steps:
+      - name: 🚀 Deploy
+        uses: agrc/firebase-website-deploy-composite-action@v1
+        with:
+          identity-provider: ${{ secrets.IDENTITY_PROVIDER }}
+          service-account-email: ${{ secrets.SERVICE_ACCOUNT_EMAIL }}
+          project-id: ${{ secrets.PROJECT_ID }}
+          build-command: npm run build -- --mode production
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+        env:
+          VITE_DISCOVER: ${{ secrets.VITE_DISCOVER }}
+          VITE_WEB_API: ${{ secrets.VITE_WEB_API }}
+          VITE_PRINT_PROXY: ${{ secrets.VITE_PRINT_PROXY }}
+
+  notify:
+    name: Notifications
+    needs: deploy-prod
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+      issues: write
+
+    steps:
+      - name: Release Notifier
+        uses: agrc/release-issue-notifications-action@v1
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
