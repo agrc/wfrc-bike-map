@@ -1,3 +1,4 @@
+/// <reference types="vitest/config" />
 import { defineConfig } from 'vite';
 import loadVersion from 'vite-plugin-package-version';
 
