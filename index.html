@@ -18,11 +18,6 @@
 <body class="calcite-mode-auto">
   <calcite-loader class="h-full p-0" label="loading application" scale="l"></calcite-loader>
 
-  <calcite-modal id="about-modal" aria-labelledby="About this map">
-    <div slot="header">About This Map</div>
-    <div slot="content">lorum ipsum</div>
-  </calcite-modal>
-
   <calcite-shell content-behind hidden>
     <calcite-navigation slot="header">
       <calcite-navigation-logo slot="logo" heading="Utah Bikeways Map"
@@ -55,6 +50,11 @@
       </calcite-block>
     </calcite-panel>
   </calcite-shell>
+
+  <calcite-modal id="about-modal" aria-labelledby="About this map">
+    <div slot="header">About This Map</div>
+    <div slot="content">lorum ipsum</div>
+  </calcite-modal>
 </body>
 
 <script type="module" src="/main.js"></script>
