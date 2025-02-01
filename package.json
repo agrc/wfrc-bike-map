@@ -70,8 +70,8 @@
   "devDependencies": {
     "autoprefixer": "^10.4.20",
     "cpy-cli": "^5.0.0",
-    "eslint-config-prettier": "^9.1.0",
-    "eslint-plugin-cypress": "^3.5.0",
+    "eslint-config-prettier": "^10.0.1",
+    "eslint-plugin-cypress": "^4.1.0",
     "eslint-plugin-import": "^2.31.0",
     "eslint-plugin-jsx-a11y": "^6.10.0",
     "eslint-plugin-prettier": "^5.2.1",
@@ -80,9 +80,9 @@
     "prettier-plugin-organize-attributes": "^1.0.0",
     "prettier-plugin-organize-imports": "^4.1.0",
     "prettier-plugin-packagejson": "^2.5.2",
-    "tailwindcss": "^3.4.13",
-    "vite": "^5.4.8",
+    "tailwindcss": "^4.0.3",
+    "vite": "^6.0.11",
     "vite-plugin-package-version": "^1.1.0",
-    "vitest": "^2.1.2"
+    "vitest": "^3.0.4"
   }
 }
