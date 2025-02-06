@@ -1,5 +1,4 @@
 .vscode
 /dist
-/public/esri-calcite
-/public/esri-core
+/public/assets
 CHANGELOG.md
