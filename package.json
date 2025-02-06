@@ -1,6 +1,6 @@
 {
   "name": "wfrc-bike-map",
-  "version": "0.3.0-0",
+  "version": "0.3.1-0",
   "private": true,
   "type": "module",
   "scripts": {
