@@ -21,10 +21,12 @@ export default function Filter() {
       <div className="space-y-1.5">
         {isRouteTypes
           ? Object.values(config.ROUTE_TYPES).map((routeType) => (
-              <Checkbox value={routeType.value}>{routeType.label}</Checkbox>
+              <Checkbox key={routeType.value} value={routeType.value}>
+                {routeType.label}
+              </Checkbox>
             ))
           : Object.values(config.TRAFFIC_STRESS).map((trafficStress) => (
-              <Checkbox value={trafficStress.value}>
+              <Checkbox key={trafficStress.value} value={trafficStress.value}>
                 {trafficStress.label}
               </Checkbox>
             ))}
