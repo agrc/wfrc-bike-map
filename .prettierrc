@@ -1,0 +1,9 @@
+{
+  "plugins": [
+    "prettier-plugin-organize-imports",
+    "prettier-plugin-packagejson",
+    "prettier-plugin-tailwindcss"
+  ],
+  "singleQuote": true,
+  "tailwindFunctions": ["clsx", "tv", "twMerge", "twJoin"]
+}
