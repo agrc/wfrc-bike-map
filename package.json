@@ -1,6 +1,6 @@
 {
   "name": "wfrc-bike-map",
-  "version": "0.3.0",
+  "version": "0.3.1-0",
   "private": true,
   "type": "module",
   "scripts": {
@@ -44,7 +44,6 @@
     "@ugrc/tailwind-preset": "^1.2.0",
     "@ugrc/tsconfigs": "^1.0.3",
     "@vitejs/plugin-react": "^4.3.4",
-    "autoprefixer": "^10.4.20",
     "autoprefixer": "^10.4.20",
     "cpy-cli": "^5.0.0",
     "eslint": "^9.19.0",
