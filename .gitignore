@@ -16,5 +16,5 @@ npm-debug.log*
 
 # deploy
 /.firebase
-/public/esri-core
-/public/esri-calcite
+/public/assets
+.env.local
