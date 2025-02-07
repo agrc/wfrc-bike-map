@@ -52,6 +52,7 @@ export const MapContainer = ({
     mapView.current = new MapView({
       container: mapNode.current,
       center: {
+        // center of SL Valley
         type: 'point',
         x: -12460335.508799179,
         y: 4959043.257530195,
@@ -59,7 +60,7 @@ export const MapContainer = ({
           wkid: 102100,
         },
       },
-      zoom: 10,
+      zoom: 9,
       ui: {
         components: hideZoom ? [] : ['zoom'],
       },
