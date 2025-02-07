@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.3.1-1](https://github.com/agrc/wfrc-bike-map/compare/v0.3.1-0...v0.3.1-1) (2025-02-07)
+
+
+### Bug Fixes
+
+* adjust map center and zoom level in MapContainer ([bca2158](https://github.com/agrc/wfrc-bike-map/commit/bca21589932ce2c6cfaa60b71e5d422fe602cc68))
+* switch to UGRC-owed base map with lite vector tiles ([a3b9641](https://github.com/agrc/wfrc-bike-map/commit/a3b9641dd64370efa1b86c9453b3e5e40fd13cff))
+
 ## [0.3.1-0](https://github.com/agrc/wfrc-bike-map/compare/v0.3.0-0...v0.3.1-0) (2025-02-06)
 
 
