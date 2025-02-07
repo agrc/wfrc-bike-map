@@ -1,5 +1,5 @@
 export default {
-  WEB_MAP_ID: '1da30e08d4ce4950bb44662e5c9a54fb',
+  WEB_MAP_ID: '6ad72cac07b6464f9542e7daaa884b44',
   FILTER_HEADINGS: {
     routeTypes: 'Route Types',
     trafficStress: 'Traffic Stress',
