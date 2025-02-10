@@ -1,5 +1,21 @@
 # Changelog
 
+## [0.3.1-2](https://github.com/agrc/wfrc-bike-map/compare/v0.3.1-1...v0.3.1-2) (2025-02-10)
+
+
+### Features
+
+* add map drawing busy bar ([2ebd416](https://github.com/agrc/wfrc-bike-map/commit/2ebd416df0f77fdcdafd72250031dd935a979ba5))
+* add symbols to renderer class checkboxes ([2993032](https://github.com/agrc/wfrc-bike-map/commit/2993032e69af25363c8df1e6ccfc9788c45a2c79)), closes [#11](https://github.com/agrc/wfrc-bike-map/issues/11)
+* place filter/legend into collapsible tray ([f3020f5](https://github.com/agrc/wfrc-bike-map/commit/f3020f5738cbd24c8f07d41669f8af728c2cf048)), closes [#11](https://github.com/agrc/wfrc-bike-map/issues/11)
+* wire up symbol class checkboxes to filter ([b21871e](https://github.com/agrc/wfrc-bike-map/commit/b21871eccd2a608f90cf942105f6a26dcec0df14)), closes [#11](https://github.com/agrc/wfrc-bike-map/issues/11)
+* wire up traffic signals layer classes ([eab0a1a](https://github.com/agrc/wfrc-bike-map/commit/eab0a1ad73a39cbeacce230ae5de6f2d99d29a54)), closes [#11](https://github.com/agrc/wfrc-bike-map/issues/11)
+
+
+### Bug Fixes
+
+* make title match header color ([7be6315](https://github.com/agrc/wfrc-bike-map/commit/7be631560cf56739c9f457ee480e61dd942ecaa6))
+
 ## [0.3.1-1](https://github.com/agrc/wfrc-bike-map/compare/v0.3.1-0...v0.3.1-1) (2025-02-07)
 
 
