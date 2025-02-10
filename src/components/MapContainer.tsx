@@ -8,11 +8,12 @@ import config from '../config';
 import { useFilter } from '../hooks/useFilter';
 import { getWhereClause, setLayerViewFilter } from './utilities';
 
-export const MapContainer = ({
-  onClick,
-}: {
-  onClick?: __esri.ViewImmediateClickEventHandler;
-}) => {
+type MapContainerProps = {
+  onClick?: (event: __esri.ViewClickEvent) => void;
+  trayIsOpen: boolean;
+};
+
+export const MapContainer = ({ onClick, trayIsOpen }: MapContainerProps) => {
   const mapNode = useRef<HTMLDivElement | null>(null);
   const map = useRef<WebMap | null>(null);
   const mapView = useRef<MapView>(null);
@@ -46,7 +47,6 @@ export const MapContainer = ({
     lightLink.disabled = isDarkMode;
   }, [isDarkMode]);
 
-  // setup the Map
   const { state, dispatch } = useFilter();
 
   useEffect(() => {
@@ -189,7 +189,6 @@ export const MapContainer = ({
     }
   }, [state]);
 
-  // add click event handlers
   useEffect(() => {
     if (onClick) {
       clickHandler.current = mapView.current!.on('immediate-click', onClick);
@@ -199,6 +198,12 @@ export const MapContainer = ({
       clickHandler.current?.remove();
     };
   }, [onClick, mapView]);
+
+  useEffect(() => {
+    if (mapView.current) {
+      mapView.current.padding.bottom = trayIsOpen ? 320 : 0;
+    }
+  }, [trayIsOpen]);
 
   return <div ref={mapNode} className="size-full"></div>;
 };

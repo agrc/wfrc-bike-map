@@ -1,6 +1,7 @@
 import { Checkbox, Spinner, Switch } from '@ugrc/utah-design-system';
 import config from '../config';
 import { useFilter } from '../hooks/useFilter';
+import Label from './Label';
 import LegendSwatch from './LegendSwatch';
 import RendererClassCheckbox from './RendererClassCheckbox';
 
@@ -29,13 +30,13 @@ export default function Filter() {
           })
         }
       >
-        <h3>
+        <h2>
           {isRouteTypes
             ? config.LAYER_NAMES.routeTypes
             : config.LAYER_NAMES.trafficStress}
-        </h3>
+        </h2>
       </Switch>
-      <div className="space-y-1.5">
+      <div className="space-y-2">
         {isRouteTypes ? (
           <>
             {state.routeTypes.rendererClasses.map((rendererClass, index) => (
@@ -56,7 +57,7 @@ export default function Filter() {
               }
             >
               <LegendSwatch symbol={state.symbols.otherLinks} />
-              Other Links
+              <Label>Other Links</Label>
             </Checkbox>
           </>
         ) : (

@@ -1,6 +1,7 @@
 import { Checkbox } from '@ugrc/utah-design-system';
 import { useFilter } from '../hooks/useFilter';
 import type { LayersWithRenderClassesKeys } from '../shared';
+import Label from './Label';
 import LegendSwatch from './LegendSwatch';
 
 type RendererClassCheckboxProps = {
@@ -34,7 +35,7 @@ export default function RendererClassCheckbox({
       isSelected={state[layerKey].selectedClasses.includes(classIndex)}
     >
       <LegendSwatch symbol={rendererClass.symbol} />
-      {rendererClass.label}
+      <Label>{rendererClass.label}</Label>
     </Checkbox>
   );
 }
