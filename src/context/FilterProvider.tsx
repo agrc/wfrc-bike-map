@@ -1,10 +1,5 @@
 import { type Draft } from 'immer';
-import {
-  createContext,
-  useContext,
-  type Dispatch,
-  type ReactNode,
-} from 'react';
+import { createContext, type Dispatch, type ReactNode } from 'react';
 import { useImmerReducer } from 'use-immer';
 
 type FilterState = {
@@ -89,7 +84,7 @@ function reducer(draft: Draft<FilterState>, action: Action): void {
   }
 }
 
-const FilterContext = createContext<{
+export const FilterContext = createContext<{
   state: FilterState;
   dispatch: Dispatch<Action>;
 } | null>(null);
@@ -102,14 +97,4 @@ export default function FilterProvider({ children }: { children: ReactNode }) {
       {children}
     </FilterContext.Provider>
   );
-}
-
-export function useFilter() {
-  const context = useContext(FilterContext);
-
-  if (!context) {
-    throw new Error('useFilter must be used within a FilterProvider');
-  }
-
-  return context;
 }

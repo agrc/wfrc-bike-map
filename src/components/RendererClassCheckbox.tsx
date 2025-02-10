@@ -1,5 +1,5 @@
 import { Checkbox } from '@ugrc/utah-design-system';
-import { useFilter } from '../context/FilterProvider';
+import { useFilter } from '../hooks/useFilter';
 
 type RendererClassCheckboxProps = {
   rendererClass: __esri.UniqueValueClass;
