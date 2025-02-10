@@ -1,34 +1,56 @@
-import { Checkbox, Switch } from '@ugrc/utah-design-system';
-import { useState } from 'react';
+import { Spinner, Switch } from '@ugrc/utah-design-system';
 import config from '../config';
+import { useFilter } from '../context/FilterProvider';
+import RendererClassCheckbox from './RendererClassCheckbox';
 
 export default function Filter() {
-  const [isRouteTypes, setIsRouteTypes] = useState<boolean>(true);
+  const { state, dispatch } = useFilter();
+  const isRouteTypes = state.selectedFilterType === 'routeTypes';
+
+  if (state.routeTypes.rendererClasses.length === 0) {
+    return (
+      <div className="flex h-80 w-full items-center justify-center">
+        <div className="size-12">
+          <Spinner />
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="p-4">
       <Switch
         className="mb-3"
         isSelected={isRouteTypes}
-        onChange={setIsRouteTypes}
+        onChange={() =>
+          dispatch({
+            type: 'TOGGLE_FILTER_TYPE',
+          })
+        }
       >
         <h3>
           {isRouteTypes
-            ? config.FILTER_HEADINGS.routeTypes
-            : config.FILTER_HEADINGS.trafficStress}
+            ? config.LAYER_NAMES.routeTypes
+            : config.LAYER_NAMES.trafficStress}
         </h3>
       </Switch>
       <div className="space-y-1.5">
         {isRouteTypes
-          ? Object.values(config.ROUTE_TYPES).map((routeType) => (
-              <Checkbox key={routeType.value} value={routeType.value}>
-                {routeType.label}
-              </Checkbox>
+          ? state.routeTypes.rendererClasses.map((rendererClass, index) => (
+              <RendererClassCheckbox
+                key={rendererClass.label}
+                classIndex={index}
+                layerKey="routeTypes"
+                rendererClass={rendererClass}
+              />
             ))
-          : Object.values(config.TRAFFIC_STRESS).map((trafficStress) => (
-              <Checkbox key={trafficStress.value} value={trafficStress.value}>
-                {trafficStress.label}
-              </Checkbox>
+          : state.trafficStress.rendererClasses.map((rendererClass, index) => (
+              <RendererClassCheckbox
+                key={rendererClass.label}
+                classIndex={index}
+                layerKey="trafficStress"
+                rendererClass={rendererClass}
+              />
             ))}
       </div>
     </div>

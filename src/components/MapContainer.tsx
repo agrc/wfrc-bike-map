@@ -5,6 +5,8 @@ import Track from '@arcgis/core/widgets/Track';
 import { useEffect, useRef } from 'react';
 import { useDarkMode, useWindowSize } from 'usehooks-ts';
 import config from '../config';
+import { useFilter } from '../context/FilterProvider';
+import { getWhereClause, setLayerViewFilter } from './utilities';
 
 export const MapContainer = ({
   onClick,
@@ -15,6 +17,14 @@ export const MapContainer = ({
   const map = useRef<WebMap | null>(null);
   const mapView = useRef<MapView>(null);
   const clickHandler = useRef<IHandle>(null);
+  const layers = useRef<
+    Record<keyof typeof config.LAYER_NAMES, __esri.FeatureLayer | null>
+  >({
+    routeTypes: null,
+    trafficStress: null,
+    trafficSignals: null,
+    otherLinks: null,
+  });
 
   const { isDarkMode } = useDarkMode();
   const { width = 0 } = useWindowSize();
@@ -37,6 +47,8 @@ export const MapContainer = ({
   }, [isDarkMode]);
 
   // setup the Map
+  const { state, dispatch } = useFilter();
+
   useEffect(() => {
     if (!mapNode.current) {
       return;
@@ -67,11 +79,41 @@ export const MapContainer = ({
       map: map.current,
     });
 
-    mapView.current.when(() => {
+    mapView.current.when(async () => {
       const homeWidget = new Home({ view: mapView.current! });
       const trackWidget = new Track({ view: mapView.current! });
       mapView.current!.ui.add(homeWidget, 'top-right');
       mapView.current!.ui.add(trackWidget, 'top-right');
+
+      for (const layerName of Object.keys(layers.current)) {
+        layers.current[layerName as keyof typeof config.LAYER_NAMES] =
+          mapView.current!.map.layers.find(
+            (layer) =>
+              layer.title ===
+              config.LAYER_NAMES[layerName as keyof typeof config.LAYER_NAMES],
+          ) as __esri.FeatureLayer;
+
+        if (!layers.current[layerName as keyof typeof config.LAYER_NAMES]) {
+          throw new Error(`Could not find layer: ${layerName}`);
+        }
+      }
+
+      // wait for all of the layers to fully load
+      await Promise.all(
+        Object.values(layers.current).map((layer) => layer!.when()),
+      );
+
+      dispatch({
+        type: 'MAP_LOADED',
+        payload: {
+          routeTypes: (
+            layers.current.routeTypes!.renderer as __esri.UniqueValueRenderer
+          ).uniqueValueGroups[0]!.classes,
+          trafficStress: (
+            layers.current.trafficStress!.renderer as __esri.UniqueValueRenderer
+          ).uniqueValueGroups[0]!.classes,
+        },
+      });
     });
 
     return () => {
@@ -79,6 +121,52 @@ export const MapContainer = ({
       map.current?.destroy();
     };
   }, []);
+
+  useEffect(() => {
+    if (
+      !mapView.current ||
+      !layers.current.routeTypes ||
+      !layers.current.trafficStress ||
+      !layers.current.trafficSignals ||
+      !layers.current.otherLinks
+    ) {
+      return;
+    }
+
+    if (state.selectedFilterType === 'routeTypes') {
+      const where = getWhereClause(
+        state.routeTypes.selectedClasses,
+        state.routeTypes.rendererClasses,
+        config.FIELDS.routeTypes.Facility1,
+        layers.current.routeTypes.fields.find(
+          (layer) => layer.name === config.FIELDS.routeTypes.Facility1,
+        )?.type === 'string',
+      );
+
+      setLayerViewFilter(layers.current.routeTypes, mapView.current, where);
+
+      layers.current.routeTypes.visible = true;
+      layers.current.otherLinks.visible = true;
+      layers.current.trafficStress.visible = false;
+      layers.current.trafficSignals.visible = false;
+    } else if (state.selectedFilterType === 'trafficStress') {
+      const where = getWhereClause(
+        state.trafficStress.selectedClasses,
+        state.trafficStress.rendererClasses,
+        config.FIELDS.trafficStress.LTS,
+        layers.current.routeTypes.fields.find(
+          (layer) => layer.name === config.FIELDS.trafficStress.LTS,
+        )?.type === 'string',
+      );
+
+      setLayerViewFilter(layers.current.trafficStress, mapView.current, where);
+
+      layers.current.trafficStress.visible = true;
+      layers.current.trafficSignals.visible = true;
+      layers.current.routeTypes.visible = false;
+      layers.current.otherLinks.visible = false;
+    }
+  }, [state]);
 
   // add click event handlers
   useEffect(() => {

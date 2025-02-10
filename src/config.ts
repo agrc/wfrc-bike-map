@@ -1,51 +1,17 @@
 export default {
   WEB_MAP_ID: '6ad72cac07b6464f9542e7daaa884b44',
-  FILTER_HEADINGS: {
+  LAYER_NAMES: {
     routeTypes: 'Route Types',
     trafficStress: 'Traffic Stress',
+    trafficSignals: 'Traffic Signals',
+    otherLinks: 'Other Links',
   },
-  ROUTE_TYPES: {
-    pavedPath: {
-      label: 'Paved Path',
-      value: 'Paved Path',
+  FIELDS: {
+    routeTypes: {
+      Facility1: 'Facility1',
     },
-    protectedBikeLane: {
-      label: 'Protected Bike Lane',
-      value: 'Protected Bike Lane',
-    },
-    bikeLane: {
-      label: 'Bike Lane',
-      value: 'Bike Lane',
-    },
-    markedRoute: {
-      label: 'Marked Route',
-      value: 'Marked Route',
-    },
-    unmarkedRoute: {
-      label: 'Unmarked Route',
-      value: 'Unmarked Route',
-    },
-  },
-  TRAFFIC_STRESS: {
-    mostComfortable: {
-      label: 'Most Comfortable',
-      value: 'Most Comfortable',
-    },
-    comfortable: {
-      label: 'Comfortable',
-      value: 'Comfortable',
-    },
-    lessComfortable: {
-      label: 'Less Comfortable',
-      value: 'Less Comfortable',
-    },
-    higherTraffic: {
-      label: 'Higher Traffic',
-      value: 'Higher Traffic',
-    },
-    trafficLights: {
-      label: 'Traffic Lights',
-      value: 'Traffic Lights',
+    trafficStress: {
+      LTS: 'LTS',
     },
   },
   /*
