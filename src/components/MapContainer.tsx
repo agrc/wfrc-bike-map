@@ -5,7 +5,7 @@ import Track from '@arcgis/core/widgets/Track';
 import { useEffect, useRef } from 'react';
 import { useDarkMode, useWindowSize } from 'usehooks-ts';
 import config from '../config';
-import { useFilter } from '../context/FilterProvider';
+import { useFilter } from '../hooks/useFilter';
 import { getWhereClause, setLayerViewFilter } from './utilities';
 
 export const MapContainer = ({

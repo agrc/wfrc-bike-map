@@ -1,6 +1,6 @@
 import { Spinner, Switch } from '@ugrc/utah-design-system';
 import config from '../config';
-import { useFilter } from '../context/FilterProvider';
+import { useFilter } from '../hooks/useFilter';
 import RendererClassCheckbox from './RendererClassCheckbox';
 
 export default function Filter() {
