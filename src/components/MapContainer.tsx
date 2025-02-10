@@ -112,6 +112,15 @@ export const MapContainer = ({
           trafficStress: (
             layers.current.trafficStress!.renderer as __esri.UniqueValueRenderer
           ).uniqueValueGroups[0]!.classes,
+          trafficSignals: (
+            layers.current.trafficSignals!
+              .renderer as __esri.UniqueValueRenderer
+          ).uniqueValueGroups[0]!.classes,
+          symbols: {
+            otherLinks: (
+              layers.current.otherLinks!.renderer as __esri.SimpleRenderer
+            ).symbol,
+          },
         },
       });
     });
@@ -142,11 +151,10 @@ export const MapContainer = ({
           (layer) => layer.name === config.FIELDS.routeTypes.Facility1,
         )?.type === 'string',
       );
-
       setLayerViewFilter(layers.current.routeTypes, mapView.current, where);
 
       layers.current.routeTypes.visible = true;
-      layers.current.otherLinks.visible = true;
+      layers.current.otherLinks.visible = state.layerToggles.otherLinks;
       layers.current.trafficStress.visible = false;
       layers.current.trafficSignals.visible = false;
     } else if (state.selectedFilterType === 'trafficStress') {
@@ -158,8 +166,21 @@ export const MapContainer = ({
           (layer) => layer.name === config.FIELDS.trafficStress.LTS,
         )?.type === 'string',
       );
-
       setLayerViewFilter(layers.current.trafficStress, mapView.current, where);
+
+      const signalsWhere = getWhereClause(
+        state.trafficSignals.selectedClasses,
+        state.trafficSignals.rendererClasses,
+        config.FIELDS.trafficSignals.Type,
+        layers.current.trafficSignals.fields.find(
+          (layer) => layer.name === config.FIELDS.trafficSignals.Type,
+        )?.type === 'string',
+      );
+      setLayerViewFilter(
+        layers.current.trafficSignals,
+        mapView.current,
+        signalsWhere,
+      );
 
       layers.current.trafficStress.visible = true;
       layers.current.trafficSignals.visible = true;

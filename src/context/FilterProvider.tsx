@@ -1,9 +1,13 @@
 import { type Draft } from 'immer';
 import { createContext, type Dispatch, type ReactNode } from 'react';
 import { useImmerReducer } from 'use-immer';
+import type { LayersWithRenderClassesKeys } from '../shared';
 
 type FilterState = {
-  selectedFilterType: 'routeTypes' | 'trafficStress';
+  selectedFilterType: Omit<LayersWithRenderClassesKeys, 'trafficSignals'>;
+  symbols: {
+    otherLinks: __esri.Symbol | null;
+  };
   routeTypes: {
     rendererClasses: __esri.UniqueValueClass[];
     selectedClasses: number[];
@@ -11,6 +15,13 @@ type FilterState = {
   trafficStress: {
     rendererClasses: __esri.UniqueValueClass[];
     selectedClasses: number[];
+  };
+  trafficSignals: {
+    rendererClasses: __esri.UniqueValueClass[];
+    selectedClasses: number[];
+  };
+  layerToggles: {
+    otherLinks: boolean;
   };
 };
 
@@ -20,21 +31,34 @@ type Action =
       payload: {
         routeTypes: __esri.UniqueValueClass[];
         trafficStress: __esri.UniqueValueClass[];
+        trafficSignals: __esri.UniqueValueClass[];
+        symbols: {
+          otherLinks: __esri.Symbol;
+        };
       };
     }
   | {
       type: 'TOGGLE_RENDERER_CLASS';
       payload: {
         classIndex: number;
-        layerKey: 'routeTypes' | 'trafficStress';
+        layerKey: LayersWithRenderClassesKeys;
       };
     }
   | {
       type: 'TOGGLE_FILTER_TYPE';
+    }
+  | {
+      type: 'TOGGLE_LAYER';
+      payload: {
+        layerKey: 'otherLinks';
+      };
     };
 
 const initialState: FilterState = {
   selectedFilterType: 'routeTypes',
+  symbols: {
+    otherLinks: null,
+  },
   routeTypes: {
     rendererClasses: [],
     selectedClasses: [],
@@ -43,24 +67,40 @@ const initialState: FilterState = {
     rendererClasses: [],
     selectedClasses: [],
   },
+  trafficSignals: {
+    rendererClasses: [],
+    selectedClasses: [],
+  },
+  layerToggles: {
+    otherLinks: true,
+  },
 };
 
 function reducer(draft: Draft<FilterState>, action: Action): void {
   switch (action.type) {
     case 'MAP_LOADED':
       draft.routeTypes.rendererClasses = action.payload.routeTypes;
-      // set selectedClasses to an array of sequential numbers starting at 0 with the same length as the rendererClasses array
       draft.routeTypes.selectedClasses = Array.from(
         { length: action.payload.routeTypes.length },
         (_, i) => i,
       );
+
       draft.trafficStress.rendererClasses = action.payload.trafficStress;
       draft.trafficStress.selectedClasses = Array.from(
         { length: action.payload.trafficStress.length },
         (_, i) => i,
       );
 
+      draft.trafficSignals.rendererClasses = action.payload.trafficSignals;
+      draft.trafficSignals.selectedClasses = Array.from(
+        { length: action.payload.trafficSignals.length },
+        (_, i) => i,
+      );
+
+      draft.symbols = action.payload.symbols;
+
       break;
+
     case 'TOGGLE_RENDERER_CLASS':
       const selectedClasses = draft[action.payload.layerKey].selectedClasses;
 
@@ -74,11 +114,18 @@ function reducer(draft: Draft<FilterState>, action: Action): void {
       }
 
       break;
+
     case 'TOGGLE_FILTER_TYPE':
       draft.selectedFilterType =
         draft.selectedFilterType === 'routeTypes'
           ? 'trafficStress'
           : 'routeTypes';
+
+      break;
+
+    case 'TOGGLE_LAYER':
+      draft.layerToggles[action.payload.layerKey] =
+        !draft.layerToggles[action.payload.layerKey];
 
       break;
   }
