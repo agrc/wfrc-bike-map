@@ -14,6 +14,10 @@ export default function App() {
     trayState,
   );
 
+  const onMapClick = () => {
+    console.log('map clicked');
+  };
+
   return (
     <main className="flex size-full flex-col">
       <Header>
@@ -24,7 +28,7 @@ export default function App() {
         </div>
       </Header>
       <FilterProvider>
-        <MapContainer trayIsOpen={trayState.isOpen} />
+        <MapContainer trayIsOpen={trayState.isOpen} onClick={onMapClick} />
         <Drawer
           type="tray"
           // className="data-[open='true']:h-[275px]"

@@ -195,6 +195,7 @@ export const MapContainer = ({ onClick, trayIsOpen }: MapContainerProps) => {
 
   useEffect(() => {
     if (onClick) {
+      // @ts-expect-error - the type definitions are wrong
       clickHandler.current = mapView.current!.on('immediate-click', onClick);
     }
 
