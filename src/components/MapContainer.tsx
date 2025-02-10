@@ -2,6 +2,8 @@ import MapView from '@arcgis/core/views/MapView';
 import WebMap from '@arcgis/core/WebMap';
 import Home from '@arcgis/core/widgets/Home';
 import Track from '@arcgis/core/widgets/Track';
+import { BusyBar } from '@ugrc/utah-design-system';
+import { useViewLoading } from '@ugrc/utilities/hooks';
 import { useEffect, useRef } from 'react';
 import { useDarkMode, useWindowSize } from 'usehooks-ts';
 import config from '../config';
@@ -26,6 +28,8 @@ export const MapContainer = ({ onClick, trayIsOpen }: MapContainerProps) => {
     trafficSignals: null,
     otherLinks: null,
   });
+
+  const isDrawing = useViewLoading(mapView.current);
 
   const { isDarkMode } = useDarkMode();
   const { width = 0 } = useWindowSize();
@@ -205,5 +209,9 @@ export const MapContainer = ({ onClick, trayIsOpen }: MapContainerProps) => {
     }
   }, [trayIsOpen]);
 
-  return <div ref={mapNode} className="size-full"></div>;
+  return (
+    <div ref={mapNode} className="relative size-full">
+      {mapView.current && <BusyBar busy={isDrawing} />}
+    </div>
+  );
 };
