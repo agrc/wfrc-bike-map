@@ -1,6 +1,7 @@
 import { Header } from '@ugrc/utah-design-system';
 import Filter from './components/Filter';
 import { MapContainer } from './components/MapContainer';
+import FilterProvider from './context/FilterProvider';
 
 export default function App() {
   return (
@@ -12,8 +13,10 @@ export default function App() {
           </h1>
         </div>
       </Header>
-      <MapContainer />
-      <Filter />
+      <FilterProvider>
+        <MapContainer />
+        <Filter />
+      </FilterProvider>
     </main>
   );
 }
