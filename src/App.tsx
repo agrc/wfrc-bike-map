@@ -8,7 +8,7 @@ export default function App() {
     <main className="flex size-full flex-col">
       <Header>
         <div className="flex h-full grow items-center gap-3">
-          <h1 className="font-heading font-black leading-7 text-zinc-600 sm:text-5xl dark:text-zinc-100">
+          <h1 className="font-heading font-black leading-7 text-primary-900 sm:text-5xl dark:text-zinc-100">
             Utah Bikeways
           </h1>
         </div>
