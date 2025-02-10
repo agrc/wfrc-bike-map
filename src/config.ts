@@ -13,6 +13,9 @@ export default {
     trafficStress: {
       LTS: 'LTS',
     },
+    trafficSignals: {
+      Type: 'Type',
+    },
   },
   /*
     Tailwind breakpoints:

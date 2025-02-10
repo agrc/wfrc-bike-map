@@ -1,6 +1,7 @@
-import { Spinner, Switch } from '@ugrc/utah-design-system';
+import { Checkbox, Spinner, Switch } from '@ugrc/utah-design-system';
 import config from '../config';
 import { useFilter } from '../hooks/useFilter';
+import LegendSwatch from './LegendSwatch';
 import RendererClassCheckbox from './RendererClassCheckbox';
 
 export default function Filter() {
@@ -35,16 +36,32 @@ export default function Filter() {
         </h3>
       </Switch>
       <div className="space-y-1.5">
-        {isRouteTypes
-          ? state.routeTypes.rendererClasses.map((rendererClass, index) => (
+        {isRouteTypes ? (
+          <>
+            {state.routeTypes.rendererClasses.map((rendererClass, index) => (
               <RendererClassCheckbox
                 key={rendererClass.label}
                 classIndex={index}
                 layerKey="routeTypes"
                 rendererClass={rendererClass}
               />
-            ))
-          : state.trafficStress.rendererClasses.map((rendererClass, index) => (
+            ))}
+            <Checkbox
+              isSelected={state.layerToggles.otherLinks}
+              onChange={() =>
+                dispatch({
+                  type: 'TOGGLE_LAYER',
+                  payload: { layerKey: 'otherLinks' },
+                })
+              }
+            >
+              <LegendSwatch symbol={state.symbols.otherLinks} />
+              Other Links
+            </Checkbox>
+          </>
+        ) : (
+          <>
+            {state.trafficStress.rendererClasses.map((rendererClass, index) => (
               <RendererClassCheckbox
                 key={rendererClass.label}
                 classIndex={index}
@@ -52,6 +69,18 @@ export default function Filter() {
                 rendererClass={rendererClass}
               />
             ))}
+            {state.trafficSignals.rendererClasses.map(
+              (rendererClass, index) => (
+                <RendererClassCheckbox
+                  key={rendererClass.label}
+                  classIndex={index}
+                  layerKey="trafficSignals"
+                  rendererClass={rendererClass}
+                />
+              ),
+            )}
+          </>
+        )}
       </div>
     </div>
   );

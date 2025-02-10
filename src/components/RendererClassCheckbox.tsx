@@ -1,12 +1,12 @@
-import { renderPreviewHTML } from '@arcgis/core/symbols/support/symbolUtils';
 import { Checkbox } from '@ugrc/utah-design-system';
-import { useEffect, useRef } from 'react';
 import { useFilter } from '../hooks/useFilter';
+import type { LayersWithRenderClassesKeys } from '../shared';
+import LegendSwatch from './LegendSwatch';
 
 type RendererClassCheckboxProps = {
   rendererClass: __esri.UniqueValueClass;
   classIndex: number;
-  layerKey: 'routeTypes' | 'trafficStress';
+  layerKey: LayersWithRenderClassesKeys;
 };
 
 export default function RendererClassCheckbox({
@@ -15,8 +15,6 @@ export default function RendererClassCheckbox({
   layerKey,
 }: RendererClassCheckboxProps) {
   const { state, dispatch } = useFilter();
-  const symbolRef = useRef<HTMLDivElement>(null);
-  const symbolHasBeenRendered = useRef(false);
 
   const handleCheckboxChange = () => {
     dispatch({
@@ -28,19 +26,6 @@ export default function RendererClassCheckbox({
     });
   };
 
-  useEffect(() => {
-    if (symbolRef.current && !symbolHasBeenRendered.current) {
-      renderPreviewHTML(rendererClass.symbol, {
-        node: symbolRef.current,
-        size: {
-          height: 6,
-          width: 30,
-        },
-      });
-      symbolHasBeenRendered.current = true;
-    }
-  }, [rendererClass]);
-
   return (
     <Checkbox
       key={rendererClass.label}
@@ -48,7 +33,7 @@ export default function RendererClassCheckbox({
       onChange={handleCheckboxChange}
       isSelected={state[layerKey].selectedClasses.includes(classIndex)}
     >
-      <div ref={symbolRef} />
+      <LegendSwatch symbol={rendererClass.symbol} />
       {rendererClass.label}
     </Checkbox>
   );
