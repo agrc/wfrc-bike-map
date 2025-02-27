@@ -28,7 +28,7 @@
     ]
   },
   "dependencies": {
-    "@arcgis/core": "^4.31.6",
+    "@arcgis/core": "^4.32.2",
     "@ugrc/utah-design-system": "^1.20.0",
     "@ugrc/utilities": "^3.0.0",
     "immer": "^10.1.1",
@@ -41,31 +41,36 @@
     "usehooks-ts": "^3.1.1"
   },
   "devDependencies": {
-    "@eslint/compat": "^1.2.6",
-    "@eslint/eslintrc": "^3.2.0",
-    "@eslint/js": "^9.19.0",
-    "@types/react": "^19.0.8",
-    "@types/react-dom": "^19.0.3",
+    "@eslint/compat": "^1.2.7",
+    "@eslint/eslintrc": "^3.3.0",
+    "@eslint/js": "^9.21.0",
+    "@types/react": "^19.0.10",
+    "@types/react-dom": "^19.0.4",
     "@ugrc/tailwind-preset": "^1.2.0",
     "@ugrc/tsconfigs": "^1.0.3",
     "@vitejs/plugin-react": "^4.3.4",
     "autoprefixer": "^10.4.20",
     "cpy-cli": "^5.0.0",
-    "eslint": "^9.19.0",
-    "eslint-config-prettier": "^10.0.1",
+    "eslint": "^9.21.0",
+    "eslint-config-prettier": "^10.0.2",
     "eslint-plugin-import": "^2.31.0",
     "eslint-plugin-jsx-a11y": "^6.10.2",
     "eslint-plugin-prettier": "^5.2.3",
-    "globals": "^15.14.0",
-    "postcss": "^8.5.1",
-    "prettier": "^3.4.2",
+    "globals": "^16.0.0",
+    "postcss": "^8.5.3",
+    "prettier": "^3.5.2",
     "prettier-plugin-organize-imports": "^4.1.0",
     "prettier-plugin-packagejson": "^2.5.8",
     "prettier-plugin-tailwindcss": "^0.6.11",
     "tailwindcss": "^3.4.17",
     "typescript": "^5.7.3",
-    "vite": "^6.1.0",
+    "vite": "^6.2.0",
     "vite-plugin-package-version": "^1.1.0",
-    "vitest": "^3.0.5"
+    "vitest": "^3.0.7"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild"
+    ]
   }
 }
