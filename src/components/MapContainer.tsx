@@ -11,11 +11,14 @@ import { useFilter } from '../hooks/useFilter';
 import { getWhereClause, setLayerViewFilter } from './utilities';
 
 type MapContainerProps = {
-  onClick?: (event: __esri.ViewClickEvent) => void;
+  onFeatureIdentify: (graphic: __esri.Graphic) => void;
   trayIsOpen: boolean;
 };
 
-export const MapContainer = ({ onClick, trayIsOpen }: MapContainerProps) => {
+export const MapContainer = ({
+  onFeatureIdentify,
+  trayIsOpen,
+}: MapContainerProps) => {
   const mapNode = useRef<HTMLDivElement | null>(null);
   const map = useRef<WebMap | null>(null);
   const mapView = useRef<MapView>(null);
@@ -69,7 +72,6 @@ export const MapContainer = ({ onClick, trayIsOpen }: MapContainerProps) => {
       container: mapNode.current,
       center: {
         // center of SL Valley
-        type: 'point',
         x: -12460335.508799179,
         y: 4959043.257530195,
         spatialReference: {
@@ -90,12 +92,13 @@ export const MapContainer = ({ onClick, trayIsOpen }: MapContainerProps) => {
       mapView.current!.ui.add(trackWidget, 'top-right');
 
       for (const layerName of Object.keys(layers.current)) {
-        layers.current[layerName as keyof typeof config.LAYER_NAMES] =
-          mapView.current!.map.layers.find(
-            (layer) =>
-              layer.title ===
-              config.LAYER_NAMES[layerName as keyof typeof config.LAYER_NAMES],
-          ) as __esri.FeatureLayer;
+        const layer = mapView.current!.map.layers.find(
+          (layer) =>
+            layer.title ===
+            config.LAYER_NAMES[layerName as keyof typeof config.LAYER_NAMES],
+        ) as __esri.FeatureLayer;
+        layer.popupEnabled = false;
+        layers.current[layerName as keyof typeof config.LAYER_NAMES] = layer;
 
         if (!layers.current[layerName as keyof typeof config.LAYER_NAMES]) {
           throw new Error(`Could not find layer: ${layerName}`);
@@ -110,20 +113,23 @@ export const MapContainer = ({ onClick, trayIsOpen }: MapContainerProps) => {
       dispatch({
         type: 'MAP_LOADED',
         payload: {
-          routeTypes: (
-            layers.current.routeTypes!.renderer as __esri.UniqueValueRenderer
-          ).uniqueValueGroups[0]!.classes,
-          trafficStress: (
-            layers.current.trafficStress!.renderer as __esri.UniqueValueRenderer
-          ).uniqueValueGroups[0]!.classes,
-          trafficSignals: (
-            layers.current.trafficSignals!
-              .renderer as __esri.UniqueValueRenderer
-          ).uniqueValueGroups[0]!.classes,
+          routeTypes:
+            (layers.current.routeTypes!.renderer as __esri.UniqueValueRenderer)
+              .uniqueValueGroups?.[0]?.classes ?? [],
+          trafficStress:
+            (
+              layers.current.trafficStress!
+                .renderer as __esri.UniqueValueRenderer
+            ).uniqueValueGroups?.[0]?.classes ?? [],
+          trafficSignals:
+            (
+              layers.current.trafficSignals!
+                .renderer as __esri.UniqueValueRenderer
+            ).uniqueValueGroups?.[0]?.classes ?? [],
           symbols: {
             otherLinks: (
               layers.current.otherLinks!.renderer as __esri.SimpleRenderer
-            ).symbol,
+            ).symbol!,
           },
         },
       });
@@ -193,16 +199,36 @@ export const MapContainer = ({ onClick, trayIsOpen }: MapContainerProps) => {
     }
   }, [state]);
 
+  const highlightHandle = useRef<__esri.Handle>(null);
   useEffect(() => {
-    if (onClick) {
-      // @ts-expect-error - the type definitions are wrong
-      clickHandler.current = mapView.current!.on('immediate-click', onClick);
+    if (mapView.current) {
+      clickHandler.current = mapView.current!.on('immediate-click', (event) => {
+        mapView.current!.hitTest(event).then((response) => {
+          const graphicHits = response.results.filter(
+            (result) =>
+              result.type === 'graphic' && result.layer?.type === 'feature',
+          );
+          if (graphicHits.length > 0) {
+            const graphic = (graphicHits[0] as __esri.GraphicHit)!.graphic;
+            onFeatureIdentify(graphic);
+
+            mapView
+              .current!.whenLayerView(graphic.layer as __esri.FeatureLayer)
+              .then((layerView: __esri.FeatureLayerView) => {
+                if (highlightHandle.current) {
+                  highlightHandle.current.remove();
+                }
+                highlightHandle.current = layerView.highlight(graphic);
+              });
+          }
+        });
+      });
     }
 
     return () => {
       clickHandler.current?.remove();
     };
-  }, [onClick, mapView]);
+  }, [onFeatureIdentify, mapView]);
 
   useEffect(() => {
     if (mapView.current) {
