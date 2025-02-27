@@ -9,9 +9,7 @@ export default {
   FIELDS: {
     routeTypes: {
       Facility1: 'Facility1',
-    },
-    trafficStress: {
-      LTS: 'LTS',
+      LTS_SCORE: 'LTS_SCORE',
     },
     trafficSignals: {
       Type: 'Type',

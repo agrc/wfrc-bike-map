@@ -165,9 +165,9 @@ export const MapContainer = ({ onClick, trayIsOpen }: MapContainerProps) => {
       const where = getWhereClause(
         state.trafficStress.selectedClasses,
         state.trafficStress.rendererClasses,
-        config.FIELDS.trafficStress.LTS,
+        config.FIELDS.routeTypes.LTS_SCORE,
         layers.current.routeTypes.fields.find(
-          (layer) => layer.name === config.FIELDS.trafficStress.LTS,
+          (layer) => layer.name === config.FIELDS.routeTypes.LTS_SCORE,
         )?.type === 'string',
       );
       setLayerViewFilter(layers.current.trafficStress, mapView.current, where);
