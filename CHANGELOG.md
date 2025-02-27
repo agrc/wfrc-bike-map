@@ -1,5 +1,22 @@
 # Changelog
 
+## [0.4.0-0](https://github.com/agrc/wfrc-bike-map/compare/v0.3.1-2...v0.4.0-0) (2025-02-27)
+
+
+### Features
+
+* basic feature identify based on popup templates ([1923058](https://github.com/agrc/wfrc-bike-map/commit/19230580e568d8706d1c33ff2a612ab77f7900d5)), closes [#18](https://github.com/agrc/wfrc-bike-map/issues/18)
+
+
+### Bug Fixes
+
+* switch to using LTS_SCORE field ([f41fae2](https://github.com/agrc/wfrc-bike-map/commit/f41fae24c54d8f1f1dfa57bce679912188ed2e1d))
+
+
+### Dependencies
+
+* bump dependencies 🌲pnpm ([d99421b](https://github.com/agrc/wfrc-bike-map/commit/d99421b3432cf9f4574836df29884a300390fa35))
+
 ## [0.3.1-2](https://github.com/agrc/wfrc-bike-map/compare/v0.3.1-1...v0.3.1-2) (2025-02-10)
 
 
