@@ -1,7 +1,9 @@
 import { Drawer, Header } from '@ugrc/utah-design-system';
+import { useState } from 'react';
 import { useOverlayTrigger } from 'react-aria';
 import { useOverlayTriggerState } from 'react-stately';
 import Filter from './components/Filter';
+import Identify from './components/Identify';
 import { MapContainer } from './components/MapContainer';
 import FilterProvider from './context/FilterProvider';
 
@@ -13,10 +15,11 @@ export default function App() {
     },
     trayState,
   );
+  const [identifyGraphic, setIdentifyGraphic] = useState<__esri.Graphic | null>(
+    null,
+  );
 
-  const onMapClick = () => {
-    console.log('map clicked');
-  };
+  const clearIdentify = () => setIdentifyGraphic(null);
 
   return (
     <main className="flex size-full flex-col">
@@ -28,15 +31,21 @@ export default function App() {
         </div>
       </Header>
       <FilterProvider>
-        <MapContainer trayIsOpen={trayState.isOpen} onClick={onMapClick} />
+        <MapContainer
+          trayIsOpen={trayState.isOpen}
+          onFeatureIdentify={setIdentifyGraphic}
+        />
         <Drawer
           type="tray"
-          // className="data-[open='true']:h-[275px]"
           allowFullScreen
           state={trayState}
           {...trayTriggerProps}
         >
-          <Filter />
+          {identifyGraphic ? (
+            <Identify graphic={identifyGraphic} clear={clearIdentify} />
+          ) : (
+            <Filter />
+          )}
         </Drawer>
       </FilterProvider>
     </main>
