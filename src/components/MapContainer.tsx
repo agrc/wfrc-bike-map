@@ -11,7 +11,7 @@ import { useFilter } from '../hooks/useFilter';
 import { getWhereClause, setLayerViewFilter } from './utilities';
 
 type MapContainerProps = {
-  onFeatureIdentify: (graphic: __esri.Graphic) => void;
+  onFeatureIdentify: (graphic: __esri.Graphic | null) => void;
   trayIsOpen: boolean;
 };
 
@@ -222,6 +222,11 @@ export const MapContainer = ({
                 }
                 highlightHandle.current = layerView.highlight(graphic);
               });
+          } else {
+            onFeatureIdentify(null);
+            if (highlightHandle.current) {
+              highlightHandle.current.remove();
+            }
           }
         });
       });
