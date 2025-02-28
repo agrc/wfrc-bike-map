@@ -6,8 +6,12 @@ export function getWhereClause(
 ): string {
   const values = selectedClasses.reduce<(number | string)[]>(
     (previous, classIndex) => {
-      const classRenderer = rendererClasses[classIndex];
-      const values = classRenderer!.values.map((value) => value.value);
+      const classRenderer = rendererClasses[
+        classIndex
+      ] as __esri.UniqueValueClass;
+      const values = classRenderer!.values!.map(
+        (value) => value.value as string | number,
+      );
 
       return previous.concat(values);
     },
