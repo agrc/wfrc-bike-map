@@ -6,7 +6,7 @@ import type { LayersWithRenderClassesKeys } from '../shared';
 type FilterState = {
   selectedFilterType: Omit<LayersWithRenderClassesKeys, 'trafficSignals'>;
   symbols: {
-    otherLinks: __esri.Symbol | null;
+    otherLinks: __esri.SymbolUnion | nullish;
   };
   routeTypes: {
     rendererClasses: __esri.UniqueValueClass[];
@@ -33,7 +33,7 @@ type Action =
         trafficStress: __esri.UniqueValueClass[];
         trafficSignals: __esri.UniqueValueClass[];
         symbols: {
-          otherLinks: __esri.Symbol;
+          otherLinks: __esri.SymbolUnion;
         };
       };
     }

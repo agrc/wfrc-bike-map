@@ -30,7 +30,7 @@ export default function RendererClassCheckbox({
   return (
     <Checkbox
       key={rendererClass.label}
-      value={rendererClass.values.join(',')}
+      value={rendererClass.values!.join(',')}
       onChange={handleCheckboxChange}
       isSelected={state[layerKey].selectedClasses.includes(classIndex)}
     >

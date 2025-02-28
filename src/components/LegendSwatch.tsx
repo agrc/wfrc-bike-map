@@ -2,7 +2,7 @@ import { renderPreviewHTML } from '@arcgis/core/symbols/support/symbolUtils';
 import { useEffect, useRef } from 'react';
 
 type LegendSwatchProps = {
-  symbol: __esri.Symbol | null;
+  symbol: __esri.SymbolUnion | nullish;
 };
 
 export default function LegendSwatch({ symbol }: LegendSwatchProps) {
