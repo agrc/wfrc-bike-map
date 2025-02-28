@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.0-1](https://github.com/agrc/wfrc-bike-map/compare/v0.4.0-0...v0.4.0-1) (2025-02-28)
+
+
+### Bug Fixes
+
+* clear identify if no feature is found on tap ([1675f18](https://github.com/agrc/wfrc-bike-map/commit/1675f188a830b6d8eb35bbdec4ed0ee773d1d17e))
+
 ## [0.4.0-0](https://github.com/agrc/wfrc-bike-map/compare/v0.3.1-2...v0.4.0-0) (2025-02-27)
 
 
