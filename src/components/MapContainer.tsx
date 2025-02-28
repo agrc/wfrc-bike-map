@@ -206,7 +206,9 @@ export const MapContainer = ({
         mapView.current!.hitTest(event).then((response) => {
           const graphicHits = response.results.filter(
             (result) =>
-              result.type === 'graphic' && result.layer?.type === 'feature',
+              result.type === 'graphic' &&
+              result.layer?.type === 'feature' &&
+              result.layer.id !== layers.current!.trafficSignals!.id,
           );
           if (graphicHits.length > 0) {
             const graphic = (graphicHits[0] as __esri.GraphicHit)!.graphic;
