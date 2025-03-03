@@ -1,3 +1,15 @@
 arcgis-feature .esri-feature {
   background: none;
 }
+
+h2.esri-feature__title {
+  @apply text-2xl;
+}
+
+.esri-feature-content table {
+  @apply text-xl;
+}
+
+.esri-feature-content table td:first-child {
+  @apply pr-2 text-right font-bold;
+}
