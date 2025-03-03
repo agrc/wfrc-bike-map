@@ -11,5 +11,5 @@ h2.esri-feature__title {
 }
 
 .esri-feature-content table td:first-child {
-  @apply pr-2 text-right font-bold;
+  @apply whitespace-nowrap pr-2 text-right align-text-top font-bold;
 }
