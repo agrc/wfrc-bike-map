@@ -10,19 +10,41 @@ import config from '../config';
 import { useFilter } from '../hooks/useFilter';
 import { getWhereClause, setLayerViewFilter } from './utilities';
 
+async function getCoarseLocation() {
+  return new Promise<{ x: number; y: number } | null>((resolve) => {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        resolve({ x: position.coords.longitude, y: position.coords.latitude });
+      },
+      (error) => {
+        console.error('Error getting location:', error);
+        resolve(null);
+      },
+      {
+        timeout: 5000,
+        maximumAge: 1000 * 60 * 10, // 10 minutes
+      },
+    );
+  });
+}
+
 type MapContainerProps = {
   onFeatureIdentify: (graphic: __esri.Graphic | null) => void;
   trayIsOpen: boolean;
+  useMyLocationOnLoad: boolean;
 };
+
+const PADDING = 320;
+const INITIAL_MAP_ZOOM = 14;
 
 export const MapContainer = ({
   onFeatureIdentify,
   trayIsOpen,
+  useMyLocationOnLoad,
 }: MapContainerProps) => {
   const mapNode = useRef<HTMLDivElement | null>(null);
   const map = useRef<WebMap | null>(null);
   const mapView = useRef<MapView>(null);
-  const clickHandler = useRef<IHandle>(null);
   const layers = useRef<
     Record<keyof typeof config.LAYER_NAMES, __esri.FeatureLayer | null>
   >({
@@ -31,6 +53,7 @@ export const MapContainer = ({
     trafficSignals: null,
     otherLinks: null,
   });
+  const mapIsInitialized = useRef<boolean>(false);
 
   const isDrawing = useViewLoading(mapView.current);
 
@@ -58,36 +81,83 @@ export const MapContainer = ({
   const { state, dispatch } = useFilter();
 
   // set up map
+  // update identify highlighting
+  const highlightHandle = useRef<__esri.Handle>(null);
   useEffect(() => {
-    if (!mapNode.current) {
+    if (!mapNode.current || mapIsInitialized.current) {
       return;
     }
 
-    console.log('setting up the map');
-    map.current = new WebMap({
-      portalItem: {
-        id: config.WEB_MAP_ID,
-      },
-    });
+    let clickHandler: __esri.Handle | null = null;
 
-    mapView.current = new MapView({
-      container: mapNode.current,
-      center: {
+    const giddyUp = async () => {
+      console.log('setting up the map');
+      mapIsInitialized.current = true;
+      map.current = new WebMap({
+        portalItem: {
+          id: config.WEB_MAP_ID,
+        },
+      });
+
+      let center: __esri.PointProperties | number[] = {
         // SLC
         x: -12455376,
         y: 4978678,
         spatialReference: {
           wkid: 102100,
         },
-      },
-      zoom: 12,
-      ui: {
-        components: hideZoom ? [] : ['zoom'],
-      },
-      map: map.current,
-    });
+      };
+      if (useMyLocationOnLoad) {
+        const location = await getCoarseLocation();
+        if (location) {
+          center = [location.x, location.y];
+        }
+      }
 
-    mapView.current.when(async () => {
+      mapView.current = new MapView({
+        container: mapNode.current,
+        center,
+        zoom: INITIAL_MAP_ZOOM,
+        ui: {
+          components: hideZoom ? [] : ['zoom'],
+        },
+        map: map.current,
+        padding: {
+          bottom: trayIsOpen ? PADDING : 0,
+        },
+      });
+
+      clickHandler = mapView.current!.on('immediate-click', (event) => {
+        mapView.current!.hitTest(event).then((response) => {
+          const graphicHits = response.results.filter(
+            (result) =>
+              result.type === 'graphic' &&
+              result.layer?.type === 'feature' &&
+              result.layer.id !== layers.current!.trafficSignals!.id,
+          );
+          if (graphicHits.length > 0) {
+            const graphic = (graphicHits[0] as __esri.GraphicHit)!.graphic;
+            onFeatureIdentify(graphic);
+
+            mapView
+              .current!.whenLayerView(graphic.layer as __esri.FeatureLayer)
+              .then((layerView: __esri.FeatureLayerView) => {
+                if (highlightHandle.current) {
+                  highlightHandle.current.remove();
+                }
+                highlightHandle.current = layerView.highlight(graphic);
+              });
+          } else {
+            onFeatureIdentify(null);
+            if (highlightHandle.current) {
+              highlightHandle.current.remove();
+            }
+          }
+        });
+      });
+
+      await mapView.current.when();
+
       const homeWidget = new Home({ view: mapView.current! });
       const trackWidget = new Track({ view: mapView.current! });
       mapView.current!.ui.add(homeWidget, 'top-right');
@@ -135,11 +205,11 @@ export const MapContainer = ({
           },
         },
       });
-    });
+    };
+    giddyUp();
 
     return () => {
-      mapView.current?.destroy();
-      map.current?.destroy();
+      clickHandler?.remove();
     };
   }, []);
 
@@ -202,50 +272,22 @@ export const MapContainer = ({
     }
   }, [state]);
 
-  // update identify highlighting
-  const highlightHandle = useRef<__esri.Handle>(null);
   useEffect(() => {
     if (mapView.current) {
-      clickHandler.current = mapView.current!.on('immediate-click', (event) => {
-        mapView.current!.hitTest(event).then((response) => {
-          const graphicHits = response.results.filter(
-            (result) =>
-              result.type === 'graphic' &&
-              result.layer?.type === 'feature' &&
-              result.layer.id !== layers.current!.trafficSignals!.id,
-          );
-          if (graphicHits.length > 0) {
-            const graphic = (graphicHits[0] as __esri.GraphicHit)!.graphic;
-            onFeatureIdentify(graphic);
-
-            mapView
-              .current!.whenLayerView(graphic.layer as __esri.FeatureLayer)
-              .then((layerView: __esri.FeatureLayerView) => {
-                if (highlightHandle.current) {
-                  highlightHandle.current.remove();
-                }
-                highlightHandle.current = layerView.highlight(graphic);
-              });
-          } else {
-            onFeatureIdentify(null);
-            if (highlightHandle.current) {
-              highlightHandle.current.remove();
-            }
-          }
-        });
-      });
-    }
-
-    return () => {
-      clickHandler.current?.remove();
-    };
-  }, [onFeatureIdentify, mapView]);
-
-  useEffect(() => {
-    if (mapView.current) {
-      mapView.current.padding.bottom = trayIsOpen ? 320 : 0;
+      mapView.current.padding.bottom = trayIsOpen ? PADDING : 0;
     }
   }, [trayIsOpen]);
+
+  // zoom map if use my location is toggled
+  useEffect(() => {
+    if (useMyLocationOnLoad && mapView.current) {
+      getCoarseLocation().then((location) => {
+        if (location) {
+          mapView.current!.goTo([location.x, location.y]);
+        }
+      });
+    }
+  }, [useMyLocationOnLoad]);
 
   return (
     <div ref={mapNode} className="relative size-full">
