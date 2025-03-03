@@ -1,4 +1,10 @@
-import { Button, Checkbox, Dialog, Modal } from '@ugrc/utah-design-system';
+import {
+  Button,
+  Checkbox,
+  Dialog,
+  ExternalLink,
+  Modal,
+} from '@ugrc/utah-design-system';
 import { useLocalStorage } from '@ugrc/utilities/hooks';
 import { HelpCircle } from 'lucide-react';
 import { DialogTrigger } from 'react-aria-components';
@@ -7,7 +13,7 @@ type HelpDialogProps = {
   useMyLocationOnLoad: boolean;
   setUseMyLocationOnLoad: (value: boolean) => void;
 };
-export default function HelpDialog({
+export default function AboutDialog({
   useMyLocationOnLoad,
   setUseMyLocationOnLoad,
 }: HelpDialogProps) {
@@ -37,6 +43,10 @@ export default function HelpDialog({
             map to indicate where updated data is needed.
           </p>
           <p>Use of this information is at your own risk.</p>
+          <p>
+            Planned bike features can be found in{' '}
+            <ExternalLink href="todo">this map.</ExternalLink>
+          </p>
 
           <Checkbox isSelected={hideOnLoad} onChange={setHideOnLoad}>
             Don't show this dialog again

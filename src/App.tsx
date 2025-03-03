@@ -3,8 +3,8 @@ import { useLocalStorage } from '@ugrc/utilities/hooks';
 import { useEffect, useState } from 'react';
 import { useOverlayTrigger } from 'react-aria';
 import { useOverlayTriggerState } from 'react-stately';
+import AboutDialog from './components/AboutDialog';
 import Filter from './components/Filter';
-import HelpDialog from './components/HelpDialog';
 import Identify from './components/Identify';
 import { MapContainer } from './components/MapContainer';
 import FilterProvider from './context/FilterProvider';
@@ -43,7 +43,7 @@ export default function App() {
             Utah Bikeways
           </h1>
         </div>
-        <HelpDialog
+        <AboutDialog
           useMyLocationOnLoad={useMyLocationOnLoad}
           setUseMyLocationOnLoad={setUseMyLocationOnLoad}
         />

@@ -36,7 +36,7 @@ export default function Filter() {
             : config.LAYER_NAMES.trafficStress}
         </h2>
       </Switch>
-      <div className="space-y-2">
+      <div className="space-y-1.5">
         {isRouteTypes ? (
           <>
             {state.routeTypes.rendererClasses.map((rendererClass, index) => (
