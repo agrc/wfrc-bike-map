@@ -38,6 +38,7 @@ export const MapContainer = ({
   const { width = 0 } = useWindowSize();
   const hideZoom = width < config.BREAKPOINTS.md;
 
+  // toggle dark/light modes
   useEffect(() => {
     const darkLink = document.getElementById(
       'arcgis-dark-theme',
@@ -56,6 +57,7 @@ export const MapContainer = ({
 
   const { state, dispatch } = useFilter();
 
+  // set up map
   useEffect(() => {
     if (!mapNode.current) {
       return;
@@ -141,6 +143,7 @@ export const MapContainer = ({
     };
   }, []);
 
+  // update layer visibility and filters
   useEffect(() => {
     if (
       !mapView.current ||
@@ -199,6 +202,7 @@ export const MapContainer = ({
     }
   }, [state]);
 
+  // update identify highlighting
   const highlightHandle = useRef<__esri.Handle>(null);
   useEffect(() => {
     if (mapView.current) {
