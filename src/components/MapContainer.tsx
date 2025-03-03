@@ -21,7 +21,7 @@ async function getCoarseLocation() {
         resolve(null);
       },
       {
-        timeout: 5000,
+        timeout: 250,
         maximumAge: 1000 * 60 * 10, // 10 minutes
       },
     );
@@ -35,7 +35,7 @@ type MapContainerProps = {
 };
 
 const PADDING = 320;
-const INITIAL_MAP_ZOOM = 14;
+const INITIAL_MAP_ZOOM = 13;
 
 export const MapContainer = ({
   onFeatureIdentify,
