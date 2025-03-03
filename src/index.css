@@ -67,3 +67,7 @@ body {
 .esri-ui-top-right {
   @apply flex-row space-x-3;
 }
+
+.esri-view-surface::after {
+  outline-color: transparent !important;
+}
