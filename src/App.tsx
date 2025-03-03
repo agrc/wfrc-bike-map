@@ -1,8 +1,10 @@
 import { Drawer, Header } from '@ugrc/utah-design-system';
-import { useState } from 'react';
+import { useLocalStorage } from '@ugrc/utilities/hooks';
+import { useEffect, useState } from 'react';
 import { useOverlayTrigger } from 'react-aria';
 import { useOverlayTriggerState } from 'react-stately';
 import Filter from './components/Filter';
+import HelpDialog from './components/HelpDialog';
 import Identify from './components/Identify';
 import { MapContainer } from './components/MapContainer';
 import FilterProvider from './context/FilterProvider';
@@ -21,6 +23,18 @@ export default function App() {
 
   const clearIdentify = () => setIdentifyGraphic(null);
 
+  useEffect(() => {
+    if (identifyGraphic && !trayState.isOpen) {
+      trayState.open();
+    }
+  }, [identifyGraphic]);
+
+  const [useMyLocationOnLoad, setUseMyLocationOnLoad] = useLocalStorage(
+    'useMyLocationOnLoad',
+    false,
+    true,
+  );
+
   return (
     <main className="flex size-full flex-col">
       <Header>
@@ -29,11 +43,16 @@ export default function App() {
             Utah Bikeways
           </h1>
         </div>
+        <HelpDialog
+          useMyLocationOnLoad={useMyLocationOnLoad}
+          setUseMyLocationOnLoad={setUseMyLocationOnLoad}
+        />
       </Header>
       <FilterProvider>
         <MapContainer
           trayIsOpen={trayState.isOpen}
           onFeatureIdentify={setIdentifyGraphic}
+          useMyLocationOnLoad={useMyLocationOnLoad}
         />
         <Drawer
           type="tray"
