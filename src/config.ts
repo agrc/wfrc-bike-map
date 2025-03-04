@@ -1,20 +1,4 @@
 export default {
-  WEB_MAP_ID: '6ad72cac07b6464f9542e7daaa884b44',
-  LAYER_NAMES: {
-    routeTypes: 'Route Types',
-    trafficStress: 'Traffic Stress',
-    trafficSignals: 'Traffic Signals',
-    otherLinks: 'Other Links',
-  },
-  FIELDS: {
-    routeTypes: {
-      Facility1: 'Facility1',
-      LTS_SCORE: 'LTS_SCORE',
-    },
-    trafficSignals: {
-      Type: 'Type',
-    },
-  },
   /*
     Tailwind breakpoints:
     sm   |  @media (min-width: 640px)

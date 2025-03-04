@@ -1,0 +1,25 @@
+{
+  "parameters": {
+    "fieldNames": {
+      "defaultValue": {
+        "value": "{\"facility1\":\"Facility1\",\"ltsScore\":\"LTS_SCORE\",\"type\":\"Type\"}"
+      },
+      "description": "Field names for any of the layers.",
+      "valueType": "JSON"
+    },
+    "webMapId": {
+      "defaultValue": {
+        "value": "6ad72cac07b6464f9542e7daaa884b44"
+      },
+      "description": "The AGOL id of the web map that you want to point the app to.",
+      "valueType": "STRING"
+    },
+    "layerNames": {
+      "defaultValue": {
+        "value": "{\"routeTypes\":\"Route Types\",\"trafficStress\":\"Traffic Stress\",\"trafficSignals\":\"Traffic Signals\",\"otherLinks\":\"Other Links\"}"
+      },
+      "description": "The names of the layers in the web map. The app uses these to get references to the layers for filtering and toggling.",
+      "valueType": "JSON"
+    }
+  }
+}

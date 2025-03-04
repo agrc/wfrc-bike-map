@@ -7,7 +7,12 @@ import { useViewLoading } from '@ugrc/utilities/hooks';
 import { useEffect, useRef } from 'react';
 import { useDarkMode, useWindowSize } from 'usehooks-ts';
 import config from '../config';
+import type {
+  FieldNames,
+  LayerNames,
+} from '../context/FirebaseRemoteConfigsProvider';
 import { useFilter } from '../hooks/useFilter';
+import useRemoteConfigs from '../hooks/useRemoteConfigs';
 import { getWhereClause, setLayerViewFilter } from './utilities';
 
 async function getCoarseLocation() {
@@ -28,14 +33,15 @@ async function getCoarseLocation() {
   });
 }
 
+const PADDING = 320;
+const INITIAL_MAP_ZOOM = 13;
+
+type LayerNameKey = keyof LayerNames;
 type MapContainerProps = {
   onFeatureIdentify: (graphic: __esri.Graphic | null) => void;
   trayIsOpen: boolean;
   useMyLocationOnLoad: boolean;
 };
-
-const PADDING = 320;
-const INITIAL_MAP_ZOOM = 13;
 
 export const MapContainer = ({
   onFeatureIdentify,
@@ -45,9 +51,7 @@ export const MapContainer = ({
   const mapNode = useRef<HTMLDivElement | null>(null);
   const map = useRef<WebMap | null>(null);
   const mapView = useRef<MapView>(null);
-  const layers = useRef<
-    Record<keyof typeof config.LAYER_NAMES, __esri.FeatureLayer | null>
-  >({
+  const layers = useRef<Record<LayerNameKey, __esri.FeatureLayer | null>>({
     routeTypes: null,
     trafficStress: null,
     trafficSignals: null,
@@ -79,12 +83,13 @@ export const MapContainer = ({
   }, [isDarkMode]);
 
   const { state, dispatch } = useFilter();
+  const getConfig = useRemoteConfigs();
 
   // set up map
   // update identify highlighting
   const highlightHandle = useRef<__esri.Handle>(null);
   useEffect(() => {
-    if (!mapNode.current || mapIsInitialized.current) {
+    if (!mapNode.current || mapIsInitialized.current || !getConfig) {
       return;
     }
 
@@ -95,7 +100,7 @@ export const MapContainer = ({
       mapIsInitialized.current = true;
       map.current = new WebMap({
         portalItem: {
-          id: config.WEB_MAP_ID,
+          id: getConfig('webMapId') as string,
         },
       });
 
@@ -163,16 +168,15 @@ export const MapContainer = ({
       mapView.current!.ui.add(homeWidget, 'top-right');
       mapView.current!.ui.add(trackWidget, 'top-right');
 
-      for (const layerName of Object.keys(layers.current)) {
+      const layerNames = getConfig('layerNames') as LayerNames;
+      for (const layerName of Object.keys(layers.current) as LayerNameKey[]) {
         const layer = mapView.current!.map.layers.find(
-          (layer) =>
-            layer.title ===
-            config.LAYER_NAMES[layerName as keyof typeof config.LAYER_NAMES],
+          (layer) => layer.title === layerNames[layerName],
         ) as __esri.FeatureLayer;
         layer.popupEnabled = false;
-        layers.current[layerName as keyof typeof config.LAYER_NAMES] = layer;
+        layers.current[layerName] = layer;
 
-        if (!layers.current[layerName as keyof typeof config.LAYER_NAMES]) {
+        if (!layers.current[layerName]) {
           throw new Error(`Could not find layer: ${layerName}`);
         }
       }
@@ -211,7 +215,7 @@ export const MapContainer = ({
     return () => {
       clickHandler?.remove();
     };
-  }, []);
+  }, [getConfig]);
 
   // update layer visibility and filters
   useEffect(() => {
@@ -220,18 +224,20 @@ export const MapContainer = ({
       !layers.current.routeTypes ||
       !layers.current.trafficStress ||
       !layers.current.trafficSignals ||
-      !layers.current.otherLinks
+      !layers.current.otherLinks ||
+      !getConfig
     ) {
       return;
     }
 
+    const fieldNames = getConfig('fieldNames') as FieldNames;
     if (state.selectedFilterType === 'routeTypes') {
       const where = getWhereClause(
         state.routeTypes.selectedClasses,
         state.routeTypes.rendererClasses,
-        config.FIELDS.routeTypes.Facility1,
+        fieldNames.facility1,
         layers.current.routeTypes.fields.find(
-          (layer) => layer.name === config.FIELDS.routeTypes.Facility1,
+          (layer) => layer.name === fieldNames.facility1,
         )?.type === 'string',
       );
       setLayerViewFilter(layers.current.routeTypes, mapView.current, where);
@@ -244,9 +250,9 @@ export const MapContainer = ({
       const where = getWhereClause(
         state.trafficStress.selectedClasses,
         state.trafficStress.rendererClasses,
-        config.FIELDS.routeTypes.LTS_SCORE,
+        fieldNames.ltsScore,
         layers.current.routeTypes.fields.find(
-          (layer) => layer.name === config.FIELDS.routeTypes.LTS_SCORE,
+          (layer) => layer.name === fieldNames.ltsScore,
         )?.type === 'string',
       );
       setLayerViewFilter(layers.current.trafficStress, mapView.current, where);
@@ -254,9 +260,9 @@ export const MapContainer = ({
       const signalsWhere = getWhereClause(
         state.trafficSignals.selectedClasses,
         state.trafficSignals.rendererClasses,
-        config.FIELDS.trafficSignals.Type,
+        fieldNames.type,
         layers.current.trafficSignals.fields.find(
-          (layer) => layer.name === config.FIELDS.trafficSignals.Type,
+          (layer) => layer.name === fieldNames.type,
         )?.type === 'string',
       );
       setLayerViewFilter(

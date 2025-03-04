@@ -1,6 +1,6 @@
 import { Checkbox, Spinner, Switch } from '@ugrc/utah-design-system';
-import config from '../config';
 import { useFilter } from '../hooks/useFilter';
+import useRemoteConfigs from '../hooks/useRemoteConfigs';
 import Label from './Label';
 import LegendSwatch from './LegendSwatch';
 import RendererClassCheckbox from './RendererClassCheckbox';
@@ -8,8 +8,9 @@ import RendererClassCheckbox from './RendererClassCheckbox';
 export default function Filter() {
   const { state, dispatch } = useFilter();
   const isRouteTypes = state.selectedFilterType === 'routeTypes';
+  const getConfig = useRemoteConfigs();
 
-  if (state.routeTypes.rendererClasses.length === 0) {
+  if (state.routeTypes.rendererClasses.length === 0 || !getConfig) {
     return (
       <div className="flex h-80 w-full items-center justify-center">
         <div className="size-12">
@@ -18,6 +19,8 @@ export default function Filter() {
       </div>
     );
   }
+
+  const layerNames = getConfig('layerNames') as Record<string, string>;
 
   return (
     <div className="p-4">
@@ -31,9 +34,7 @@ export default function Filter() {
         }
       >
         <h2>
-          {isRouteTypes
-            ? config.LAYER_NAMES.routeTypes
-            : config.LAYER_NAMES.trafficStress}
+          {isRouteTypes ? layerNames.routeTypes : layerNames.trafficStress}
         </h2>
       </Switch>
       <div className="space-y-1.5">
