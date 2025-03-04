@@ -1,5 +1,26 @@
 # Changelog
 
+## [0.4.0-2](https://github.com/agrc/wfrc-bike-map/compare/v0.4.0-1...v0.4.0-2) (2025-03-04)
+
+
+### Features
+
+* add about dialog with default location option ([04c9f0a](https://github.com/agrc/wfrc-bike-map/commit/04c9f0a7c6308458d2b8a6753ddc0885349000fc))
+* migrate configs to firebase remote configs ([b048e4f](https://github.com/agrc/wfrc-bike-map/commit/b048e4f9428be19fd0964874ab38130ed6927177))
+
+
+### Bug Fixes
+
+* make identify content look a little nicer ([cf2e668](https://github.com/agrc/wfrc-bike-map/commit/cf2e668752832a296df088e73fb884a8da8f95a0))
+* prevent wrapping of identify attribute labels ([af08577](https://github.com/agrc/wfrc-bike-map/commit/af085774161c620c26953ce064a9e09ea7cef9b3))
+* remove scroll bars from drawer ([500ef22](https://github.com/agrc/wfrc-bike-map/commit/500ef22173d2ffda39af9c553a5cf04ffddbb633))
+* zoom in further on load ([f4cbbb0](https://github.com/agrc/wfrc-bike-map/commit/f4cbbb04ec2e425da6a03e7d28cba38cefc47b6b))
+
+
+### Styles
+
+* center road name in identify ([2fadda7](https://github.com/agrc/wfrc-bike-map/commit/2fadda759d3e20d3a727d80f791956b4cbf9033a))
+
 ## [0.4.0-1](https://github.com/agrc/wfrc-bike-map/compare/v0.4.0-0...v0.4.0-1) (2025-02-28)
 
 
