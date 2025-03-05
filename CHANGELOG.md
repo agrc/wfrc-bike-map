@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.0-3](https://github.com/agrc/wfrc-bike-map/compare/v0.4.0-2...v0.4.0-3) (2025-03-05)
+
+
+### Bug Fixes
+
+* **ci:** use npx to run firebase cli ([68ca6f0](https://github.com/agrc/wfrc-bike-map/commit/68ca6f0f102c37daca118654537c36d599dee12d))
+
 ## [0.4.0-2](https://github.com/agrc/wfrc-bike-map/compare/v0.4.0-1...v0.4.0-2) (2025-03-04)
 
 
