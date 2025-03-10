@@ -1,13 +1,8 @@
-import {
-  Button,
-  Checkbox,
-  Dialog,
-  ExternalLink,
-  Modal,
-} from '@ugrc/utah-design-system';
+import { Button, Checkbox, Dialog, Modal } from '@ugrc/utah-design-system';
 import { useLocalStorage } from '@ugrc/utilities/hooks';
 import { HelpCircle } from 'lucide-react';
 import { DialogTrigger } from 'react-aria-components';
+import useRemoteConfigs from '../hooks/useRemoteConfigs';
 
 type HelpDialogProps = {
   useMyLocationOnLoad: boolean;
@@ -22,6 +17,11 @@ export default function AboutDialog({
     false,
     true,
   );
+  const getConfig = useRemoteConfigs();
+
+  if (!getConfig) {
+    return null;
+  }
 
   return (
     <DialogTrigger defaultOpen={!hideOnLoad}>
@@ -30,23 +30,10 @@ export default function AboutDialog({
       </Button>
       <Modal>
         <Dialog className="space-y-3" aria-label="About">
-          <p>
-            This web map depicts known existing bicycle paths, lanes, and paths.
-            An alternate map view conveys a comparative level of traffic stress
-            (LTS) that users might experience when bicycling along major
-            roadways.
-          </p>
-          <p>
-            This dataset is updated periodically but users are advised that the
-            map may not reflect current conditions on the ground, and may
-            contain errors or omissions. User can click on any location on the
-            map to indicate where updated data is needed.
-          </p>
-          <p>Use of this information is at your own risk.</p>
-          <p>
-            Planned bike features can be found in{' '}
-            <ExternalLink href="todo">this map.</ExternalLink>
-          </p>
+          <div
+            className="space-y-3"
+            dangerouslySetInnerHTML={{ __html: getConfig('aboutContent') }}
+          />
 
           <Checkbox isSelected={hideOnLoad} onChange={setHideOnLoad}>
             Don't show this dialog again
