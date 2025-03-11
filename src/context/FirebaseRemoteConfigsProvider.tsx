@@ -7,10 +7,17 @@ import {
 } from 'firebase/remote-config';
 import { createContext, useEffect, useState, type ReactNode } from 'react';
 import remoteConfigDefaults from '../remote_config_defaults.json';
+import type { LayersWithRenderClassesKeys } from '../shared';
 
 type ConfigName = keyof typeof remoteConfigDefaults.parameters;
 type ValueTypeName = 'STRING' | 'NUMBER' | 'BOOLEAN' | 'JSON';
-type ValueType = string | number | boolean | LayerNames | FieldNames;
+type ValueType =
+  | string
+  | number
+  | boolean
+  | LayerNames
+  | FieldNames
+  | ClassOrders;
 type Defaults = {
   [key in ConfigName]: string;
 };
@@ -33,6 +40,9 @@ export type FieldNames = {
   facility1: string;
   ltsScore: string;
   type: string;
+};
+export type ClassOrders = {
+  [key in Partial<LayersWithRenderClassesKeys>]: number[];
 };
 
 function getDefaultValues(parameters: Parameters): Defaults {
