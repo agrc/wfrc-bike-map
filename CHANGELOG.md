@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.4.0-4](https://github.com/agrc/wfrc-bike-map/compare/v0.4.0-3...v0.4.0-4) (2025-03-11)
+
+
+### Features
+
+* add about content to firebase remote configs ([b6a6029](https://github.com/agrc/wfrc-bike-map/commit/b6a6029f90d319e594ef3d0b457fdb86c2538bc1)), closes [#76](https://github.com/agrc/wfrc-bike-map/issues/76)
+
+
+### Bug Fixes
+
+* update remote configs fetch interval to be 60 seconds ([58f1aac](https://github.com/agrc/wfrc-bike-map/commit/58f1aac53b404026ec2d169101e309844e8e6832))
+
 ## [0.4.0-3](https://github.com/agrc/wfrc-bike-map/compare/v0.4.0-2...v0.4.0-3) (2025-03-05)
 
 
