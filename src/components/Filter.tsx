@@ -1,6 +1,8 @@
 import { Checkbox, Spinner, Switch } from '@ugrc/utah-design-system';
+import type { ClassOrders } from '../context/FirebaseRemoteConfigsProvider';
 import { useFilter } from '../hooks/useFilter';
 import useRemoteConfigs from '../hooks/useRemoteConfigs';
+import type { LayersWithRenderClassesKeys } from '../shared';
 import Label from './Label';
 import LegendSwatch from './LegendSwatch';
 import RendererClassCheckbox from './RendererClassCheckbox';
@@ -22,6 +24,32 @@ export default function Filter() {
 
   const layerNames = getConfig('layerNames') as Record<string, string>;
 
+  const getRendererClassCheckboxes = (
+    layerKey: LayersWithRenderClassesKeys,
+  ) => {
+    const rendererClasses = state[layerKey].rendererClasses;
+    const classOrder = getConfig('classOrder') as ClassOrders;
+    const indexesInOrder =
+      classOrder[layerKey] ?? Object.keys(rendererClasses).map(Number);
+    return indexesInOrder.map((classIndex) => {
+      const rendererClass = rendererClasses[classIndex];
+      if (!rendererClass) {
+        throw new Error(
+          `Invalid renderer class index: ${classIndex} for ${layerKey}`,
+        );
+      }
+
+      return (
+        <RendererClassCheckbox
+          key={rendererClass.label}
+          classIndex={classIndex}
+          layerKey="routeTypes"
+          rendererClass={rendererClass}
+        />
+      );
+    });
+  };
+
   return (
     <div className="p-4">
       <Switch
@@ -40,14 +68,7 @@ export default function Filter() {
       <div className="space-y-1.5">
         {isRouteTypes ? (
           <>
-            {state.routeTypes.rendererClasses.map((rendererClass, index) => (
-              <RendererClassCheckbox
-                key={rendererClass.label}
-                classIndex={index}
-                layerKey="routeTypes"
-                rendererClass={rendererClass}
-              />
-            ))}
+            {getRendererClassCheckboxes('routeTypes')}
             <Checkbox
               isSelected={state.layerToggles.otherLinks}
               onChange={() =>
@@ -63,24 +84,8 @@ export default function Filter() {
           </>
         ) : (
           <>
-            {state.trafficStress.rendererClasses.map((rendererClass, index) => (
-              <RendererClassCheckbox
-                key={rendererClass.label}
-                classIndex={index}
-                layerKey="trafficStress"
-                rendererClass={rendererClass}
-              />
-            ))}
-            {state.trafficSignals.rendererClasses.map(
-              (rendererClass, index) => (
-                <RendererClassCheckbox
-                  key={rendererClass.label}
-                  classIndex={index}
-                  layerKey="trafficSignals"
-                  rendererClass={rendererClass}
-                />
-              ),
-            )}
+            {getRendererClassCheckboxes('trafficStress')}
+            {getRendererClassCheckboxes('trafficSignals')}
           </>
         )}
       </div>
