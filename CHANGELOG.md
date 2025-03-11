@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.0-5](https://github.com/agrc/wfrc-bike-map/compare/v0.4.0-4...v0.4.0-5) (2025-03-11)
+
+
+### Features
+
+* add the ability to configure the order of checkboxes in the filter ([8c0e9ef](https://github.com/agrc/wfrc-bike-map/commit/8c0e9efa8f9aaf5485403cd557dc0297c43c4fb0)), closes [#79](https://github.com/agrc/wfrc-bike-map/issues/79)
+
 ## [0.4.0-4](https://github.com/agrc/wfrc-bike-map/compare/v0.4.0-3...v0.4.0-4) (2025-03-11)
 
 
