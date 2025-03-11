@@ -173,12 +173,11 @@ export const MapContainer = ({
         const layer = mapView.current!.map.layers.find(
           (layer) => layer.title === layerNames[layerName],
         ) as __esri.FeatureLayer;
-        layer.popupEnabled = false;
-        layers.current[layerName] = layer;
-
-        if (!layers.current[layerName]) {
+        if (!layer) {
           throw new Error(`Could not find layer: ${layerName}`);
         }
+        layer.popupEnabled = false;
+        layers.current[layerName] = layer;
       }
 
       // wait for all of the layers to fully load
