@@ -48,7 +48,7 @@ This app is configurable via [Firebase Remote Configs](https://firebase.google.c
 [Dev Configs](https://console.firebase.google.com/project/ut-dts-agrc-wfrc-bike-map-dev/config/env/firebase)
 [Prod Configs](https://console.firebase.google.com/project/ut-dts-agrc-wfrc-bike-map-prod/config/env/firebase)
 
-Once any changes are published, the values should be immediately reflected in the corresponding application environment.
+Once any changes are published, the values should be reflected in the corresponding application environment within 60 seconds.
 
 If you add a new config, make sure to run `pnpm run download-configs:dev` so that you have the necessary default values during development. This is done automatically in CI.
 

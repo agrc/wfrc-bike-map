@@ -96,7 +96,8 @@ export default function FirebaseRemoteConfigsProvider({
       remoteConfig.defaultConfig = getDefaultValues(
         remoteConfigDefaults.parameters as Parameters,
       );
-      remoteConfig.settings.fetchTimeoutMillis = 2000;
+      remoteConfig.settings.fetchTimeoutMillis = 1000 * 2;
+      remoteConfig.settings.minimumFetchIntervalMillis = 1000 * 60;
 
       if (!import.meta.env.DEV) {
         try {
