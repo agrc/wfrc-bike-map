@@ -7,9 +7,9 @@ h2.esri-feature__title {
 }
 
 .esri-feature-content table {
-  @apply text-xl;
+  @apply border-separate border-spacing-y-2 text-xl;
 }
 
 .esri-feature-content table td:first-child {
-  @apply whitespace-nowrap pr-2 text-right align-text-top font-bold;
+  @apply pr-2 text-right align-text-top font-bold;
 }
