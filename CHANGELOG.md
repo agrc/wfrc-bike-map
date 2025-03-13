@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.0-6](https://github.com/agrc/wfrc-bike-map/compare/v0.4.0-5...v0.4.0-6) (2025-03-13)
+
+
+### Bug Fixes
+
+* fix bug causing the state of both filter types to be mixed ([c1816a2](https://github.com/agrc/wfrc-bike-map/commit/c1816a290d0eda7623d67268ac719df206f3d5c4))
+
 ## [0.4.0-5](https://github.com/agrc/wfrc-bike-map/compare/v0.4.0-4...v0.4.0-5) (2025-03-11)
 
 
