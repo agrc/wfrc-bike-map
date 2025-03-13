@@ -32,7 +32,7 @@ export default function RendererClassCheckbox({
       key={rendererClass.label}
       value={rendererClass.values!.join(',')}
       onChange={handleCheckboxChange}
-      isSelected={state[layerKey].selectedClasses.includes(classIndex)}
+      isSelected={state[layerKey].selectedClasses!.includes(classIndex)}
     >
       <LegendSwatch symbol={rendererClass.symbol} />
       <Label>{rendererClass.label}</Label>

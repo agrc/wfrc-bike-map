@@ -2,6 +2,7 @@ import { type Draft } from 'immer';
 import { createContext, type Dispatch, type ReactNode } from 'react';
 import { useImmerReducer } from 'use-immer';
 import type { LayersWithRenderClassesKeys } from '../shared';
+import { getUrlParameter, setUrlParameter } from '../utilities/UrlParameters';
 
 type FilterState = {
   selectedFilterType: Omit<LayersWithRenderClassesKeys, 'trafficSignals'>;
@@ -10,15 +11,15 @@ type FilterState = {
   };
   routeTypes: {
     rendererClasses: __esri.UniqueValueClass[];
-    selectedClasses: number[];
+    selectedClasses: number[] | null;
   };
   trafficStress: {
     rendererClasses: __esri.UniqueValueClass[];
-    selectedClasses: number[];
+    selectedClasses: number[] | null;
   };
   trafficSignals: {
     rendererClasses: __esri.UniqueValueClass[];
-    selectedClasses: number[];
+    selectedClasses: number[] | null;
   };
   layerToggles: {
     otherLinks: boolean;
@@ -55,24 +56,28 @@ type Action =
     };
 
 const initialState: FilterState = {
-  selectedFilterType: 'routeTypes',
+  selectedFilterType:
+    (getUrlParameter('filterType', 'string') as string) ?? 'routeTypes',
   symbols: {
     otherLinks: null,
   },
   routeTypes: {
     rendererClasses: [],
-    selectedClasses: [],
+    selectedClasses:
+      (getUrlParameter('routeTypes', 'number[]') as number[]) ?? null,
   },
   trafficStress: {
     rendererClasses: [],
-    selectedClasses: [],
+    selectedClasses:
+      (getUrlParameter('trafficStress', 'number[]') as number[]) ?? null,
   },
   trafficSignals: {
     rendererClasses: [],
-    selectedClasses: [],
+    selectedClasses:
+      (getUrlParameter('trafficSignals', 'number[]') as number[]) ?? null,
   },
   layerToggles: {
-    otherLinks: true,
+    otherLinks: (getUrlParameter('otherLinks', 'boolean') as boolean) ?? true,
   },
 };
 
@@ -80,22 +85,28 @@ function reducer(draft: Draft<FilterState>, action: Action): void {
   switch (action.type) {
     case 'MAP_LOADED':
       draft.routeTypes.rendererClasses = action.payload.routeTypes;
-      draft.routeTypes.selectedClasses = Array.from(
-        { length: action.payload.routeTypes.length },
-        (_, i) => i,
-      );
+      if (draft.routeTypes.selectedClasses === null) {
+        draft.routeTypes.selectedClasses = Array.from(
+          { length: action.payload.routeTypes.length },
+          (_, i) => i,
+        );
+      }
 
       draft.trafficStress.rendererClasses = action.payload.trafficStress;
-      draft.trafficStress.selectedClasses = Array.from(
-        { length: action.payload.trafficStress.length },
-        (_, i) => i,
-      );
+      if (draft.trafficStress.selectedClasses === null) {
+        draft.trafficStress.selectedClasses = Array.from(
+          { length: action.payload.trafficStress.length },
+          (_, i) => i,
+        );
+      }
 
       draft.trafficSignals.rendererClasses = action.payload.trafficSignals;
-      draft.trafficSignals.selectedClasses = Array.from(
-        { length: action.payload.trafficSignals.length },
-        (_, i) => i,
-      );
+      if (draft.trafficSignals.selectedClasses === null) {
+        draft.trafficSignals.selectedClasses = Array.from(
+          { length: action.payload.trafficSignals.length },
+          (_, i) => i,
+        );
+      }
 
       draft.symbols = action.payload.symbols;
 
@@ -104,28 +115,36 @@ function reducer(draft: Draft<FilterState>, action: Action): void {
     case 'TOGGLE_RENDERER_CLASS':
       const selectedClasses = draft[action.payload.layerKey].selectedClasses;
 
-      if (selectedClasses.includes(action.payload.classIndex)) {
-        selectedClasses.splice(
-          selectedClasses.indexOf(action.payload.classIndex),
+      if (selectedClasses!.includes(action.payload.classIndex)) {
+        selectedClasses!.splice(
+          selectedClasses!.indexOf(action.payload.classIndex),
           1,
         );
       } else {
-        selectedClasses.push(action.payload.classIndex);
+        selectedClasses!.push(action.payload.classIndex);
       }
+
+      setUrlParameter(action.payload.layerKey, selectedClasses!);
 
       break;
 
     case 'TOGGLE_FILTER_TYPE':
-      draft.selectedFilterType =
+      const newValue =
         draft.selectedFilterType === 'routeTypes'
           ? 'trafficStress'
           : 'routeTypes';
 
+      draft.selectedFilterType = newValue;
+
+      setUrlParameter('filterType', newValue);
+
       break;
 
     case 'TOGGLE_LAYER':
-      draft.layerToggles[action.payload.layerKey] =
-        !draft.layerToggles[action.payload.layerKey];
+      const layerKey = action.payload.layerKey;
+      draft.layerToggles[layerKey] = !draft.layerToggles[layerKey];
+
+      setUrlParameter(layerKey, draft.layerToggles[layerKey]);
 
       break;
   }
