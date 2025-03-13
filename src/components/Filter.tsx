@@ -43,7 +43,7 @@ export default function Filter() {
         <RendererClassCheckbox
           key={rendererClass.label}
           classIndex={classIndex}
-          layerKey="routeTypes"
+          layerKey={layerKey}
           rendererClass={rendererClass}
         />
       );
