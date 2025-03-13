@@ -1,3 +1,4 @@
+import { watch } from '@arcgis/core/core/reactiveUtils';
 import MapView from '@arcgis/core/views/MapView';
 import WebMap from '@arcgis/core/WebMap';
 import Home from '@arcgis/core/widgets/Home';
@@ -13,6 +14,7 @@ import type {
 } from '../context/FirebaseRemoteConfigsProvider';
 import { useFilter } from '../hooks/useFilter';
 import useRemoteConfigs from '../hooks/useRemoteConfigs';
+import { getUrlParameter, setUrlParameter } from '../utilities/UrlParameters';
 import { getWhereClause, setLayerViewFilter } from './utilities';
 
 async function getCoarseLocation() {
@@ -112,7 +114,18 @@ export const MapContainer = ({
           wkid: 102100,
         },
       };
-      if (useMyLocationOnLoad) {
+
+      const xyUrlParam = getUrlParameter('center', 'number[]') as number[];
+      const zoomUrlParam = getUrlParameter('zoom', 'number') as number;
+      if (xyUrlParam) {
+        center = {
+          x: xyUrlParam[0],
+          y: xyUrlParam[1],
+          spatialReference: {
+            wkid: 3857,
+          },
+        };
+      } else if (useMyLocationOnLoad) {
         const location = await getCoarseLocation();
         if (location) {
           center = [location.x, location.y];
@@ -122,7 +135,7 @@ export const MapContainer = ({
       mapView.current = new MapView({
         container: mapNode.current,
         center,
-        zoom: INITIAL_MAP_ZOOM,
+        zoom: zoomUrlParam ?? INITIAL_MAP_ZOOM,
         ui: {
           components: hideZoom ? [] : ['zoom'],
         },
@@ -160,6 +173,23 @@ export const MapContainer = ({
           }
         });
       });
+
+      watch(
+        () => mapView.current!.center,
+        () => {
+          setUrlParameter('center', [
+            Math.round(mapView.current!.center.x),
+            Math.round(mapView.current!.center.y),
+          ]);
+        },
+      );
+
+      watch(
+        () => mapView.current!.zoom,
+        () => {
+          setUrlParameter('zoom', mapView.current!.zoom);
+        },
+      );
 
       await mapView.current.when();
 
@@ -232,7 +262,7 @@ export const MapContainer = ({
     const fieldNames = getConfig('fieldNames') as FieldNames;
     if (state.selectedFilterType === 'routeTypes') {
       const where = getWhereClause(
-        state.routeTypes.selectedClasses,
+        state.routeTypes.selectedClasses!,
         state.routeTypes.rendererClasses,
         fieldNames.facility1,
         layers.current.routeTypes.fields.find(
@@ -247,7 +277,7 @@ export const MapContainer = ({
       layers.current.trafficSignals.visible = false;
     } else if (state.selectedFilterType === 'trafficStress') {
       const where = getWhereClause(
-        state.trafficStress.selectedClasses,
+        state.trafficStress.selectedClasses!,
         state.trafficStress.rendererClasses,
         fieldNames.ltsScore,
         layers.current.routeTypes.fields.find(
@@ -257,7 +287,7 @@ export const MapContainer = ({
       setLayerViewFilter(layers.current.trafficStress, mapView.current, where);
 
       const signalsWhere = getWhereClause(
-        state.trafficSignals.selectedClasses,
+        state.trafficSignals.selectedClasses!,
         state.trafficSignals.rendererClasses,
         fieldNames.type,
         layers.current.trafficSignals.fields.find(
