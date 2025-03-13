@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.4.0-7](https://github.com/agrc/wfrc-bike-map/compare/v0.4.0-6...v0.4.0-7) (2025-03-13)
+
+
+### Features
+
+* preserve filter and map extent state as URL parameters ([340d8b4](https://github.com/agrc/wfrc-bike-map/commit/340d8b491e7f9dfadd7c392a43618f7f696d3fd9)), closes [#15](https://github.com/agrc/wfrc-bike-map/issues/15)
+
+
+### Styles
+
+* add a bit of vertical space between identify table rows ([6baa57c](https://github.com/agrc/wfrc-bike-map/commit/6baa57ce51e87f99a362675e626cc171832dd357))
+
 ## [0.4.0-6](https://github.com/agrc/wfrc-bike-map/compare/v0.4.0-5...v0.4.0-6) (2025-03-13)
 
 
