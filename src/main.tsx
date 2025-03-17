@@ -2,6 +2,7 @@ import esriConfig from '@arcgis/core/config';
 import {
   FirebaseAnalyticsProvider,
   FirebaseAppProvider,
+  FirebaseFunctionsProvider,
 } from '@ugrc/utah-design-system';
 import React from 'react';
 import { createRoot } from 'react-dom/client';
@@ -33,7 +34,9 @@ createRoot(document.getElementById('root')!).render(
       <FirebaseAppProvider config={firebaseConfig}>
         <FirebaseAnalyticsProvider>
           <FirebaseRemoteConfigsProvider>
-            <App />
+            <FirebaseFunctionsProvider>
+              <App />
+            </FirebaseFunctionsProvider>
           </FirebaseRemoteConfigsProvider>
         </FirebaseAnalyticsProvider>
       </FirebaseAppProvider>

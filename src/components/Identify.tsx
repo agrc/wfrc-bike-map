@@ -1,6 +1,8 @@
 import '@arcgis/map-components/components/arcgis-feature';
 import { Button } from '@ugrc/utah-design-system';
 import { CircleX } from 'lucide-react';
+import { useEffect, useRef, useState } from 'react';
+import Feedback from './Feedback';
 import './Identify.css';
 
 type IdentifyProps = {
@@ -9,12 +11,40 @@ type IdentifyProps = {
 };
 
 export default function Identify({ graphic, clear }: IdentifyProps) {
+  const [showFeedback, setShowFeedback] = useState(false);
+  const featureComponentRef = useRef<HTMLArcgisFeatureElement>(null);
+
+  useEffect(() => {
+    if (showFeedback) {
+      setShowFeedback(false);
+    }
+  }, [graphic]);
+
   return (
     <>
-      <Button variant="icon" onPress={clear}>
+      <Button className="absolute left-0 top-0" variant="icon" onPress={clear}>
         <CircleX />
       </Button>
-      <arcgis-feature className="p-2" graphic={graphic} />
+      <div className="size-full overflow-y-auto">
+        <arcgis-feature
+          ref={featureComponentRef}
+          className="p-3"
+          graphic={graphic}
+        />
+        <div className="px-3 pb-4">
+          {showFeedback ? (
+            <Feedback
+              onCancel={() => setShowFeedback(false)}
+              // pass the graphic from the feature component because it makes the request to get all of the attributes, the graphic from the map click only has the symbology fields
+              graphic={featureComponentRef.current!.graphic!}
+            />
+          ) : (
+            <Button className="w-full" onPress={() => setShowFeedback(true)}>
+              Give feedback about this road or trail
+            </Button>
+          )}
+        </div>
+      </div>
     </>
   );
 }

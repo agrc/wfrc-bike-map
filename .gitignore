@@ -18,3 +18,4 @@ npm-debug.log*
 /.firebase
 /public/assets
 .env.local
+firebase-debug.log

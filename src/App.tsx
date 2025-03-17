@@ -1,3 +1,4 @@
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Drawer, Header } from '@ugrc/utah-design-system';
 import { useLocalStorage } from '@ugrc/utilities/hooks';
 import { useEffect, useState } from 'react';
@@ -8,6 +9,8 @@ import Filter from './components/Filter';
 import Identify from './components/Identify';
 import { MapContainer } from './components/MapContainer';
 import FilterProvider from './context/FilterProvider';
+
+const queryClient = new QueryClient();
 
 export default function App() {
   const trayState = useOverlayTriggerState({ defaultOpen: true });
@@ -61,7 +64,9 @@ export default function App() {
           {...trayTriggerProps}
         >
           {identifyGraphic ? (
-            <Identify graphic={identifyGraphic} clear={clearIdentify} />
+            <QueryClientProvider client={queryClient}>
+              <Identify graphic={identifyGraphic} clear={clearIdentify} />
+            </QueryClientProvider>
           ) : (
             <Filter />
           )}
