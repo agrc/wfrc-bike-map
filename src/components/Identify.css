@@ -3,7 +3,7 @@ arcgis-feature .esri-feature {
 }
 
 h2.esri-feature__title {
-  @apply text-center text-2xl;
+  @apply px-2 text-center text-2xl;
 }
 
 .esri-feature-content table {

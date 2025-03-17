@@ -7,14 +7,15 @@
     "build": "vite build",
     "check": "tsc -b",
     "copy:arcgis": "cpy \"./node_modules/@arcgis/core/assets/**\" ./public/assets",
-    "dev": "pnpm start",
+    "dev:firebase-emulators": "firebase emulators:start --only functions",
+    "dev:vite": "vite",
     "download-configs:dev": "npx firebase-tools remoteconfig:get -o src/remote_config_defaults.json --project ut-dts-agrc-wfrc-bike-map-dev",
     "download-configs:prod": "npx firebase-tools remoteconfig:get -o src/remote_config_defaults.json --project ut-dts-agrc-wfrc-bike-map-prod",
     "format": "prettier . --write",
     "postinstall": "pnpm run copy:arcgis",
     "lint": "eslint .",
     "preview": "vite preview",
-    "start": "vite",
+    "start": "concurrently 'cd functions && pnpm run build:watch' 'wait-on http://127.0.0.1:4000 && pnpm run dev:vite' 'pnpm run dev:firebase-emulators'",
     "test": "vitest"
   },
   "browserslist": {
@@ -32,8 +33,11 @@
   "dependencies": {
     "@arcgis/core": "^4.32.8",
     "@arcgis/map-components": "^4.32.11",
+    "@esri/arcgis-rest-request": "^4.3.0",
+    "@tanstack/react-query": "^5.68.0",
     "@ugrc/utah-design-system": "^1.20.3",
     "@ugrc/utilities": "^3.0.2",
+    "concurrently": "^9.1.2",
     "firebase": "^11.4.0",
     "immer": "^10.1.1",
     "lucide-react": "^0.479.0",
@@ -44,7 +48,8 @@
     "react-error-boundary": "^5.0.0",
     "react-stately": "^3.36.1",
     "use-immer": "^0.11.0",
-    "usehooks-ts": "^3.1.1"
+    "usehooks-ts": "^3.1.1",
+    "wait-on": "^8.0.3"
   },
   "devDependencies": {
     "@eslint/compat": "^1.2.7",
