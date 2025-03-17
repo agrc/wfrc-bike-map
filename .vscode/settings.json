@@ -1,6 +1,7 @@
 {
   "cSpell.words": [
     "arcgis",
+    "autoplay",
     "basemap",
     "browserslist",
     "firebaseapp",
@@ -10,10 +11,13 @@
     "Millis",
     "noopener",
     "noreferrer",
+    "nosniff",
     "nowrap",
     "packagejson",
     "prebuild",
+    "predeploy",
     "remoteconfig",
+    "SAMEORIGIN",
     "tailwindcss",
     "tsconfigs",
     "usehooks",

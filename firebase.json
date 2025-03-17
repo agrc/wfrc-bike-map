@@ -1,4 +1,5 @@
 {
+  "$schema": "https://raw.githubusercontent.com/firebase/firebase-tools/master/schema/firebase-config.json",
   "hosting": {
     "public": "dist",
     "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
@@ -85,7 +86,9 @@
         "firebase-debug.*.log",
         "*.local"
       ],
-      "predeploy": ["pnpm --prefix \"$RESOURCE_DIR\" run build"]
+      "predeploy": [
+        "pnpm --prefix \"$RESOURCE_DIR\" install && pnpm --prefix \"$RESOURCE_DIR\" run build"
+      ]
     }
   ]
 }
