@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.0-10](https://github.com/agrc/wfrc-bike-map/compare/v0.4.0-9...v0.4.0-10) (2025-03-17)
+
+
+### Bug Fixes
+
+* **function:** include missing explicit dependency ([10efc43](https://github.com/agrc/wfrc-bike-map/commit/10efc4365e8b863cb16fc6f14f39504e4bc6a5a0))
+
 ## [0.4.0-9](https://github.com/agrc/wfrc-bike-map/compare/v0.4.0-8...v0.4.0-9) (2025-03-17)
 
 
