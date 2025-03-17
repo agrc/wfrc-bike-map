@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.0-9](https://github.com/agrc/wfrc-bike-map/compare/v0.4.0-8...v0.4.0-9) (2025-03-17)
+
+
+### Bug Fixes
+
+* **function:** install deps before typescript build ([7808076](https://github.com/agrc/wfrc-bike-map/commit/7808076f6c0715771e54db3eeaab739d269b698a))
+
 ## [0.4.0-8](https://github.com/agrc/wfrc-bike-map/compare/v0.4.0-7...v0.4.0-8) (2025-03-17)
 
 
