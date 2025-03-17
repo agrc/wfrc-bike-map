@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.0-8](https://github.com/agrc/wfrc-bike-map/compare/v0.4.0-7...v0.4.0-8) (2025-03-17)
+
+
+### Features
+
+* implement feature-specific feedback ([6562758](https://github.com/agrc/wfrc-bike-map/commit/65627581c3d15734708073b5af1d0e019c810310)), closes [#17](https://github.com/agrc/wfrc-bike-map/issues/17)
+
 ## [0.4.0-7](https://github.com/agrc/wfrc-bike-map/compare/v0.4.0-6...v0.4.0-7) (2025-03-13)
 
 
