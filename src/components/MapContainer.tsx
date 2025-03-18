@@ -6,7 +6,7 @@ import Track from '@arcgis/core/widgets/Track';
 import { BusyBar } from '@ugrc/utah-design-system';
 import { useViewLoading } from '@ugrc/utilities/hooks';
 import { useEffect, useRef } from 'react';
-import { useDarkMode, useWindowSize } from 'usehooks-ts';
+import { useWindowSize } from 'usehooks-ts';
 import config from '../config';
 import type {
   FieldNames,
@@ -63,26 +63,8 @@ export const MapContainer = ({
 
   const isDrawing = useViewLoading(mapView.current);
 
-  const { isDarkMode } = useDarkMode();
   const { width = 0 } = useWindowSize();
   const hideZoom = width < config.BREAKPOINTS.md;
-
-  // toggle dark/light modes
-  useEffect(() => {
-    const darkLink = document.getElementById(
-      'arcgis-dark-theme',
-    ) as HTMLLinkElement;
-    const lightLink = document.getElementById(
-      'arcgis-light-theme',
-    ) as HTMLLinkElement;
-
-    if (!darkLink || !lightLink) {
-      throw new Error('Could not find dark or light theme link elements');
-    }
-
-    darkLink.disabled = !isDarkMode;
-    lightLink.disabled = isDarkMode;
-  }, [isDarkMode]);
 
   const { state, dispatch } = useFilter();
   const getConfig = useRemoteConfigs();
