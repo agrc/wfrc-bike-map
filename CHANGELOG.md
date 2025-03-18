@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.0-11](https://github.com/agrc/wfrc-bike-map/compare/v0.4.0-10...v0.4.0-11) (2025-03-18)
+
+
+### Bug Fixes
+
+* **functions:** add environment variables ([ab8b597](https://github.com/agrc/wfrc-bike-map/commit/ab8b5972b04d3b0a4c31621ce92e84a3fca44eca))
+
 ## [0.4.0-10](https://github.com/agrc/wfrc-bike-map/compare/v0.4.0-9...v0.4.0-10) (2025-03-17)
 
 
