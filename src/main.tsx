@@ -1,4 +1,5 @@
 import esriConfig from '@arcgis/core/config';
+import initializeTheme from '@ugrc/esri-theme-toggle';
 import {
   FirebaseAnalyticsProvider,
   FirebaseAppProvider,
@@ -18,6 +19,7 @@ if (!import.meta.env.VITE_FIREBASE_CONFIG) {
 const firebaseConfig = JSON.parse(import.meta.env.VITE_FIREBASE_CONFIG);
 
 esriConfig.assetsPath = './assets';
+initializeTheme();
 
 const ErrorFallback = ({ error }: { error: Error }) => {
   return (
