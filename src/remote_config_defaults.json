@@ -1,11 +1,11 @@
 {
   "parameters": {
-    "classOrder": {
+    "aboutContent": {
       "defaultValue": {
-        "value": "{\"trafficStress\":[0,1,4,2,3]}"
+        "value": "<p>This web map depicts known existing bicycle paths, lanes, and paths. An alternate map view conveys a comparative\n  level of traffic stress(LTS) that users might experience when bicycling along major roadways.</p>\n\n<p>This dataset is updated periodically but users are advised that the map may not reflect current conditions on the\n  ground, and may contain errors or omissions. User can click on any location on the map to indicate where updated data\n  is needed.</p>\n\n<p>Use of this information is at your own risk.</p>\n\n<p>Planned bike features can be found in <a\n    class=\"m-0 inline-flex cursor-pointer flex-wrap items-center gap-x-0.5 rounded text-secondary-800 underline decoration-secondary-800/60 outline outline-0 outline-offset-2 outline-primary-900 transition hover:decoration-secondary-800 disabled:cursor-default disabled:no-underline dark:text-accent-500 dark:decoration-accent-500/60 dark:outline-secondary-600 dark:hover:decoration-accent-500\"\n    href=\"todo\" target=\"_blank\" rel=\"noopener noreferrer nofollow\"> this map. <span aria-hidden=\"true\"> <svg\n        xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\"\n        stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"\n        class=\"lucide lucide-square-arrow-out-up-right h-full w-4\">\n        <path d=\"M21 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h6\"></path>\n        <path d=\"m21 3-9 9\"></path>\n        <path d=\"M15 3h6v6\"></path>\n      </svg> </span> <span class=\"sr-only\">opens in a new window</span></a></p>\n"
       },
-      "description": "Used to control the order in which the renderer classes are shown in the filter.",
-      "valueType": "JSON"
+      "description": "The html content displayed in the about/loading dialog.",
+      "valueType": "STRING"
     },
     "webMapId": {
       "defaultValue": {
@@ -14,25 +14,25 @@
       "description": "The AGOL id of the web map that you want to point the app to.",
       "valueType": "STRING"
     },
-    "aboutContent": {
-      "defaultValue": {
-        "value": "<p>This web map depicts known existing bicycle paths, lanes, and paths.An alternate map view conveys a comparative level of traffic stress(LTS) that users might experience when bicycling along majorroadways.</p><p>This dataset is updated periodically but users are advised that themap may not reflect current conditions on the ground, and maycontain errors or omissions. User can click on any location on themap to indicate where updated data is needed.</p><p>Use of this information is at your own risk.</p><p>Planned bike features can be found in<a  class=\"m-0 inline-flex cursor-pointer flex-wrap items-center gap-x-0.5 rounded text-secondary-800 underline decoration-secondary-800/60 outline outline-0 outline-offset-2 outline-primary-900 transition hover:decoration-secondary-800 disabled:cursor-default disabled:no-underline dark:text-accent-500 dark:decoration-accent-500/60 dark:outline-secondary-600 dark:hover:decoration-accent-500\"  href=\"todo\"  target=\"_blank\"  rel=\"noopener noreferrer nofollow\">  this map.  <span aria-hidden=\"true\">    <svg      xmlns=\"http://www.w3.org/2000/svg\"      width=\"24\"      height=\"24\"      viewBox=\"0 0 24 24\"      fill=\"none\"      stroke=\"currentColor\"      stroke-width=\"2\"      stroke-linecap=\"round\"      stroke-linejoin=\"round\"      class=\"lucide lucide-square-arrow-out-up-right h-full w-4\"    >      <path d=\"M21 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h6\"></path>      <path d=\"m21 3-9 9\"></path>      <path d=\"M15 3h6v6\"></path>    </svg>  </span>  <span class=\"sr-only\">opens in a new window</span></a></p>"
-      },
-      "description": "The html content displayed in the about/loading dialog.",
-      "valueType": "STRING"
-    },
     "layerNames": {
       "defaultValue": {
         "value": "{\"routeTypes\":\"Route Types\",\"trafficStress\":\"Traffic Stress\",\"trafficSignals\":\"Traffic Signals\",\"otherLinks\":\"Other Links\"}"
       },
-      "description": "The names of the layers in the web map. The app uses these to get references to the layers for filtering and toggling.",
+      "description": "The names of the layers in the web map. The app uses these to get references to the layers for filtering and toggling. The keys for this object are used in the app code so they should not be changed.",
       "valueType": "JSON"
     },
     "fieldNames": {
       "defaultValue": {
         "value": "{\"facility1\":\"Facility1\",\"ltsScore\":\"LTS_SCORE\",\"type\":\"Type\"}"
       },
-      "description": "Field names for any of the layers.",
+      "description": "Field names for any of the layers. The keys for this object are used in the app code so they should not be changed.",
+      "valueType": "JSON"
+    },
+    "classOrder": {
+      "defaultValue": {
+        "value": "{\"trafficStress\":[0,1,4,2,3]}"
+      },
+      "description": "Controls the display order of renderer classes in the filter. If unspecified, the default renderer order is used. The keys should not be changed. Values are arrays of indexes corresponding to renderer classes.",
       "valueType": "JSON"
     }
   }
