@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { useOverlayTrigger } from 'react-aria';
 import { useOverlayTriggerState } from 'react-stately';
 import AboutDialog from './components/AboutDialog';
+import Feedback from './components/Feedback';
 import Filter from './components/Filter';
 import Identify from './components/Identify';
 import { MapContainer } from './components/MapContainer';
@@ -23,6 +24,8 @@ export default function App() {
   const [identifyGraphic, setIdentifyGraphic] = useState<__esri.Graphic | null>(
     null,
   );
+  const [genericFeedbackPoint, setGenericFeedbackPoint] =
+    useState<__esri.Graphic | null>(null);
 
   const clearIdentify = () => setIdentifyGraphic(null);
 
@@ -56,6 +59,8 @@ export default function App() {
           trayIsOpen={trayState.isOpen}
           onFeatureIdentify={setIdentifyGraphic}
           useMyLocationOnLoad={useMyLocationOnLoad}
+          genericFeedbackPoint={genericFeedbackPoint}
+          setGenericFeedbackPoint={setGenericFeedbackPoint}
         />
         <Drawer
           type="tray"
@@ -63,13 +68,20 @@ export default function App() {
           state={trayState}
           {...trayTriggerProps}
         >
-          {identifyGraphic ? (
-            <QueryClientProvider client={queryClient}>
+          <QueryClientProvider client={queryClient}>
+            {identifyGraphic ? (
               <Identify graphic={identifyGraphic} clear={clearIdentify} />
-            </QueryClientProvider>
-          ) : (
-            <Filter />
-          )}
+            ) : genericFeedbackPoint ? (
+              <div className="p-4">
+                <Feedback
+                  genericPoint={genericFeedbackPoint}
+                  onCancel={() => setGenericFeedbackPoint(null)}
+                />
+              </div>
+            ) : (
+              <Filter />
+            )}
+          </QueryClientProvider>
         </Drawer>
       </FilterProvider>
     </main>

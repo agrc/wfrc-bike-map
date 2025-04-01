@@ -1,11 +1,12 @@
 import { watch } from '@arcgis/core/core/reactiveUtils';
+import Graphic from '@arcgis/core/Graphic';
 import MapView from '@arcgis/core/views/MapView';
 import WebMap from '@arcgis/core/WebMap';
 import Home from '@arcgis/core/widgets/Home';
 import Track from '@arcgis/core/widgets/Track';
 import { BusyBar } from '@ugrc/utah-design-system';
-import { useViewLoading } from '@ugrc/utilities/hooks';
-import { useEffect, useRef } from 'react';
+import { useGraphicManager, useViewLoading } from '@ugrc/utilities/hooks';
+import { useEffect, useRef, useState } from 'react';
 import { useWindowSize } from 'usehooks-ts';
 import config from '../config';
 import type {
@@ -43,12 +44,39 @@ type MapContainerProps = {
   onFeatureIdentify: (graphic: __esri.Graphic | null) => void;
   trayIsOpen: boolean;
   useMyLocationOnLoad: boolean;
+  genericFeedbackPoint: __esri.Graphic | null;
+  setGenericFeedbackPoint: (point: __esri.Graphic | null) => void;
 };
+
+function getFeedbackGraphic(center: number[]) {
+  return new Graphic({
+    attributes: {},
+    geometry: {
+      type: 'point',
+      x: center[0],
+      y: center[1],
+      spatialReference: {
+        wkid: 3857,
+      },
+    },
+    symbol: {
+      type: 'simple-marker',
+      color: [255, 0, 0, 0.5],
+      size: '20px',
+      outline: {
+        color: [255, 0, 0],
+        width: 2,
+      },
+    },
+  });
+}
 
 export const MapContainer = ({
   onFeatureIdentify,
   trayIsOpen,
   useMyLocationOnLoad,
+  genericFeedbackPoint,
+  setGenericFeedbackPoint,
 }: MapContainerProps) => {
   const mapNode = useRef<HTMLDivElement | null>(null);
   const map = useRef<WebMap | null>(null);
@@ -69,9 +97,36 @@ export const MapContainer = ({
   const { state, dispatch } = useFilter();
   const getConfig = useRemoteConfigs();
 
+  const showFeedback = genericFeedbackPoint !== null;
+
+  const [center, setCenter] = useState<number[] | null>(null);
+  useEffect(() => {
+    if (center) {
+      setUrlParameter('center', center);
+
+      if (showFeedback) {
+        const graphic = getFeedbackGraphic(center);
+        setGenericFeedbackPoint(graphic);
+      }
+    } else {
+      setGenericFeedbackPoint(null);
+    }
+  }, [center]);
+
+  // display generic feedback point
+  const { setGraphic } = useGraphicManager(mapView.current);
+  useEffect(() => {
+    if (genericFeedbackPoint) {
+      setGraphic(genericFeedbackPoint);
+    } else {
+      setGraphic(null);
+    }
+  }, [genericFeedbackPoint]);
+
   // set up map
   // update identify highlighting
   const highlightHandle = useRef<__esri.Handle>(null);
+  const feedbackButtonRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
     if (!mapNode.current || mapIsInitialized.current || !getConfig) {
       return;
@@ -128,6 +183,7 @@ export const MapContainer = ({
       });
 
       clickHandler = mapView.current!.on('immediate-click', (event) => {
+        setGenericFeedbackPoint(null);
         mapView.current!.hitTest(event).then((response) => {
           const graphicHits = response.results.filter(
             (result) =>
@@ -159,10 +215,9 @@ export const MapContainer = ({
       watch(
         () => mapView.current!.center,
         () => {
-          setUrlParameter('center', [
-            Math.round(mapView.current!.center.x),
-            Math.round(mapView.current!.center.y),
-          ]);
+          const x = Math.round(mapView.current!.center.x);
+          const y = Math.round(mapView.current!.center.y);
+          setCenter([x, y]);
         },
       );
 
@@ -179,6 +234,7 @@ export const MapContainer = ({
       const trackWidget = new Track({ view: mapView.current! });
       mapView.current!.ui.add(homeWidget, 'top-right');
       mapView.current!.ui.add(trackWidget, 'top-right');
+      mapView.current!.ui.add(feedbackButtonRef.current!, 'top-right');
 
       const layerNames = getConfig('layerNames') as LayerNames;
       for (const layerName of Object.keys(layers.current) as LayerNameKey[]) {
@@ -289,6 +345,7 @@ export const MapContainer = ({
     }
   }, [state]);
 
+  // toggle map padding when tray is open
   useEffect(() => {
     if (mapView.current) {
       mapView.current.padding.bottom = trayIsOpen ? PADDING : 0;
@@ -307,8 +364,35 @@ export const MapContainer = ({
   }, [useMyLocationOnLoad]);
 
   return (
-    <div ref={mapNode} className="relative size-full">
-      {mapView.current && <BusyBar busy={isDrawing} />}
-    </div>
+    <>
+      <div ref={mapNode} className="relative size-full">
+        {mapView.current && <BusyBar busy={isDrawing} />}
+      </div>
+      <div className="esri-component esri-widget" ref={feedbackButtonRef}>
+        <calcite-button
+          kind="neutral"
+          className="esri-widget--button"
+          icon-start="pencil"
+          label="Add feedback"
+          onClick={() => {
+            if (showFeedback) {
+              setGenericFeedbackPoint(null);
+            } else {
+              setGenericFeedbackPoint(
+                getFeedbackGraphic([
+                  mapView.current!.center.x,
+                  mapView.current!.center.y,
+                ]),
+              );
+
+              onFeatureIdentify(null);
+              if (highlightHandle.current) {
+                highlightHandle.current.remove();
+              }
+            }
+          }}
+        ></calcite-button>
+      </div>
+    </>
   );
 };

@@ -13,10 +13,13 @@ importers:
         version: 4.32.9
       '@arcgis/map-components':
         specifier: ^4.32.13
-        version: 4.32.13(@arcgis/core@4.32.9)(@esri/calcite-components@3.0.3)
+        version: 4.32.13(@arcgis/core@4.32.9)(@esri/calcite-components@3.1.0)
       '@esri/arcgis-rest-request':
         specifier: ^4.3.0
         version: 4.3.0
+      '@esri/calcite-components':
+        specifier: ^3.1.0
+        version: 3.1.0
       '@tanstack/react-query':
         specifier: ^5.71.1
         version: 5.71.1(react@19.1.0)
@@ -158,14 +161,8 @@ packages:
     resolution: {integrity: sha512-30iZtAPgz+LTIYoeivqYo853f02jBYSd5uGnGpkFV0M3xOt9aN73erkgYAmZU43x4VfqcnLxW9Kpg3R5LC4YYw==}
     engines: {node: '>=6.0.0'}
 
-  '@arcgis/components-controllers@4.32.11':
-    resolution: {integrity: sha512-GsK4KO/nn73AAQyo4UaNweMv0Wv1rsB6Ru1J9No005qnf+hjdAIdSikep1eM9V5iZwOzwZkAf0cFJXQ+Xz+lBA==}
-
   '@arcgis/components-controllers@4.32.13':
     resolution: {integrity: sha512-7QKUjmDzLjkeAffPXuCoJAEeT12/5JHGXSsMlWDG3Y+/i3znFRSYUmSDyiPuZE8zDD2cJIFc6PrAaXnb6Khe0g==}
-
-  '@arcgis/components-utils@4.32.11':
-    resolution: {integrity: sha512-ynx/msRzC2Yc7xuoGcJ0eT2WGtKqVLCxCG68DwBAQXG4lP8d7DBxnp/AFEyfFXrIChYU13SPG/lcXpzqx4+5uA==}
 
   '@arcgis/components-utils@4.32.13':
     resolution: {integrity: sha512-gFcfkJeoCivdsbcJYUJi2aBJTBh3VN07lu0RQDTjh+5Dv4yiOPXECn/BU8JQdV+AiMkN8GFSSUNOZu5Ny8kp2Q==}
@@ -177,9 +174,6 @@ packages:
 
   '@arcgis/core@4.32.9':
     resolution: {integrity: sha512-w174cWsIkE6fsalkwFnqErO2saGB1lZcCYMC2yVCaaj50N7PM4brSNc5Myb7OWtDWsTNQPbkVSYW7d96iqNpHA==}
-
-  '@arcgis/lumina@4.32.11':
-    resolution: {integrity: sha512-K5XaWZdJQTL1NAOKow/HFUVB/EN636eaHO1zC4itM0/ey8X4Cn22XeGrYhcecRaOYX5s/0fJQdSgNgGTnzq/6g==}
 
   '@arcgis/lumina@4.32.13':
     resolution: {integrity: sha512-gs1uAMKykfUTfrrhyltmWUZY3iAIIe8zfdcPGtThOyt6ySq7CooUBp2H0MN7MRFVNzXNvENLEAIxQkbbYagDYg==}
@@ -490,11 +484,11 @@ packages:
     resolution: {integrity: sha512-zuYr4e1x+D7QvtmEj105PlN8lgfKsZ78XKuNNXEbi3+nMYTfCitcyC7Xu16gGAyaUeawdCNjvnAB8ZN8LwINVA==}
     engines: {node: '>=12.20.0'}
 
-  '@esri/calcite-components@3.0.3':
-    resolution: {integrity: sha512-MTaNCQuxFe2VkCUzeQ3CG3i5SND/fH/hr8lmcgemPMcqRZBTx4xHE/PRBZ2nLS1jgjgMJT1Qd+W3MBQpfsB1eQ==}
+  '@esri/calcite-components@3.1.0':
+    resolution: {integrity: sha512-tfuxpwHRftyREO9vAcuuWf9KGaSc9UZrw75w/XZsU6fz33biMrANhhFEoTx5dTMALj68Fxnxibpiyg1vv9BRwQ==}
 
-  '@esri/calcite-ui-icons@4.0.0':
-    resolution: {integrity: sha512-LcL35NydvXI93u/pU6fXXg/kY2LXR5zWEvOytDoqgu1GPL7xgvrYuIutkvuDJpDh3PhcGXsCX4Axw5i6sCEXsA==}
+  '@esri/calcite-ui-icons@4.1.0':
+    resolution: {integrity: sha512-j8uPnbsrPklQVRnaL2qg0wfosavdnQXARr7ckpiIpzAX75MGmNGLg4QKfpAeQrXGJ/xznWWAc+GtAMY8aDrLsw==}
     hasBin: true
 
   '@firebase/analytics-compat@0.2.18':
@@ -1610,15 +1604,6 @@ packages:
   '@types/babel__traverse@7.20.6':
     resolution: {integrity: sha512-r1bzfrm0tomOI8g1SzvCaQHo6Lcv6zu0EA+W2kHrt8dyrHQxGzBBL4kdkzIS+jBMV+EYcMAEAqXqYaLJq5rOZg==}
 
-  '@types/color-convert@2.0.4':
-    resolution: {integrity: sha512-Ub1MmDdyZ7mX//g25uBAoH/mWGd9swVbt8BseymnaE18SU4po/PjmCrHxqIIRjBo3hV/vh1KGr0eMxUhp+t+dQ==}
-
-  '@types/color-name@1.1.5':
-    resolution: {integrity: sha512-j2K5UJqGTxeesj6oQuGpMgifpT5k9HprgQd8D1Y0lOFqKHl3PJu5GMeS4Y5EgjS55AE6OQxf8mPED9uaGbf4Cg==}
-
-  '@types/color@4.2.0':
-    resolution: {integrity: sha512-6+xrIRImMtGAL2X3qYkd02Mgs+gFGs+WsK0b7VVMaO4mYRISwyTjcqNrO0mNSmYEoq++rSLDB2F5HDNmqfOe+A==}
-
   '@types/estree@1.0.6':
     resolution: {integrity: sha512-AYnb1nQyY49te+VRAVgmzfcgjYS91mY5P0TKUDCLEM+gNnA+3T6rWITXRLYCpahpqSQbN5cE+gHpnPyXjHWxcw==}
 
@@ -1966,15 +1951,24 @@ packages:
     resolution: {integrity: sha512-RRECPsj7iu/xb5oKYcsFHSppFNnsj/52OVTRKb4zP5onXwVF3zVmmToNcOfGC+CRDpfK/U584fMg38ZHCaElKQ==}
     engines: {node: '>=7.0.0'}
 
+  color-convert@3.0.1:
+    resolution: {integrity: sha512-5kQah2eolfQV7HCrxtsBBArPfT5dwaKYMCXeMQsdRO7ihTO/cuNLGjd50ITCDn+ZU/YbS0Go64SjP9154eopxg==}
+    engines: {node: '>=14.6'}
+
   color-name@1.1.4:
     resolution: {integrity: sha512-dOy+3AuW3a2wNbZHIuMZpTcgjGuLU/uBL/ubcZF9OXbDo8ff4O8yVp5Bf0efS8uEoYo5q4Fx7dY9OgQGXgAsQA==}
 
-  color-string@1.9.1:
-    resolution: {integrity: sha512-shrVawQFojnZv6xM40anx4CkoDP+fZsw/ZerEMsW/pyzsRbElpsL/DBVW7q3ExxwusdNXI3lXpuhEZkzs8p5Eg==}
+  color-name@2.0.0:
+    resolution: {integrity: sha512-SbtvAMWvASO5TE2QP07jHBMXKafgdZz8Vrsrn96fiL+O92/FN/PLARzUW5sKt013fjAprK2d2iCn2hk2Xb5oow==}
+    engines: {node: '>=12.20'}
 
-  color@4.2.3:
-    resolution: {integrity: sha512-1rXeuUUiGGrykh+CeBdu5Ie7OJwinCgQY0bc7GCRxy5xVHy+moaqkpL/jqQq0MtQOeYcrqEz4abc5f0KtU7W4A==}
-    engines: {node: '>=12.5.0'}
+  color-string@2.0.1:
+    resolution: {integrity: sha512-5z9FbYTZPAo8iKsNEqRNv+OlpBbDcoE+SY9GjLfDUHEfcNNV7tS9eSAlFHEaub/r5tBL9LtskAeq1l9SaoZ5tQ==}
+    engines: {node: '>=18'}
+
+  color@5.0.0:
+    resolution: {integrity: sha512-16BlyiuyLq3MLxpRWyOTiWsO3ii/eLQLJUQXBSNcxMBBSnyt1ee9YUdaozQp03ifwm5woztEZGDbk9RGVuCsdw==}
+    engines: {node: '>=18'}
 
   combined-stream@1.0.8:
     resolution: {integrity: sha512-FQN4MRfuJeHf7cBbBMJFXhKSDq+2kAArBlmRBvcvFE5BB1HZKXtSFASDhdlz9zOYwxh8lDdnvmMOe/+5cdoEdg==}
@@ -2531,9 +2525,6 @@ packages:
   is-array-buffer@3.0.5:
     resolution: {integrity: sha512-DDfANUiiG2wC1qawP66qlTugJeL5HyzMpfr8lLK+jMQirGzNod0B12cFB/9q838Ru27sBwfw78/rdoU7RERz6A==}
     engines: {node: '>= 0.4'}
-
-  is-arrayish@0.3.2:
-    resolution: {integrity: sha512-eVRqCvVlZbuw3GrM63ovNSNAeA1K16kaR/LRY/92w0zxQ5/1YzwblUX652i4Xs9RwAGjW9d9y6X88t8OaAJfWQ==}
 
   is-async-function@2.0.0:
     resolution: {integrity: sha512-Y1JXKrfykRJGdlDwdKlLpLyMIiWqWvuSd17TvZk68PLAOGOoF4Xyav1z0Xhoi+gCYjZVeC5SI+hYFOfvXmGRCA==}
@@ -3276,9 +3267,6 @@ packages:
     resolution: {integrity: sha512-bzyZ1e88w9O1iNJbKnOlvYTrWPDl46O1bG0D3XInv+9tkPrxrN8jUUTiFlDkkmKWgn1M6CfIA13SuGqOa9Korw==}
     engines: {node: '>=14'}
 
-  simple-swizzle@0.2.2:
-    resolution: {integrity: sha512-JA//kQgZtbuY83m+xT+tXJkmJncGMTFT+C+g2h2R9uxkYIrE2yy9sgmcLhCnw57/WSD+Eh3J97FPEDFnbXnDUg==}
-
   slash@4.0.0:
     resolution: {integrity: sha512-3dOsAHXXUkQTpOYcoAxLIorMTp4gIQr5IW3iVb7A7lFIp0VHhnynm9izx6TssdrIcVIESAlVjtnO2K8bg+Coew==}
     engines: {node: '>=12'}
@@ -3694,18 +3682,9 @@ snapshots:
       '@jridgewell/gen-mapping': 0.3.8
       '@jridgewell/trace-mapping': 0.3.25
 
-  '@arcgis/components-controllers@4.32.11':
-    dependencies:
-      '@arcgis/components-utils': 4.32.11
-      tslib: 2.8.1
-
   '@arcgis/components-controllers@4.32.13':
     dependencies:
       '@arcgis/components-utils': 4.32.13
-      tslib: 2.8.1
-
-  '@arcgis/components-utils@4.32.11':
-    dependencies:
       tslib: 2.8.1
 
   '@arcgis/components-utils@4.32.13':
@@ -3720,22 +3699,11 @@ snapshots:
   '@arcgis/core@4.32.9':
     dependencies:
       '@esri/arcgis-html-sanitizer': 4.1.0
-      '@esri/calcite-components': 3.0.3
+      '@esri/calcite-components': 3.1.0
       '@vaadin/grid': 24.6.5
       '@zip.js/zip.js': 2.7.57
       luxon: 3.5.0
       marked: 15.0.7
-
-  '@arcgis/lumina@4.32.11':
-    dependencies:
-      '@arcgis/components-controllers': 4.32.11
-      '@arcgis/components-utils': 4.32.11
-      '@lit-labs/ssr': 3.3.1
-      '@lit-labs/ssr-client': 1.1.7
-      '@lit/context': 1.1.4
-      csstype: 3.1.3
-      lit: 3.2.1
-      tslib: 2.8.1
 
   '@arcgis/lumina@4.32.13':
     dependencies:
@@ -3748,14 +3716,14 @@ snapshots:
       lit: 3.2.1
       tslib: 2.8.1
 
-  '@arcgis/map-components@4.32.13(@arcgis/core@4.32.9)(@esri/calcite-components@3.0.3)':
+  '@arcgis/map-components@4.32.13(@arcgis/core@4.32.9)(@esri/calcite-components@3.1.0)':
     dependencies:
       '@arcgis/components-controllers': 4.32.13
       '@arcgis/components-utils': 4.32.13
       '@arcgis/core': 4.32.9
       '@arcgis/core-adapter': 4.32.13(@arcgis/core@4.32.9)
       '@arcgis/lumina': 4.32.13
-      '@esri/calcite-components': 3.0.3
+      '@esri/calcite-components': 3.1.0
       tslib: 2.8.1
 
   '@babel/code-frame@7.26.2':
@@ -4021,17 +3989,16 @@ snapshots:
       mitt: 3.0.1
       tslib: 2.8.1
 
-  '@esri/calcite-components@3.0.3':
+  '@esri/calcite-components@3.1.0':
     dependencies:
-      '@arcgis/components-controllers': 4.32.11
-      '@arcgis/components-utils': 4.32.11
-      '@arcgis/lumina': 4.32.11
-      '@esri/calcite-ui-icons': 4.0.0
+      '@arcgis/components-controllers': 4.32.13
+      '@arcgis/components-utils': 4.32.13
+      '@arcgis/lumina': 4.32.13
+      '@esri/calcite-ui-icons': 4.1.0
       '@floating-ui/dom': 1.6.13
       '@floating-ui/utils': 0.2.9
-      '@types/color': 4.2.0
       '@types/sortablejs': 1.15.8
-      color: 4.2.3
+      color: 5.0.0
       composed-offset-position: 0.0.6(@floating-ui/utils@0.2.9)
       dayjs: 1.11.13
       focus-trap: 7.6.4
@@ -4041,7 +4008,7 @@ snapshots:
       timezone-groups: 0.10.4
       type-fest: 4.35.0
 
-  '@esri/calcite-ui-icons@4.0.0': {}
+  '@esri/calcite-ui-icons@4.1.0': {}
 
   '@firebase/analytics-compat@0.2.18(@firebase/app-compat@0.2.53)(@firebase/app@0.11.4)':
     dependencies:
@@ -5707,16 +5674,6 @@ snapshots:
     dependencies:
       '@babel/types': 7.26.3
 
-  '@types/color-convert@2.0.4':
-    dependencies:
-      '@types/color-name': 1.1.5
-
-  '@types/color-name@1.1.5': {}
-
-  '@types/color@4.2.0':
-    dependencies:
-      '@types/color-convert': 2.0.4
-
   '@types/estree@1.0.6': {}
 
   '@types/geojson@7946.0.15': {}
@@ -6185,17 +6142,22 @@ snapshots:
     dependencies:
       color-name: 1.1.4
 
+  color-convert@3.0.1:
+    dependencies:
+      color-name: 2.0.0
+
   color-name@1.1.4: {}
 
-  color-string@1.9.1:
-    dependencies:
-      color-name: 1.1.4
-      simple-swizzle: 0.2.2
+  color-name@2.0.0: {}
 
-  color@4.2.3:
+  color-string@2.0.1:
     dependencies:
-      color-convert: 2.0.1
-      color-string: 1.9.1
+      color-name: 2.0.0
+
+  color@5.0.0:
+    dependencies:
+      color-convert: 3.0.1
+      color-string: 2.0.1
 
   combined-stream@1.0.8:
     dependencies:
@@ -6879,8 +6841,6 @@ snapshots:
       call-bind: 1.0.8
       call-bound: 1.0.3
       get-intrinsic: 1.2.6
-
-  is-arrayish@0.3.2: {}
 
   is-async-function@2.0.0:
     dependencies:
@@ -7668,10 +7628,6 @@ snapshots:
   siginfo@2.0.0: {}
 
   signal-exit@4.1.0: {}
-
-  simple-swizzle@0.2.2:
-    dependencies:
-      is-arrayish: 0.3.2
 
   slash@4.0.0: {}
 

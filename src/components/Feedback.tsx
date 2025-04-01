@@ -12,9 +12,14 @@ import type { FeedbackResponse, FeedbackSubmission } from '../../shared/types';
 
 type FeedbackProps = {
   onCancel: () => void;
-  graphic: __esri.Graphic;
+  graphic?: __esri.Graphic;
+  genericPoint?: __esri.Graphic;
 };
-export default function Feedback({ onCancel, graphic }: FeedbackProps) {
+export default function Feedback({
+  onCancel,
+  graphic,
+  genericPoint,
+}: FeedbackProps) {
   const buttonContainerRef = useRef<HTMLDivElement>(null);
   const [email, setEmail] = useState('');
   const [feedback, setFeedback] = useState('');
@@ -54,11 +59,13 @@ export default function Feedback({ onCancel, graphic }: FeedbackProps) {
     mutation.mutate({
       email,
       feedback,
-      selectedFeature: graphic.toJSON(),
-      layer: graphic.layer!.title!,
-      name: graphic.attributes[
-        (graphic.layer! as __esri.FeatureLayer).displayField!
-      ],
+      feature: graphic ? graphic.toJSON() : genericPoint!.toJSON(),
+      layer: graphic?.layer?.title ?? undefined,
+      name:
+        graphic?.layer &&
+        graphic.attributes[
+          (graphic.layer! as __esri.FeatureLayer).displayField!
+        ],
     });
   };
 
@@ -83,9 +90,9 @@ export default function Feedback({ onCancel, graphic }: FeedbackProps) {
           There was an error submitting your feedback. Please try again later.
         </Banner>
       )}
-      <form onSubmit={handleSubmit} className="flex flex-col space-y-2">
+      <form onSubmit={handleSubmit} className="flex flex-col space-y-4">
         <TextField
-          label="Your email"
+          label="Your email (optional)"
           type="email"
           value={email}
           onChange={setEmail}

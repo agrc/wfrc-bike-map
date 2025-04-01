@@ -33,23 +33,42 @@ export const submitFeedback = onCall<
       });
     }
 
-    const response = await addFeatures({
-      url: lineFeatureService.value(),
-      authentication: appManager,
-      features: [
-        {
-          geometry: data.selectedFeature.geometry,
-          attributes: {
-            SubmitterEmail: data.email,
-            Feedback: data.feedback,
-            Status: 'Submitted',
-            Layer: data.layer,
-            FeatureName: data.name,
-            RelatedFeature: JSON.stringify(data.selectedFeature.attributes),
+    let response;
+    if (data.feature.geometry && 'x' in data.feature.geometry) {
+      // point
+      response = await addFeatures({
+        url: pointFeatureService.value(),
+        authentication: appManager,
+        features: [
+          {
+            geometry: data.feature.geometry,
+            attributes: {
+              SubmitterEmail: data.email,
+              Feedback: data.feedback,
+              Status: 'Submitted',
+            },
           },
-        },
-      ],
-    });
+        ],
+      });
+    } else {
+      response = await addFeatures({
+        url: lineFeatureService.value(),
+        authentication: appManager,
+        features: [
+          {
+            geometry: data.feature.geometry,
+            attributes: {
+              SubmitterEmail: data.email,
+              Feedback: data.feedback,
+              Status: 'Submitted',
+              Layer: data.layer,
+              FeatureName: data.name,
+              RelatedFeature: JSON.stringify(data.feature.attributes),
+            },
+          },
+        ],
+      });
+    }
 
     if (!response.addResults[0]?.success) {
       logger.error('Failed to add feature to AGOL feature service', response);
