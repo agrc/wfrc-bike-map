@@ -13,6 +13,7 @@
 1. Install app dependencies `pnpm install`
 1. Install functions dependencies `cd functions && pnpm install`
 1. Duplicate `functions/.secrets.local.sample` as `.secrets.local` and fill in the values.
+1. Duplicate `functions/.env.sample` as `.env.local` and fill in the values.
 
 ## Deploy
 
