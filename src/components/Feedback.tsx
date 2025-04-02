@@ -66,6 +66,7 @@ export default function Feedback({
         graphic.attributes[
           (graphic.layer! as __esri.FeatureLayer).displayField!
         ],
+      url: window.location.href,
     });
   };
 

@@ -9,6 +9,7 @@ export type FeedbackSubmission = {
   };
   layer?: string;
   name?: string;
+  url: string;
 };
 
 export type FeedbackResponse = {
