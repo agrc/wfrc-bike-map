@@ -10,28 +10,9 @@
 
 ### Set Up
 
-1. Install [Node.js](https://nodejs.org/en/download/)
-1. Clone this repository `git clone https://github.com/agrc/wfrc-bike-map`
-1. Change to the directory `cd wfrc-bike-map`
-1. Install the dependencies `pnpm install`
-1. Switch to `dev` branch `git switch dev`
-1. Create a new branch `git switch -c feature/your-feature-name` or `git switch -c fix/your-bug-name`
-
-### Run
-
-Execute `pnpm start` to start a web server and view the website
-
-Run `pnpm test` to run the unit tests
-
-Run `pnpm run format` to format the code
-
-Run `pnpm run lint` to lint the code
-
-### Pull Request
-
-Make commits following the [Angular Conventional Commits Format](https://github.com/angular/angular/blob/main/CONTRIBUTING.md#-commit-message-format). This will allow the automated change log to work correctly.
-
-Once you have committed your updates, push your branch to GitHub and create a pull request against the `dev` branch. This will trigger a GitHub Action to run the tests and linting and deploy your version to a firebase preview channel for review.
+1. Install app dependencies `pnpm install`
+1. Install functions dependencies `cd functions && pnpm install`
+1. Duplicate `functions/.secrets.local.sample` as `.secrets.local` and fill in the values.
 
 ## Deploy
 
