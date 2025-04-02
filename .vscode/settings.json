@@ -18,6 +18,7 @@
     "predeploy",
     "remoteconfig",
     "SAMEORIGIN",
+    "sendgrid",
     "tailwindcss",
     "tsconfigs",
     "usehooks",

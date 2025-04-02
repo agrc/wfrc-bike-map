@@ -16,6 +16,7 @@
     "@esri/arcgis-rest-feature-service": "^4.1.0",
     "@esri/arcgis-rest-request": "^4.3.0",
     "@google-cloud/functions-framework": "^3.4.6",
+    "@sendgrid/mail": "^8.1.4",
     "firebase-admin": "^12.6.0",
     "firebase-functions": "^6.0.1"
   },
