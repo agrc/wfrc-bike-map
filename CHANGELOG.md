@@ -1,5 +1,23 @@
 # Changelog
 
+## [0.4.0-12](https://github.com/agrc/wfrc-bike-map/compare/v0.4.0-11...v0.4.0-12) (2025-04-02)
+
+
+### Features
+
+* **functions:** send confirmation and notification feedback emails ([db149e9](https://github.com/agrc/wfrc-bike-map/commit/db149e96a9e0c53e347a0ffec68f04a4a798f0dc))
+* implement generic location feedback ([15e3bff](https://github.com/agrc/wfrc-bike-map/commit/15e3bff7875c7307fc8b4687a99566bd6992fd00))
+
+
+### Dependencies
+
+* bump dependency versions 🌲 ([db5bbf8](https://github.com/agrc/wfrc-bike-map/commit/db5bbf8a86032a472182a9ab208a162e35107e14))
+
+
+### Documentation
+
+* update set up steps ([222be0d](https://github.com/agrc/wfrc-bike-map/commit/222be0d6f8c723f49c1b21a0cf60dd84bba3a9d2))
+
 ## [0.4.0-11](https://github.com/agrc/wfrc-bike-map/compare/v0.4.0-10...v0.4.0-11) (2025-03-18)
 
 
