@@ -1,0 +1,2 @@
+ugrc-palletjack==5.*
+humanize==4.*
