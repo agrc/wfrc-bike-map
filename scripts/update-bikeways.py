@@ -1,28 +1,30 @@
 """
+update-bikeways.py
+Original script created by Josh Reynolds (jreynolds@wfrc.org) in https://github.com/WFRCAnalytics/Bike-App-Create-Features.
 
-create-bike-features.py
-Josh Reynolds - jreynolds@wfrc.org
-Created: 2024-07-08
-Updated: 2025-02-10
-
-This script pulls down the most recent copies of the utah roads and
-trails & pathways datasets (hosted by UGRC), merges and formats them,
-and determines its best bike feature as well as which side of the
-road the feature is on. The final products are 1) existing and
-2) planned line layers for the wfrc-bike-app.
-
+This script pulls down the most recent copies of the utah roads and trails & pathways datasets (hosted by UGRC), merges and formats them, and determines its best bike feature as well as which side of the road the feature is on. The final products are 1) existing and 2) planned line layers for the wfrc-bike-app.
 """
 
-import os
-import numpy as np
-from arcgis import GIS
-from arcgis.features import GeoAccessor
-from arcgis.features import GeoSeriesAccessor
-import pandas as pd
+import argparse
+import datetime
 import numbers
-import zipfile
-import sys
-import subprocess
+import os
+import time
+from pathlib import Path
+
+import arcpy
+import humanize
+import numpy as np
+import pandas as pd
+from arcgis.features import (
+    GeoAccessor,  # noqa: F401
+    GeoSeriesAccessor,  # noqa: F401
+)
+from arcgis.gis import GIS
+from palletjack.load import ServiceUpdater
+
+EXISTING_ITEM_ID = "ef79d0e5b12a414996dfcd461921c952"
+PLANNED_ITEM_ID = "f974911ed47a4d36a4999be0990fd127"
 
 
 def determine_direction_from_angle(angle):
@@ -666,23 +668,9 @@ def calc_lts(row):
                 return 4
 
 
-def zipdir(path, ziph, ext=None):
-    # ziph is zipfile handle
-    for root, dirs, files in os.walk(path):
-        if ext:
-            files = [fi for fi in files if fi.endswith(ext)]
-
-        for file in files:
-            ziph.write(
-                os.path.join(root, file),
-                os.path.relpath(os.path.join(root, file), os.path.join(path, "..")),
-            )
-
-
-def process_data():
-    import arcpy
-    from arcpy import env
-
+def process_data(
+    is_test=False,
+) -> tuple[pd.core.frame.DataFrame, pd.core.frame.DataFrame]:
     arcpy.env.overwriteOutput = True
     arcpy.env.parallelProcessingFactor = "90%"
 
@@ -713,30 +701,29 @@ def process_data():
     # store paths to datasets
     roads = "https://services1.arcgis.com/99lidPhWCzftIe9K/ArcGIS/rest/services/UtahRoads/FeatureServer/0"
     trails = "https://services1.arcgis.com/99lidPhWCzftIe9K/ArcGIS/rest/services/TrailsAndPathways/FeatureServer/0"
-    # roads = r'E:\Data\Transportation\Roads.gdb\Roads'
-    # trails = r'E:\Data\Transportation\Trails_Pathways.gdb\TrailsAndPathways'
-    aadt = r".\Inputs\AADT_Unrounded.shp"
-    counties = r".\Inputs\Counties.shp"
-    cities = r".\Inputs\Cities.shp"
+    aadt = "https://services.arcgis.com/pA2nEVnB6tquxgOW/arcgis/rest/services/AADT_Rounded/FeatureServer/1"
+    counties = "https://services1.arcgis.com/99lidPhWCzftIe9K/arcgis/rest/services/UtahCountyBoundaries/FeatureServer/0"
+    cities = "https://services1.arcgis.com/99lidPhWCzftIe9K/arcgis/rest/services/UtahMunicipalBoundaries/FeatureServer/0"
 
     # pull down data layers from AGOL with predefined filter
-    print("--retrieving data layers")
-    # roads_lyr = arcpy.MakeFeatureLayer_management(roads, 'roads_lyr', where_clause=""" (((BIKE_L IS NOT NULL AND BIKE_L NOT IN ('', ' ')) OR (BIKE_R IS NOT NULL AND BIKE_R NOT IN ('', ' '))) OR ((BIKE_PLN_L IS NOT NULL AND BIKE_PLN_L NOT IN ('', ' ')) OR (BIKE_PLN_R IS NOT NULL AND BIKE_PLN_R NOT IN ('', ' ')))) """)
-
+    print("--retrieving roads")
     roads_lyr = arcpy.MakeFeatureLayer_management(
         roads,
         "roads_lyr",
         where_clause="""(COUNTY_L IN ('49035', '49057', '49003', '49045', '49049') Or COUNTY_R IN ('49003', '49011', '49035', '49049', '49057', '49045')) And CARTOCODE NOT IN ('1', '7', '17', '16', '99')""",
     )
+    print("--retrieving trails")
     trails_lyr = arcpy.MakeFeatureLayer_management(
         trails,
         "trails_lyr",
         where_clause="""(CartoCode IN ('3 - Paved Shared Use', '3 - Shared Use Path', '8 - Bridge, Tunnel')) And (Status NOT IN ('CLOSED', 'PROPOSED', 'UPGRADE'))""",
-    )  # removed 9 - Link
+    )
 
-    # filter the layers by the counties of interest
-    arcpy.management.SelectLayerByLocation(roads_lyr, "INTERSECT", counties)
-    arcpy.management.SelectLayerByLocation(trails_lyr, "INTERSECT", counties)
+    if is_test:
+        print("--clipping by test area")
+        test_aoi = str(Path("TestData") / "TestArea.shp")
+        arcpy.management.SelectLayerByLocation(roads_lyr, "INTERSECT", test_aoi)
+        arcpy.management.SelectLayerByLocation(trails_lyr, "INTERSECT", test_aoi)
 
     # merge both roads and trails and add unique id
     print("--merging roads and trails")
@@ -764,15 +751,15 @@ def process_data():
     join_features = aadt_buffer
     output_features = os.path.join(scratch_gdb, "aadt_spatial_join")
 
-    fieldmappings = arcpy.FieldMappings()
-    fieldmappings.addTable(target_features)
-    fieldmappings.addTable(join_features)
+    field_mappings = arcpy.FieldMappings()
+    field_mappings.addTable(target_features)
+    field_mappings.addTable(join_features)
 
     # AADT 2023
-    fieldindex = fieldmappings.findFieldMapIndex("AADT2023")
-    fieldmap = fieldmappings.getFieldMap(fieldindex)
-    fieldmap.mergeRule = "Max"
-    fieldmappings.replaceFieldMap(fieldindex, fieldmap)
+    fieldindex = field_mappings.findFieldMapIndex("AADT2023")
+    field_map = field_mappings.getFieldMap(fieldindex)
+    field_map.mergeRule = "Max"
+    field_mappings.replaceFieldMap(fieldindex, field_map)
 
     # run the spatial join, use 'Join_Count' for number of units
     sj = arcpy.SpatialJoin_analysis(
@@ -781,7 +768,7 @@ def process_data():
         output_features,
         "JOIN_ONE_TO_ONE",
         "KEEP_ALL",
-        fieldmappings,
+        field_mappings,
         "HAVE_THEIR_CENTER_IN",
     )
     aadt_sj_df = pd.DataFrame.spatial.from_featureclass(sj[0])[
@@ -794,24 +781,23 @@ def process_data():
     # spatial join for cities attribute
     # ===================================
 
-    target_features = bike_features
-    join_features = cities
     output_features = os.path.join(scratch_gdb, "bf_cities_sj")
-    fieldmappings = arcpy.FieldMappings()
-    fieldmappings.addTable(target_features)
-    fieldmappings.addTable(join_features)
+    field_mappings = arcpy.FieldMappings()
+    field_mappings.addTable(bike_features)
+    field_mappings.addTable(cities)
     bf_cities_sj = arcpy.SpatialJoin_analysis(
-        target_features,
-        join_features,
+        bike_features,
+        cities,
         output_features,
         "JOIN_ONE_TO_ONE",
         "KEEP_ALL",
-        fieldmappings,
+        field_mappings,
         match_option="HAVE_THEIR_CENTER_IN",
     )
     bf_cities_sj_df = pd.DataFrame.spatial.from_featureclass(bf_cities_sj[0])[
-        ["UID", "CITY"]
+        ["UID", "NAME"]
     ].copy()
+    bf_cities_sj_df.columns = ["UID", "CITY"]
 
     # =====================================
     # spatial join for counties attribute
@@ -820,20 +806,20 @@ def process_data():
     target_features = bike_features
     join_features = counties
     output_features = os.path.join(scratch_gdb, "bf_counties_sj")
-    fieldmappings = arcpy.FieldMappings()
-    fieldmappings.addTable(target_features)
-    fieldmappings.addTable(join_features)
+    field_mappings = arcpy.FieldMappings()
+    field_mappings.addTable(target_features)
+    field_mappings.addTable(join_features)
     bf_counties_sj = arcpy.SpatialJoin_analysis(
         target_features,
         join_features,
         output_features,
         "JOIN_ONE_TO_ONE",
         "KEEP_ALL",
-        fieldmappings,
+        field_mappings,
         match_option="HAVE_THEIR_CENTER_IN",
     )
     bf_counties_sj_df = pd.DataFrame.spatial.from_featureclass(bf_counties_sj[0])[
-        ["UID", "CNTY_NAME"]
+        ["UID", "NAME"]
     ].copy()
     bf_counties_sj_df.columns = ["UID", "COUNTY"]
 
@@ -969,9 +955,6 @@ def process_data():
     existing_bf["LTS_SCORE"] = existing_bf["LTS_SCORE"].map(lts_codes)
     planned_bf["LTS_SCORE"] = planned_bf["LTS_SCORE"].map(lts_codes)
 
-    # planned_bf.spatial.to_featureclass(location=os.path.join(scratch_gdb, 'draft_planned_bike_features'), sanitize_columns=False)
-    # existing_bf.spatial.to_featureclass(location=os.path.join(scratch_gdb, 'draft_bike_features'), sanitize_columns=False)
-
     planned_bf = planned_bf[
         [
             "UID",
@@ -1021,78 +1004,70 @@ def process_data():
     )
 
     # dissolve common links
+    dissolved_existing_features = os.path.join(existing_features_gdb, "bike_features")
     arcpy.management.Dissolve(
         in_features=os.path.join(scratch_gdb, "bike_features_before_dissolve"),
-        out_feature_class=os.path.join(existing_features_gdb, "bike_features"),
+        out_feature_class=dissolved_existing_features,
         dissolve_field="CITY;COUNTY;NAME;Facility1;Facility2;Facility1_Side;Facility2_Side;LTS_SCORE;CARTOCODE;NOTES;SOURCE",
-        # statistics_fields=[['SOURCE_ID','CONCATENATE']],
         multi_part="SINGLE_PART",
         unsplit_lines="UNSPLIT_LINES",
-        # concatenation_separator=";"
     )
 
-    # arcpy.management.AddField(os.path.join(existing_features_gdb, 'bike_features'), 'SOURCE_ID', "TEXT")
-    # arcpy.management.CalculateField(os.path.join(existing_features_gdb, 'bike_features'), "SOURCE_ID", '!CONCATENATE_SOURCE_ID!', "PYTHON3")
-
+    dissolved_planned_features = os.path.join(
+        planned_features_gdb, "planned_bike_features"
+    )
     arcpy.management.Dissolve(
         in_features=os.path.join(scratch_gdb, "planned_bike_features_before_dissolve"),
-        out_feature_class=os.path.join(planned_features_gdb, "planned_bike_features"),
+        out_feature_class=dissolved_planned_features,
         dissolve_field="CITY;COUNTY;NAME;PlannedFacility1;PlannedFacility2;PlannedFacility1_Side;PlannedFacility2_Side;LTS_SCORE;CARTOCODE;NOTES;SOURCE",
-        # statistics_fields=[['SOURCE_ID','CONCATENATE']],
         multi_part="SINGLE_PART",
         unsplit_lines="UNSPLIT_LINES",
-        # concatenation_separator=";"
     )
 
-    # arcpy.management.AddField(os.path.join(existing_features_gdb, 'planned_bike_features'), 'SOURCE_ID', "TEXT")
-    # arcpy.management.CalculateField(os.path.join(existing_features_gdb, 'planned_bike_features'), "SOURCE_ID", '!CONCATENATE_SOURCE_ID!', "PYTHON3")
-
-    del planned_bf
-    del existing_bf
-    del planned_features_gdb
-    del existing_features_gdb
-
-    # Restart the script to zip the GDBs in a new process
-    # os.execv(sys.executable, [sys.executable] + sys.argv + ["zip"])
-    subprocess.Popen([sys.executable] + sys.argv + ["zip"], close_fds=True)
-    sys.exit()
-
-
-def zip_gdb():
-    # zip the files up for AGOL
-    print("--begin zipping outputs")
-    outputs = [
-        ".\\Outputs",
-        "scratch.gdb",
-        "wfrc_bike_map_features.gdb",
-        "wfrc_bike_map_planned_features.gdb",
-    ]
-    existing_features_gdb = os.path.join(outputs[0], outputs[2])
-    planned_features_gdb = os.path.join(outputs[0], outputs[3])
-    planned_zip_name = os.path.join(
-        outputs[0], "wfrc_bike_map_planned_features.gdb.zip"
+    return (
+        GeoAccessor.from_featureclass(dissolved_existing_features),
+        GeoAccessor.from_featureclass(dissolved_planned_features),
     )
-    existing_zip_name = os.path.join(outputs[0], "wfrc_bike_map_features.gdb.zip")
-
-    # delete existing zip files
-    if os.path.exists(planned_zip_name):
-        os.remove(planned_zip_name)
-    if os.path.exists(existing_zip_name):
-        os.remove(existing_zip_name)
-
-    with zipfile.ZipFile(planned_zip_name, "w", zipfile.ZIP_DEFLATED) as planned_zip:
-        zipdir(planned_features_gdb, planned_zip)
-
-    with zipfile.ZipFile(existing_zip_name, "w", zipfile.ZIP_DEFLATED) as existing_zip:
-        zipdir(existing_features_gdb, existing_zip)
-
-    print("--finished zipping outputs")
 
 
-# runs the processing script first, then exits to release locks on files, then relaunches to zip the files
-if len(sys.argv) > 1 and sys.argv[1] == "zip":
-    zip_gdb()
-    print("--scripts finished")
-else:
-    print("--begin script")
-    process_data()
+def update_feature_services(
+    existing_bike_features: pd.core.frame.DataFrame,
+    planned_bike_features: pd.core.frame.DataFrame,
+    agol_username: str,
+    agol_password: str,
+) -> None:
+    gis = GIS("https://utah.maps.arcgis.com", agol_username, agol_password)
+
+    print("--updating existing feature service")
+    updater = ServiceUpdater(gis, EXISTING_ITEM_ID)
+    updater.truncate_and_load(existing_bike_features, True)
+
+    print("--updating planned feature service")
+    updater = ServiceUpdater(gis, PLANNED_ITEM_ID)
+    updater.truncate_and_load(planned_bike_features, True)
+
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(
+        description="Update the bikeway feature services with new data.",
+    )
+    parser.add_argument("--agol_username", required=True, help="ArcGIS Online username")
+    parser.add_argument("--agol_password", required=True, help="ArcGIS Online password")
+    parser.add_argument("--test", action="store_true", help="Run in test mode")
+    args = parser.parse_args()
+
+    start_time = time.time()
+    print(f"--script start: {str(datetime.datetime.now())}")
+    existing_df, planned_df = process_data(args.test)
+
+    if args.test:
+        print("--test mode, not updating feature services")
+    else:
+        update_feature_services(
+            existing_df, planned_df, args.agol_username, args.agol_password
+        )
+
+    end_time = time.time()
+    elapsed_time = end_time - start_time
+    print(f"--script completed at {str(datetime.datetime.now())}")
+    print(f"--elapsed time {humanize.naturaldelta(elapsed_time)}")
