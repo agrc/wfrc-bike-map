@@ -127,6 +127,7 @@ export const MapContainer = ({
   // update identify highlighting
   const highlightHandle = useRef<__esri.Handle>(null);
   const feedbackButtonRef = useRef<HTMLDivElement>(null);
+  const zoomButtonRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
     if (!mapNode.current || mapIsInitialized.current || !getConfig) {
       return;
@@ -234,6 +235,7 @@ export const MapContainer = ({
       const trackWidget = new Track({ view: mapView.current! });
       mapView.current!.ui.add(homeWidget, 'top-right');
       mapView.current!.ui.add(trackWidget, 'top-right');
+      mapView.current!.ui.add(zoomButtonRef.current!, 'top-right');
       mapView.current!.ui.add(feedbackButtonRef.current!, 'top-right');
 
       const layerNames = getConfig('layerNames') as LayerNames;
@@ -373,7 +375,7 @@ export const MapContainer = ({
           kind="neutral"
           className="esri-widget--button"
           icon-start="pencil"
-          label="Add feedback"
+          label="add feedback"
           onClick={() => {
             if (showFeedback) {
               setGenericFeedbackPoint(null);
@@ -390,6 +392,24 @@ export const MapContainer = ({
                 highlightHandle.current.remove();
               }
             }
+          }}
+        ></calcite-button>
+      </div>
+      <div className="esri-component esri-widget" ref={zoomButtonRef}>
+        <calcite-button
+          kind="neutral"
+          className="esri-widget--button"
+          icon-start="zoom-to-object"
+          label="zoom to my location"
+          onClick={() => {
+            getCoarseLocation().then((location) => {
+              if (location) {
+                mapView.current!.goTo({
+                  center: [location.x, location.y],
+                  zoom: INITIAL_MAP_ZOOM + 2,
+                });
+              }
+            });
           }}
         ></calcite-button>
       </div>
