@@ -14,5 +14,3 @@ Run the script without arguments to see the usage:
 ```bash
 python update-bikeways.py
 ```
-
-Pass `--test` to run the script for a small test area and skip updating the hosted feature layers:

@@ -1075,7 +1075,11 @@ if __name__ == "__main__":
     )
     parser.add_argument("--agol_username", required=True, help="ArcGIS Online username")
     parser.add_argument("--agol_password", required=True, help="ArcGIS Online password")
-    parser.add_argument("--test", action="store_true", help="Run in test mode")
+    parser.add_argument(
+        "--test",
+        action="store_true",
+        help="Run on a small test area and skip feature service updating",
+    )
 
     args = parser.parse_args()
 
