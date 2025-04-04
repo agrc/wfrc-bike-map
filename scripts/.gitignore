@@ -1,3 +1,6 @@
 Outputs/
 *.lock
 *.shp.xml
+backup.gdb
+upload.gdb
+*.zip
