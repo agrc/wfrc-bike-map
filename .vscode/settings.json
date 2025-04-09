@@ -22,6 +22,7 @@
     "packagejson",
     "palletjack",
     "prebuild",
+    "precisedelta",
     "predeploy",
     "remoteconfig",
     "SAMEORIGIN",

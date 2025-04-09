@@ -45,9 +45,10 @@ export default function App() {
     <main className="flex size-full flex-col">
       <Header>
         <div className="flex h-full grow items-center gap-3">
-          <h1 className="font-heading font-black leading-7 text-primary-900 sm:text-5xl dark:text-zinc-100">
+          <img src="/logo.svg" alt="Utah Bikeways Logo" className="h-12 w-12" />
+          <h2 className="font-heading font-black leading-7 text-primary-900 sm:text-5xl dark:text-zinc-100">
             Utah Bikeways
-          </h1>
+          </h2>
         </div>
         <AboutDialog
           useMyLocationOnLoad={useMyLocationOnLoad}
