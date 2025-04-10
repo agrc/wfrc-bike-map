@@ -1,7 +1,9 @@
 packages:
   - functions
+
 ignoredBuiltDependencies:
   - '@vaadin/vaadin-usage-statistics'
+
 onlyBuiltDependencies:
   - '@firebase/util'
   - esbuild
