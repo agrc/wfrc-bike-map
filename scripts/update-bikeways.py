@@ -916,7 +916,7 @@ def process_data(
     bf_all_processed.rename(
         {"CartoCode": "CARTOCODE", "GlobalID": "SOURCE_ID"}, axis=1, inplace=True
     )
-    bf_all_processed["NOTES"] = np.nan
+    bf_all_processed["NOTES"] = '' #: changed to empty string instead of np.nan to force string field type instead of numeric
     bf_all_processed.spatial.to_featureclass(
         location=os.path.join(scratch_gdb, "bf_all_processed"), sanitize_columns=False
     )
