@@ -65,7 +65,7 @@ export default function Filter() {
           {isRouteTypes ? layerNames.routeTypes : layerNames.trafficStress}
         </h2>
       </Switch>
-      <div className="space-y-1.5">
+      <div className="grid grid-cols-1 gap-y-1.5 md:grid-cols-2 md:gap-4">
         {isRouteTypes ? (
           <>
             {getRendererClassCheckboxes('routeTypes')}
@@ -85,7 +85,9 @@ export default function Filter() {
         ) : (
           <>
             {getRendererClassCheckboxes('trafficStress')}
-            {getRendererClassCheckboxes('trafficSignals')}
+            <div className="space-y-1.5 md:col-span-full md:grid md:grid-cols-2 md:gap-4">
+              {getRendererClassCheckboxes('trafficSignals')}
+            </div>
           </>
         )}
       </div>

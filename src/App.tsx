@@ -4,11 +4,13 @@ import { useLocalStorage } from '@ugrc/utilities/hooks';
 import { useEffect, useState } from 'react';
 import { useOverlayTrigger } from 'react-aria';
 import { useOverlayTriggerState } from 'react-stately';
+import { useWindowSize } from 'usehooks-ts';
 import AboutDialog from './components/AboutDialog';
 import Feedback from './components/Feedback';
 import Filter from './components/Filter';
 import Identify from './components/Identify';
 import { MapContainer } from './components/MapContainer';
+import config from './config';
 import FilterProvider from './context/FilterProvider';
 
 const queryClient = new QueryClient();
@@ -41,6 +43,9 @@ export default function App() {
     true,
   );
 
+  const { width: windowWidth = 0 } = useWindowSize();
+  const isSmallWidth = windowWidth < config.BREAKPOINTS.md;
+
   return (
     <main className="flex size-full flex-col">
       <Header>
@@ -56,21 +61,22 @@ export default function App() {
         />
       </Header>
       <FilterProvider>
-        <MapContainer
-          trayIsOpen={trayState.isOpen}
-          onFeatureIdentify={setIdentifyGraphic}
-          useMyLocationOnLoad={useMyLocationOnLoad}
-          genericFeedbackPoint={genericFeedbackPoint}
-          setGenericFeedbackPoint={setGenericFeedbackPoint}
-        />
-        <Drawer
-          type="tray"
-          allowFullScreen
-          state={trayState}
-          {...trayTriggerProps}
-        >
-          <QueryClientProvider client={queryClient}>
-            {identifyGraphic ? (
+        <QueryClientProvider client={queryClient}>
+          <MapContainer
+            trayIsOpen={trayState.isOpen}
+            onFeatureIdentify={setIdentifyGraphic}
+            useMyLocationOnLoad={useMyLocationOnLoad}
+            genericFeedbackPoint={genericFeedbackPoint}
+            setGenericFeedbackPoint={setGenericFeedbackPoint}
+            identifyGraphic={identifyGraphic}
+          />
+          <Drawer
+            type="tray"
+            allowFullScreen
+            state={trayState}
+            {...trayTriggerProps}
+          >
+            {identifyGraphic && isSmallWidth ? (
               <Identify graphic={identifyGraphic} clear={clearIdentify} />
             ) : genericFeedbackPoint ? (
               <div className="p-4">
@@ -82,8 +88,8 @@ export default function App() {
             ) : (
               <Filter />
             )}
-          </QueryClientProvider>
-        </Drawer>
+          </Drawer>
+        </QueryClientProvider>
       </FilterProvider>
     </main>
   );
