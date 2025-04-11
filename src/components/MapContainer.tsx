@@ -7,6 +7,7 @@ import Track from '@arcgis/core/widgets/Track';
 import { BusyBar } from '@ugrc/utah-design-system';
 import { useGraphicManager, useViewLoading } from '@ugrc/utilities/hooks';
 import { useEffect, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { useWindowSize } from 'usehooks-ts';
 import config from '../config';
 import type {
@@ -16,6 +17,7 @@ import type {
 import { useFilter } from '../hooks/useFilter';
 import useRemoteConfigs from '../hooks/useRemoteConfigs';
 import { getUrlParameter, setUrlParameter } from '../utilities/UrlParameters';
+import Identify from './Identify';
 import { getWhereClause, setLayerViewFilter } from './utilities';
 
 async function getCoarseLocation() {
@@ -46,6 +48,7 @@ type MapContainerProps = {
   useMyLocationOnLoad: boolean;
   genericFeedbackPoint: __esri.Graphic | null;
   setGenericFeedbackPoint: (point: __esri.Graphic | null) => void;
+  identifyGraphic: __esri.Graphic | null;
 };
 
 function getFeedbackGraphic(center: number[]) {
@@ -71,12 +74,15 @@ function getFeedbackGraphic(center: number[]) {
   });
 }
 
+const popupRoot = document.createElement('div');
+
 export const MapContainer = ({
   onFeatureIdentify,
   trayIsOpen,
   useMyLocationOnLoad,
   genericFeedbackPoint,
   setGenericFeedbackPoint,
+  identifyGraphic,
 }: MapContainerProps) => {
   const mapNode = useRef<HTMLDivElement | null>(null);
   const map = useRef<WebMap | null>(null);
@@ -91,8 +97,8 @@ export const MapContainer = ({
 
   const isDrawing = useViewLoading(mapView.current);
 
-  const { width = 0 } = useWindowSize();
-  const hideZoom = width < config.BREAKPOINTS.md;
+  const { width: windowWidth = 0 } = useWindowSize();
+  const isSmallScreen = windowWidth < config.BREAKPOINTS.md;
 
   const { state, dispatch } = useFilter();
   const getConfig = useRemoteConfigs();
@@ -170,22 +176,37 @@ export const MapContainer = ({
         }
       }
 
-      mapView.current = new MapView({
+      const view = new MapView({
         container: mapNode.current,
         center,
         zoom: zoomUrlParam ?? INITIAL_MAP_ZOOM,
         ui: {
-          components: hideZoom ? [] : ['zoom'],
+          components: isSmallScreen ? [] : ['zoom'],
         },
         map: map.current,
         padding: {
           bottom: trayIsOpen ? PADDING : 0,
         },
+        popup: {
+          actions: [],
+          dockEnabled: false,
+          dockOptions: {
+            breakpoint: false,
+            buttonEnabled: false,
+          },
+          visibleElements: {
+            actionBar: false,
+            heading: false,
+            closeButton: false,
+          },
+        },
+        popupEnabled: false,
       });
 
-      clickHandler = mapView.current!.on('immediate-click', (event) => {
+      clickHandler = view.on('immediate-click', (event) => {
         setGenericFeedbackPoint(null);
-        mapView.current!.hitTest(event).then((response) => {
+        view.closePopup();
+        view.hitTest(event).then((response) => {
           const graphicHits = response.results.filter(
             (result) =>
               result.type === 'graphic' &&
@@ -194,10 +215,20 @@ export const MapContainer = ({
           );
           if (graphicHits.length > 0) {
             const graphic = (graphicHits[0] as __esri.GraphicHit)!.graphic;
+
             onFeatureIdentify(graphic);
 
-            mapView
-              .current!.whenLayerView(graphic.layer as __esri.FeatureLayer)
+            if (!isSmallScreen) {
+              if (!view.popup?.visible) {
+                view.openPopup({
+                  location: event.mapPoint,
+                  content: popupRoot,
+                });
+              }
+            }
+
+            view
+              .whenLayerView(graphic.layer as __esri.FeatureLayer)
               .then((layerView: __esri.FeatureLayerView) => {
                 if (highlightHandle.current) {
                   highlightHandle.current.remove();
@@ -214,33 +245,33 @@ export const MapContainer = ({
       });
 
       watch(
-        () => mapView.current!.center,
+        () => view.center,
         () => {
-          const x = Math.round(mapView.current!.center.x);
-          const y = Math.round(mapView.current!.center.y);
+          const x = Math.round(view.center.x);
+          const y = Math.round(view.center.y);
           setCenter([x, y]);
         },
       );
 
       watch(
-        () => mapView.current!.zoom,
+        () => view.zoom,
         () => {
-          setUrlParameter('zoom', mapView.current!.zoom);
+          setUrlParameter('zoom', view.zoom);
         },
       );
 
-      await mapView.current.when();
+      await view.when();
 
-      const homeWidget = new Home({ view: mapView.current! });
-      const trackWidget = new Track({ view: mapView.current! });
-      mapView.current!.ui.add(homeWidget, 'top-right');
-      mapView.current!.ui.add(trackWidget, 'top-right');
-      mapView.current!.ui.add(zoomButtonRef.current!, 'top-right');
-      mapView.current!.ui.add(feedbackButtonRef.current!, 'top-right');
+      const homeWidget = new Home({ view });
+      const trackWidget = new Track({ view });
+      view.ui.add(homeWidget, 'top-right');
+      view.ui.add(trackWidget, 'top-right');
+      view.ui.add(zoomButtonRef.current!, 'top-right');
+      view.ui.add(feedbackButtonRef.current!, 'top-right');
 
       const layerNames = getConfig('layerNames') as LayerNames;
       for (const layerName of Object.keys(layers.current) as LayerNameKey[]) {
-        const layer = mapView.current!.map.layers.find(
+        const layer = view.map.layers.find(
           (layer) => layer.title === layerNames[layerName],
         ) as __esri.FeatureLayer;
         if (!layer) {
@@ -278,6 +309,8 @@ export const MapContainer = ({
           },
         },
       });
+
+      mapView.current = view;
     };
     giddyUp();
 
@@ -413,6 +446,21 @@ export const MapContainer = ({
           }}
         ></calcite-button>
       </div>
+      {!isSmallScreen && identifyGraphic
+        ? createPortal(
+            <Identify
+              graphic={identifyGraphic}
+              clear={() => {
+                onFeatureIdentify(null);
+                mapView.current?.closePopup();
+                if (highlightHandle.current) {
+                  highlightHandle.current.remove();
+                }
+              }}
+            />,
+            popupRoot,
+          )
+        : null}
     </>
   );
 };

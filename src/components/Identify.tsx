@@ -30,6 +30,7 @@ export default function Identify({ graphic, clear }: IdentifyProps) {
           ref={featureComponentRef}
           className="p-3"
           graphic={graphic}
+          autoDestroyDisabled={true}
         />
         <div className="px-3 pb-4">
           {showFeedback ? (
