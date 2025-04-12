@@ -4,6 +4,7 @@ import WebMap from '@arcgis/core/WebMap';
 import BasemapToggle from '@arcgis/core/widgets/BasemapToggle.js';
 import Home from '@arcgis/core/widgets/Home';
 import Track from '@arcgis/core/widgets/Track';
+import debounce from 'lodash.debounce';
 import { useEffect, useRef } from 'react';
 import { getCoarseLocation, INITIAL_MAP_ZOOM } from '../components/mapUtils';
 import type { LayerNames } from '../context/FirebaseRemoteConfigsProvider';
@@ -147,20 +148,21 @@ export function useMapSetup(
         });
       });
 
+      const debounceTime = 200;
       watch(
         () => view.center,
-        () => {
+        debounce(() => {
           const x = Math.round(view.center.x);
           const y = Math.round(view.center.y);
           setCenter([x, y]);
-        },
+        }, debounceTime),
       );
 
       watch(
         () => view.zoom,
-        () => {
+        debounce(() => {
           setUrlParameter('zoom', view.zoom);
-        },
+        }, debounceTime),
       );
 
       await view.when();
@@ -245,6 +247,7 @@ export function useMapSetup(
   // update map padding when tray is open
   useEffect(() => {
     if (mapView.current) {
+      console.log('padding updated');
       mapView.current.padding.bottom = trayIsOpen ? 320 : 0;
     }
   }, [trayIsOpen]);
