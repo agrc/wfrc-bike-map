@@ -35,7 +35,7 @@ export default function App() {
     if (identifyGraphic && !trayState.isOpen) {
       trayState.open();
     }
-  }, [identifyGraphic]);
+  }, [identifyGraphic, trayState]);
 
   const [useMyLocationOnLoad, setUseMyLocationOnLoad] = useLocalStorage(
     'useMyLocationOnLoad',

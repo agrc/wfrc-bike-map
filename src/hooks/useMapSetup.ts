@@ -242,6 +242,10 @@ export function useMapSetup(
     isSmallScreen,
     onFeatureIdentify,
     popupRoot,
+    zoomButtonRef,
+    feedbackButtonRef,
+    dispatch,
+    setCenter,
   ]);
 
   // update map padding when tray is open

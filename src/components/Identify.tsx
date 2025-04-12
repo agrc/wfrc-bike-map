@@ -18,7 +18,7 @@ export default function Identify({ graphic, clear }: IdentifyProps) {
     if (showFeedback) {
       setShowFeedback(false);
     }
-  }, [graphic]);
+  }, [graphic, showFeedback]);
 
   return (
     <>

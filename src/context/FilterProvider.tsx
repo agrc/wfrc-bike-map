@@ -112,7 +112,7 @@ function reducer(draft: Draft<FilterState>, action: Action): void {
 
       break;
 
-    case 'TOGGLE_RENDERER_CLASS':
+    case 'TOGGLE_RENDERER_CLASS': {
       const selectedClasses = draft[action.payload.layerKey].selectedClasses;
 
       if (selectedClasses!.includes(action.payload.classIndex)) {
@@ -127,8 +127,9 @@ function reducer(draft: Draft<FilterState>, action: Action): void {
       setUrlParameter(action.payload.layerKey, selectedClasses!);
 
       break;
+    }
 
-    case 'TOGGLE_FILTER_TYPE':
+    case 'TOGGLE_FILTER_TYPE': {
       const newValue =
         draft.selectedFilterType === 'routeTypes'
           ? 'trafficStress'
@@ -139,14 +140,16 @@ function reducer(draft: Draft<FilterState>, action: Action): void {
       setUrlParameter('filterType', newValue);
 
       break;
+    }
 
-    case 'TOGGLE_LAYER':
+    case 'TOGGLE_LAYER': {
       const layerKey = action.payload.layerKey;
       draft.layerToggles[layerKey] = !draft.layerToggles[layerKey];
 
       setUrlParameter(layerKey, draft.layerToggles[layerKey]);
 
       break;
+    }
   }
 }
 
