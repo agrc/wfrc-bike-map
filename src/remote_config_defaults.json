@@ -1,10 +1,10 @@
 {
   "parameters": {
-    "aboutContent": {
+    "hybridId": {
       "defaultValue": {
-        "value": "<p>This web map depicts known existing bicycle paths, lanes, and paths. An alternate map view conveys a comparative\n  level of traffic stress(LTS) that users might experience when bicycling along major roadways.</p>\n\n<p>This dataset is updated periodically but users are advised that the map may not reflect current conditions on the\n  ground, and may contain errors or omissions. User can click on any location on the map to indicate where updated data\n  is needed.</p>\n\n<p>Use of this information is at your own risk.</p>\n\n<p>Planned bike features can be found in <a\n    class=\"m-0 inline-flex cursor-pointer flex-wrap items-center gap-x-0.5 rounded text-secondary-800 underline decoration-secondary-800/60 outline outline-0 outline-offset-2 outline-primary-900 transition hover:decoration-secondary-800 disabled:cursor-default disabled:no-underline dark:text-accent-500 dark:decoration-accent-500/60 dark:outline-secondary-600 dark:hover:decoration-accent-500\"\n    href=\"todo\" target=\"_blank\" rel=\"noopener noreferrer nofollow\"> this map. <span aria-hidden=\"true\"> <svg\n        xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\"\n        stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"\n        class=\"lucide lucide-square-arrow-out-up-right h-full w-4\">\n        <path d=\"M21 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h6\"></path>\n        <path d=\"m21 3-9 9\"></path>\n        <path d=\"M15 3h6v6\"></path>\n      </svg> </span> <span class=\"sr-only\">opens in a new window</span></a></p>\n"
+        "value": "ed173e51c27b41f3882064ce5de7d431"
       },
-      "description": "The html content displayed in the about/loading dialog.",
+      "description": "The AGOL Item id for the hybrid (imagery + overlay) base map.",
       "valueType": "STRING"
     },
     "webMapId": {
@@ -12,6 +12,13 @@
         "value": "6ad72cac07b6464f9542e7daaa884b44"
       },
       "description": "The AGOL id of the web map that you want to point the app to.",
+      "valueType": "STRING"
+    },
+    "aboutContent": {
+      "defaultValue": {
+        "value": "<p>This web map depicts known existing bicycle paths, lanes, and paths. An alternate map view conveys a comparative\n  level of traffic stress(LTS) that users might experience when bicycling along major roadways.</p>\n\n<p>This dataset is updated periodically but users are advised that the map may not reflect current conditions on the\n  ground, and may contain errors or omissions. User can click on any location on the map to indicate where updated data\n  is needed.</p>\n\n<p>Use of this information is at your own risk.</p>\n\n<p>Planned bike features can be found in <a\n    class=\"m-0 inline-flex cursor-pointer flex-wrap items-center gap-x-0.5 rounded text-secondary-800 underline decoration-secondary-800/60 outline outline-0 outline-offset-2 outline-primary-900 transition hover:decoration-secondary-800 disabled:cursor-default disabled:no-underline dark:text-accent-500 dark:decoration-accent-500/60 dark:outline-secondary-600 dark:hover:decoration-accent-500\"\n    href=\"todo\" target=\"_blank\" rel=\"noopener noreferrer nofollow\"> this map. <span aria-hidden=\"true\"> <svg\n        xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\"\n        stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"\n        class=\"lucide lucide-square-arrow-out-up-right h-full w-4\">\n        <path d=\"M21 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h6\"></path>\n        <path d=\"m21 3-9 9\"></path>\n        <path d=\"M15 3h6v6\"></path>\n      </svg> </span> <span class=\"sr-only\">opens in a new window</span></a></p>\n"
+      },
+      "description": "The html content displayed in the about/loading dialog.",
       "valueType": "STRING"
     },
     "layerNames": {

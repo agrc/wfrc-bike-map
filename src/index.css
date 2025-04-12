@@ -59,6 +59,11 @@ body {
   }
 }
 
+/* this makes the focus border match the rounded size of the container button */
+calcite-button {
+  --calcite-button-corner-radius: 9999px;
+}
+
 .esri-component,
 .esri-widget calcite-button {
   @apply rounded-full;
@@ -70,4 +75,10 @@ body {
 
 .esri-view-surface::after {
   outline-color: transparent !important;
+}
+
+.esri-basemap-toggle calcite-button,
+.esri-basemap-toggle__container,
+.esri-basemap-toggle__image {
+  @apply !size-[32px] !rounded-full;
 }

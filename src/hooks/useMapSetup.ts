@@ -1,6 +1,7 @@
 import { watch } from '@arcgis/core/core/reactiveUtils';
 import MapView from '@arcgis/core/views/MapView';
 import WebMap from '@arcgis/core/WebMap';
+import BasemapToggle from '@arcgis/core/widgets/BasemapToggle.js';
 import Home from '@arcgis/core/widgets/Home';
 import Track from '@arcgis/core/widgets/Track';
 import { useEffect, useRef } from 'react';
@@ -170,6 +171,17 @@ export function useMapSetup(
       view.ui.add(trackWidget, 'top-right');
       view.ui.add(zoomButtonRef.current!, 'top-right');
       view.ui.add(feedbackButtonRef.current!, 'top-right');
+      view.ui.add(
+        new BasemapToggle({
+          view,
+          nextBasemap: {
+            portalItem: {
+              id: getConfig('hybridId') as string,
+            },
+          },
+        }),
+        'bottom-left',
+      );
 
       const layerNames = getConfig('layerNames') as LayerNames;
       for (const layerName of Object.keys(layers.current) as LayerNameKey[]) {
