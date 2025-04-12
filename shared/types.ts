@@ -4,7 +4,7 @@ export type FeedbackSubmission = {
   email: string;
   feedback: string;
   feature: {
-    attributes: Record<string, any>;
+    attributes: Record<string, unknown>;
     geometry: IPoint | IPolyline;
   };
   layer?: string;

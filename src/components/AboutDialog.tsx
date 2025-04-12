@@ -36,7 +36,7 @@ export default function AboutDialog({
           />
 
           <Checkbox isSelected={hideOnLoad} onChange={setHideOnLoad}>
-            Don't show this dialog again
+            Don{`'`}t show this dialog again
           </Checkbox>
 
           <Checkbox
