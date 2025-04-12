@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.4.0-14](https://github.com/agrc/wfrc-bike-map/compare/v0.4.0-13...v0.4.0-14) (2025-04-12)
+
+
+### Bug Fixes
+
+* fix regression bug preventing identify when the drawer is toggled off ([77e4a0c](https://github.com/agrc/wfrc-bike-map/commit/77e4a0c4e5f6aeb0e91c5569a8e5065243d077e5))
+* move basemap toggle to top left ([4f603a8](https://github.com/agrc/wfrc-bike-map/commit/4f603a867bf67bde23c37c5a07cf262d278a3174))
+* prevent the URL from being updated too many times during panning and zooming ([e0cc5cb](https://github.com/agrc/wfrc-bike-map/commit/e0cc5cb620a4b659fe1cbaf374496dea26b74202))
+
 ## [0.4.0-13](https://github.com/agrc/wfrc-bike-map/compare/v0.4.0-12...v0.4.0-13) (2025-04-12)
 
 
