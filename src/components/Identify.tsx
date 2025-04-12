@@ -15,10 +15,8 @@ export default function Identify({ graphic, clear }: IdentifyProps) {
   const featureComponentRef = useRef<HTMLArcgisFeatureElement>(null);
 
   useEffect(() => {
-    if (showFeedback) {
-      setShowFeedback(false);
-    }
-  }, [graphic, showFeedback]);
+    setShowFeedback(false);
+  }, [graphic]);
 
   return (
     <>
