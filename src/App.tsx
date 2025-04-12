@@ -1,7 +1,7 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Drawer, Header } from '@ugrc/utah-design-system';
 import { useLocalStorage } from '@ugrc/utilities/hooks';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useOverlayTrigger } from 'react-aria';
 import { useOverlayTriggerState } from 'react-stately';
 import { useWindowSize } from 'usehooks-ts';
@@ -31,11 +31,12 @@ export default function App() {
 
   const clearIdentify = () => setIdentifyGraphic(null);
 
-  useEffect(() => {
-    if (identifyGraphic && !trayState.isOpen) {
+  const onFeatureIdentify = (graphic: __esri.Graphic | null) => {
+    if (graphic) {
       trayState.open();
     }
-  }, [identifyGraphic, trayState]);
+    setIdentifyGraphic(graphic);
+  };
 
   const [useMyLocationOnLoad, setUseMyLocationOnLoad] = useLocalStorage(
     'useMyLocationOnLoad',
@@ -64,7 +65,7 @@ export default function App() {
         <QueryClientProvider client={queryClient}>
           <MapContainer
             trayIsOpen={trayState.isOpen}
-            onFeatureIdentify={setIdentifyGraphic}
+            onFeatureIdentify={onFeatureIdentify}
             useMyLocationOnLoad={useMyLocationOnLoad}
             genericFeedbackPoint={genericFeedbackPoint}
             setGenericFeedbackPoint={setGenericFeedbackPoint}
