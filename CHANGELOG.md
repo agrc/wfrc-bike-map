@@ -1,5 +1,36 @@
 # Changelog
 
+## [0.4.0-13](https://github.com/agrc/wfrc-bike-map/compare/v0.4.0-12...v0.4.0-13) (2025-04-12)
+
+
+### Features
+
+* add basemap toggle control ([7e4628c](https://github.com/agrc/wfrc-bike-map/commit/7e4628c9856b9f62f6a1fde720559649add17a0e)), closes [#88](https://github.com/agrc/wfrc-bike-map/issues/88)
+* add logo and favicon ([5c7a0ae](https://github.com/agrc/wfrc-bike-map/commit/5c7a0ae728235d626fbf7669811df1baf54283b0)), closes [#23](https://github.com/agrc/wfrc-bike-map/issues/23)
+* add zoom to my location button ([1bac0cf](https://github.com/agrc/wfrc-bike-map/commit/1bac0cfba5d3c873eea3897048602a6b2b2677c6)), closes [#78](https://github.com/agrc/wfrc-bike-map/issues/78)
+
+
+### Bug Fixes
+
+* data type error on NOTES field ([9f0a348](https://github.com/agrc/wfrc-bike-map/commit/9f0a3484d0f090f5ff34056f1ba8e06059a52ad7))
+* **scripts:** fix city & county join and other refinements ([21c4397](https://github.com/agrc/wfrc-bike-map/commit/21c4397637f0ac08bddbe9d6d297677c35b72b93))
+* **scripts:** updates in preparation for running as part of the roads update ([094b528](https://github.com/agrc/wfrc-bike-map/commit/094b528a7448b0ff9872219ca88a17d96b60c37b))
+
+
+### Dependencies
+
+* bump dependencies 🌲 ([c4744f1](https://github.com/agrc/wfrc-bike-map/commit/c4744f16ecfb3632d1891bf9be65d385dad12d91))
+
+
+### Documentation
+
+* **scripts:** centralize parameter docs ([c3193f4](https://github.com/agrc/wfrc-bike-map/commit/c3193f4b0c81e23d53ca37c378c0c9e4887ccb78))
+
+
+### Styles
+
+* larger screen layout improvements ([6ce9d65](https://github.com/agrc/wfrc-bike-map/commit/6ce9d65fe8c2ed7a3260624ad5dcdd96c47714e1)), closes [#14](https://github.com/agrc/wfrc-bike-map/issues/14)
+
 ## [0.4.0-12](https://github.com/agrc/wfrc-bike-map/compare/v0.4.0-11...v0.4.0-12) (2025-04-02)
 
 
