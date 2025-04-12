@@ -180,7 +180,7 @@ export function useMapSetup(
             },
           },
         }),
-        'bottom-left',
+        'top-left',
       );
 
       const layerNames = getConfig('layerNames') as LayerNames;
@@ -245,7 +245,6 @@ export function useMapSetup(
   // update map padding when tray is open
   useEffect(() => {
     if (mapView.current) {
-      console.log('padding updated');
       mapView.current.padding.bottom = trayIsOpen ? 320 : 0;
     }
   }, [trayIsOpen]);
