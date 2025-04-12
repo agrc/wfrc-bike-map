@@ -44,8 +44,6 @@ export function useMapSetup(
       return;
     }
 
-    let clickHandler: __esri.Handle | null = null;
-
     const initializeMap = async () => {
       console.log('setting up the map');
       mapIsInitialized.current = true;
@@ -108,7 +106,7 @@ export function useMapSetup(
         popupEnabled: false,
       });
 
-      clickHandler = view.on('immediate-click', (event) => {
+      view.on('immediate-click', (event) => {
         view.closePopup();
         view.hitTest(event).then((response) => {
           const graphicHits = response.results.filter(
@@ -230,10 +228,6 @@ export function useMapSetup(
     };
 
     initializeMap();
-
-    return () => {
-      clickHandler?.remove();
-    };
   }, [
     getConfig,
     mapNodeRef,
