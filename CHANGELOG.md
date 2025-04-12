@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.0-15](https://github.com/agrc/wfrc-bike-map/compare/v0.4.0-14...v0.4.0-15) (2025-04-12)
+
+
+### Bug Fixes
+
+* fix regression bug causing feedback button not to show the form ([d1aea14](https://github.com/agrc/wfrc-bike-map/commit/d1aea145a4869c7a914b62e26f5e9e966c214d2c))
+
 ## [0.4.0-14](https://github.com/agrc/wfrc-bike-map/compare/v0.4.0-13...v0.4.0-14) (2025-04-12)
 
 
