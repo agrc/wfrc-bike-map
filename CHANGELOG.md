@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.0-16](https://github.com/agrc/wfrc-bike-map/compare/v0.4.0-15...v0.4.0-16) (2025-04-14)
+
+
+### Dependencies
+
+* bump dependencies 🌲 ([54623fd](https://github.com/agrc/wfrc-bike-map/commit/54623fdb44b9f9fe2fba53dc8a953f0f77153993))
+
 ## [0.4.0-15](https://github.com/agrc/wfrc-bike-map/compare/v0.4.0-14...v0.4.0-15) (2025-04-12)
 
 
