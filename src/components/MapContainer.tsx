@@ -1,4 +1,4 @@
-import { BusyBar } from '@ugrc/utah-design-system';
+import { BusyBar, useFirebaseAnalytics } from '@ugrc/utah-design-system';
 import { useGraphicManager, useViewLoading } from '@ugrc/utilities/hooks';
 import { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
@@ -38,6 +38,8 @@ export const MapContainer = ({
 
   const [center, setCenter] = useState<number[] | null>(null);
   const showFeedback = genericFeedbackPoint !== null;
+
+  const logEvent = useFirebaseAnalytics();
 
   // Set up the map
   const { mapView, layers, highlightHandle } = useMapSetup(
@@ -83,6 +85,7 @@ export const MapContainer = ({
 
   // Handle feedback button click
   const handleFeedbackClick = () => {
+    logEvent('generic_feedback_button_click');
     if (showFeedback) {
       setGenericFeedbackPoint(null);
     } else {
@@ -102,6 +105,7 @@ export const MapContainer = ({
 
   // Handle zoom to location button click
   const handleZoomToLocation = () => {
+    logEvent('zoom_to_location');
     getCoarseLocation().then((location) => {
       if (location && mapView.current) {
         mapView.current.goTo({

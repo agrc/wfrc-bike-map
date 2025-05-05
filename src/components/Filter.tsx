@@ -1,4 +1,9 @@
-import { Checkbox, Spinner, Switch } from '@ugrc/utah-design-system';
+import {
+  Checkbox,
+  Spinner,
+  Switch,
+  useFirebaseAnalytics,
+} from '@ugrc/utah-design-system';
 import type { ClassOrders } from '../context/FirebaseRemoteConfigsProvider';
 import { useFilter } from '../hooks/useFilter';
 import useRemoteConfigs from '../hooks/useRemoteConfigs';
@@ -11,6 +16,8 @@ export default function Filter() {
   const { state, dispatch } = useFilter();
   const isRouteTypes = state.selectedFilterType === 'routeTypes';
   const getConfig = useRemoteConfigs();
+
+  const logEvent = useFirebaseAnalytics();
 
   if (state.routeTypes.rendererClasses.length === 0 || !getConfig) {
     return (
@@ -55,11 +62,12 @@ export default function Filter() {
       <Switch
         className="mb-3"
         isSelected={isRouteTypes}
-        onChange={() =>
+        onChange={() => {
+          logEvent('toggle_filter_type');
           dispatch({
             type: 'TOGGLE_FILTER_TYPE',
-          })
-        }
+          });
+        }}
       >
         <h2>
           {isRouteTypes ? layerNames.routeTypes : layerNames.trafficStress}
@@ -71,12 +79,13 @@ export default function Filter() {
             {getRendererClassCheckboxes('routeTypes')}
             <Checkbox
               isSelected={state.layerToggles.otherLinks}
-              onChange={() =>
+              onChange={() => {
+                logEvent('toggle_other_links');
                 dispatch({
                   type: 'TOGGLE_LAYER',
                   payload: { layerKey: 'otherLinks' },
-                })
-              }
+                });
+              }}
             >
               <LegendSwatch symbol={state.symbols.otherLinks} />
               <Label>Other Links</Label>

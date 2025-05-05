@@ -4,6 +4,7 @@ import WebMap from '@arcgis/core/WebMap';
 import BasemapToggle from '@arcgis/core/widgets/BasemapToggle.js';
 import Home from '@arcgis/core/widgets/Home';
 import Track from '@arcgis/core/widgets/Track';
+import { useFirebaseAnalytics } from '@ugrc/utah-design-system';
 import debounce from 'lodash.debounce';
 import { useEffect, useRef } from 'react';
 import { getCoarseLocation, INITIAL_MAP_ZOOM } from '../components/mapUtils';
@@ -37,6 +38,8 @@ export function useMapSetup(
   const mapIsInitialized = useRef<boolean>(false);
   const highlightHandle = useRef<__esri.Handle>(null);
   const { dispatch } = useFilter();
+
+  const logEvent = useFirebaseAnalytics();
 
   // set up map
   useEffect(() => {
@@ -166,7 +169,9 @@ export function useMapSetup(
       await view.when();
 
       const homeWidget = new Home({ view });
+      homeWidget.on('go', () => logEvent('home_button_click'));
       const trackWidget = new Track({ view });
+      trackWidget.on('track', () => logEvent('track_button_click'));
       view.ui.add(homeWidget, 'top-right');
       view.ui.add(trackWidget, 'top-right');
       view.ui.add(zoomButtonRef.current!, 'top-right');

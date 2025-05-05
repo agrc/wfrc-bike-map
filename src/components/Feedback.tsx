@@ -4,6 +4,7 @@ import {
   Button,
   TextArea,
   TextField,
+  useFirebaseAnalytics,
   useFirebaseFunctions,
 } from '@ugrc/utah-design-system';
 import { httpsCallable } from 'firebase/functions';
@@ -29,7 +30,9 @@ export default function Feedback({
     FeedbackResponse
   >(functions, 'submitFeedback');
 
+  const logEvent = useFirebaseAnalytics();
   const submitFeedback = async (data: FeedbackSubmission) => {
+    logEvent('submit_feedback');
     const response = await submitFeedbackCallable(data);
     if (!response.data.success) {
       throw new Error(response.data.errorMessage);
