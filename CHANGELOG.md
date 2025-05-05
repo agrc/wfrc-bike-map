@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.4.0-17](https://github.com/agrc/wfrc-bike-map/compare/v0.4.0-16...v0.4.0-17) (2025-05-05)
+
+
+### Features
+
+* log most user interactions to firebase analytics ([3fd2e98](https://github.com/agrc/wfrc-bike-map/commit/3fd2e98c1bab58fc2ccdc2240ea831a3f48ac833))
+
+
+### Dependencies
+
+* bump dependencies 🌲 ([ba1ce78](https://github.com/agrc/wfrc-bike-map/commit/ba1ce786debb73c7b24d3983b7eeb3826c1c7e33))
+* bump node dependencies 🌲 ([1906d69](https://github.com/agrc/wfrc-bike-map/commit/1906d692038836f3ce1b9646d02e5089677fcdb5))
+
 ## [0.4.0-16](https://github.com/agrc/wfrc-bike-map/compare/v0.4.0-15...v0.4.0-16) (2025-04-14)
 
 
