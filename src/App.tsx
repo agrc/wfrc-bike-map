@@ -1,5 +1,5 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { Drawer, Header } from '@ugrc/utah-design-system';
+import { Drawer, Header, useFirebaseAnalytics } from '@ugrc/utah-design-system';
 import { useLocalStorage } from '@ugrc/utilities/hooks';
 import { useState } from 'react';
 import { useOverlayTrigger } from 'react-aria';
@@ -31,7 +31,9 @@ export default function App() {
 
   const clearIdentify = () => setIdentifyGraphic(null);
 
+  const logEvent = useFirebaseAnalytics();
   const onFeatureIdentify = (graphic: __esri.Graphic | null) => {
+    logEvent('identify');
     if (graphic) {
       trayState.open();
     }

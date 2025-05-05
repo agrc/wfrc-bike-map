@@ -1,5 +1,5 @@
 import '@arcgis/map-components/components/arcgis-feature';
-import { Button } from '@ugrc/utah-design-system';
+import { Button, useFirebaseAnalytics } from '@ugrc/utah-design-system';
 import { CircleX } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import Feedback from './Feedback';
@@ -13,6 +13,8 @@ type IdentifyProps = {
 export default function Identify({ graphic, clear }: IdentifyProps) {
   const [showFeedback, setShowFeedback] = useState(false);
   const featureComponentRef = useRef<HTMLArcgisFeatureElement>(null);
+
+  const logEvent = useFirebaseAnalytics();
 
   useEffect(() => {
     setShowFeedback(false);
@@ -38,7 +40,13 @@ export default function Identify({ graphic, clear }: IdentifyProps) {
               graphic={featureComponentRef.current!.graphic!}
             />
           ) : (
-            <Button className="w-full" onPress={() => setShowFeedback(true)}>
+            <Button
+              className="w-full"
+              onPress={() => {
+                logEvent('show_feature_feedback');
+                setShowFeedback(true);
+              }}
+            >
               Give feedback about this road or trail
             </Button>
           )}

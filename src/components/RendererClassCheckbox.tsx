@@ -1,4 +1,4 @@
-import { Checkbox } from '@ugrc/utah-design-system';
+import { Checkbox, useFirebaseAnalytics } from '@ugrc/utah-design-system';
 import { useFilter } from '../hooks/useFilter';
 import type { LayersWithRenderClassesKeys } from '../shared';
 import Label from './Label';
@@ -17,7 +17,13 @@ export default function RendererClassCheckbox({
 }: RendererClassCheckboxProps) {
   const { state, dispatch } = useFilter();
 
+  const logEvent = useFirebaseAnalytics();
+
   const handleCheckboxChange = () => {
+    logEvent('filter_renderer_class', {
+      rendererClass: rendererClass.label,
+      layerKey,
+    });
     dispatch({
       type: 'TOGGLE_RENDERER_CLASS',
       payload: {
