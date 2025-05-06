@@ -1,5 +1,85 @@
 # Changelog
 
+## [0.4.0-18](https://github.com/agrc/wfrc-bike-map/compare/v0.3.0...v0.4.0-18) (2025-05-06)
+
+
+### Features
+
+* add about content to firebase remote configs ([543d989](https://github.com/agrc/wfrc-bike-map/commit/543d989592c06577285e070322a76540db0e11f3)), closes [#76](https://github.com/agrc/wfrc-bike-map/issues/76)
+* add about dialog with default location option ([6dae472](https://github.com/agrc/wfrc-bike-map/commit/6dae4722dedfed61717505b908021b8c5d05248c))
+* add basemap toggle control ([1b6f673](https://github.com/agrc/wfrc-bike-map/commit/1b6f673935f550624689307043296963c975cc11)), closes [#88](https://github.com/agrc/wfrc-bike-map/issues/88)
+* add logo and favicon ([c034935](https://github.com/agrc/wfrc-bike-map/commit/c034935ab02a9225dae3ecc024e4348b77c1d486)), closes [#23](https://github.com/agrc/wfrc-bike-map/issues/23)
+* add map drawing busy bar ([47565e8](https://github.com/agrc/wfrc-bike-map/commit/47565e88a0b8f2be36b9383ff8a57703844761b9))
+* add symbols to renderer class checkboxes ([9f5f62c](https://github.com/agrc/wfrc-bike-map/commit/9f5f62c129f6dce5f2c068f135ad2dcdb8346ac4)), closes [#11](https://github.com/agrc/wfrc-bike-map/issues/11)
+* add the ability to configure the order of checkboxes in the filter ([b74d05f](https://github.com/agrc/wfrc-bike-map/commit/b74d05f4a2848da9ff931ed5ff62ebaea2a21b2f)), closes [#79](https://github.com/agrc/wfrc-bike-map/issues/79)
+* add zoom to my location button ([fb01350](https://github.com/agrc/wfrc-bike-map/commit/fb013508e4292aad7ceb765ead075bbff0610544)), closes [#78](https://github.com/agrc/wfrc-bike-map/issues/78)
+* basic feature identify based on popup templates ([f628313](https://github.com/agrc/wfrc-bike-map/commit/f628313f383e02ddea2d392a5ba70b57721c4d0c)), closes [#18](https://github.com/agrc/wfrc-bike-map/issues/18)
+* **functions:** send confirmation and notification feedback emails ([f3b9065](https://github.com/agrc/wfrc-bike-map/commit/f3b90655281a377fbec38d10ae49d33922b43711))
+* implement feature-specific feedback ([84cf75d](https://github.com/agrc/wfrc-bike-map/commit/84cf75db93ba8e56d376aeb7eeba38d60a4a8d34)), closes [#17](https://github.com/agrc/wfrc-bike-map/issues/17)
+* implement generic location feedback ([e5c1441](https://github.com/agrc/wfrc-bike-map/commit/e5c14410b0e864fe2b8be7329bf0ec70f5363e44))
+* log most user interactions to firebase analytics ([e6c6dbd](https://github.com/agrc/wfrc-bike-map/commit/e6c6dbda1915d3c238179ed86550738a7f666e39))
+* migrate configs to firebase remote configs ([281ac51](https://github.com/agrc/wfrc-bike-map/commit/281ac5123a772ad360193b8343961f51b6e08701))
+* place filter/legend into collapsible tray ([58a7011](https://github.com/agrc/wfrc-bike-map/commit/58a70114f725921970808326ecec59bf95618a0f)), closes [#11](https://github.com/agrc/wfrc-bike-map/issues/11)
+* preserve filter and map extent state as URL parameters ([e49887f](https://github.com/agrc/wfrc-bike-map/commit/e49887f871536dfb47dd5116b16c40679ebe155b)), closes [#15](https://github.com/agrc/wfrc-bike-map/issues/15)
+* wire up symbol class checkboxes to filter ([0f6cb6e](https://github.com/agrc/wfrc-bike-map/commit/0f6cb6e8bcb35cc12530e12d197dd81cac339149)), closes [#11](https://github.com/agrc/wfrc-bike-map/issues/11)
+* wire up traffic signals layer classes ([e7d495e](https://github.com/agrc/wfrc-bike-map/commit/e7d495eb7f2215a27321d43bbc38ea6dfe3a425a)), closes [#11](https://github.com/agrc/wfrc-bike-map/issues/11)
+
+
+### Bug Fixes
+
+* adjust map center and zoom level in MapContainer ([aff7914](https://github.com/agrc/wfrc-bike-map/commit/aff7914a86d725cbd7c38ebe14c43078a23a41f9))
+* **ci:** use npx to run firebase cli ([2d881fa](https://github.com/agrc/wfrc-bike-map/commit/2d881fa2e55d7efc991a85a69fbbc46f2736e983))
+* clear identify if no feature is found on tap ([41c65cb](https://github.com/agrc/wfrc-bike-map/commit/41c65cbea761908a8b781832432053917f796c2a))
+* data type error on NOTES field ([860573c](https://github.com/agrc/wfrc-bike-map/commit/860573c47b0390a43c2a9534fe91e0dca6c5528d))
+* fix bug causing the state of both filter types to be mixed ([91899ec](https://github.com/agrc/wfrc-bike-map/commit/91899ecfe7023ef99b6ccf9fb0ec7fb75e3946d9))
+* fix regression bug causing feedback button not to show the form ([6215b00](https://github.com/agrc/wfrc-bike-map/commit/6215b00a2d07d9ed78868dd550d68c070a26e9b6))
+* fix regression bug preventing identify when the drawer is toggled off ([a11abbb](https://github.com/agrc/wfrc-bike-map/commit/a11abbb0aefb1595a3dfe5929c9500a157f23871))
+* **function:** include missing explicit dependency ([538402e](https://github.com/agrc/wfrc-bike-map/commit/538402e97558f698243dce8a85f7aa47a888091a))
+* **function:** install deps before typescript build ([7aa0572](https://github.com/agrc/wfrc-bike-map/commit/7aa057238f6481b1c4eacb0c42b20caa2d956336))
+* **functions:** add environment variables ([d1006a3](https://github.com/agrc/wfrc-bike-map/commit/d1006a33af577c23a36fb69d6830ea8ae30c4e86))
+* make identify content look a little nicer ([83f2887](https://github.com/agrc/wfrc-bike-map/commit/83f2887805ab141bc933470b4712ac9a1aeca9bf))
+* make title match header color ([6b1fdeb](https://github.com/agrc/wfrc-bike-map/commit/6b1fdeb324f66c8631604360427115a8f340b3c4))
+* move basemap toggle to top left ([2a1b7ca](https://github.com/agrc/wfrc-bike-map/commit/2a1b7caa585eac2cd624a04ee9853d3f00af8d5d))
+* point at latest map from WFRC ([8fb43fc](https://github.com/agrc/wfrc-bike-map/commit/8fb43fc944ae91d564a4940a81a02bbf7d34177e))
+* prevent the URL from being updated too many times during panning and zooming ([f571b4f](https://github.com/agrc/wfrc-bike-map/commit/f571b4ff8a591dae30a2be0ada993d55df6b411d))
+* prevent wrapping of identify attribute labels ([045d9c8](https://github.com/agrc/wfrc-bike-map/commit/045d9c8d29846eb0b72fa413034a8f7db14cdd18))
+* remove scroll bars from drawer ([994a756](https://github.com/agrc/wfrc-bike-map/commit/994a7561fb11db32c756e20b142a67cf761f863c))
+* **scripts:** fix city & county join and other refinements ([489986b](https://github.com/agrc/wfrc-bike-map/commit/489986b46cc1dd6828afaa0f0c492683cda841ef))
+* **scripts:** updates in preparation for running as part of the roads update ([462d938](https://github.com/agrc/wfrc-bike-map/commit/462d938038a32fb0c067fd33a19d424617b1de7d))
+* switch to latest react/utah-design-system template ([3d6d029](https://github.com/agrc/wfrc-bike-map/commit/3d6d02949c574a93521bdc5036f289d0a8a53021)), closes [#8](https://github.com/agrc/wfrc-bike-map/issues/8)
+* switch to UGRC-owed base map with lite vector tiles ([0df5d00](https://github.com/agrc/wfrc-bike-map/commit/0df5d0065050b5b202b3d2d2a6e28a0079eee566))
+* switch to using LTS_SCORE field ([e74e51b](https://github.com/agrc/wfrc-bike-map/commit/e74e51bbf2e2e3345348e0629068e72ff58ffa8c))
+* update remote configs fetch interval to be 60 seconds ([321d504](https://github.com/agrc/wfrc-bike-map/commit/321d504d7167044fe5e22852002bfaf48998de29))
+* zoom in further on load ([c5a2aa9](https://github.com/agrc/wfrc-bike-map/commit/c5a2aa9f821b887d54a2939ce2c96464e9d4d904))
+
+
+### Dependencies
+
+* bump dependencies 🌲 ([c46e082](https://github.com/agrc/wfrc-bike-map/commit/c46e08212a59dc3ceb847c4930da85b55f8b860a))
+* bump dependencies 🌲 ([34a68ed](https://github.com/agrc/wfrc-bike-map/commit/34a68edc0c6937032e4d88aa24353d149030cebb))
+* bump dependencies 🌲 ([8c03b15](https://github.com/agrc/wfrc-bike-map/commit/8c03b159a3dcd96341aaf132d645baed2e76cc2c))
+* bump dependencies 🌲pnpm ([bba9bfa](https://github.com/agrc/wfrc-bike-map/commit/bba9bfa1f9b4bdb04779135b99895501690a844b))
+* bump dependency versions 🌲 ([ce20fd8](https://github.com/agrc/wfrc-bike-map/commit/ce20fd829a5ae7ca6228f0ca9ce8473f5ed1b65a))
+* bump deps ([4520095](https://github.com/agrc/wfrc-bike-map/commit/4520095a4c1e419c8ff42c2a7291b0bdb58fb87a))
+* bump node dependencies 🌲 ([6bf1581](https://github.com/agrc/wfrc-bike-map/commit/6bf15815941ee21ddb8e98695c97a891c3a20451))
+* bump the safe-dependencies group across 1 directory with 14 updates ([6c714f5](https://github.com/agrc/wfrc-bike-map/commit/6c714f540fde7008a04de9b532b4463b5642f95a))
+* bump the safe-dependencies group across 1 directory with 8 updates ([1625f72](https://github.com/agrc/wfrc-bike-map/commit/1625f72397a61cea14cb6f2e31aaab98f25c3c6f))
+* **dev:** bump the major-dependencies group across 1 directory with 2 updates ([5e4faa8](https://github.com/agrc/wfrc-bike-map/commit/5e4faa8e54d0b807307f731311fad564a9fff93c))
+* **dev:** bump vitest in the major-dependencies group ([9d22b23](https://github.com/agrc/wfrc-bike-map/commit/9d22b23ec5304bf131aff75edd611522ddcc739b))
+
+
+### Documentation
+
+* **scripts:** centralize parameter docs ([7a7e161](https://github.com/agrc/wfrc-bike-map/commit/7a7e161b138d0434e315e32dfa3cc31af82afc5c))
+* update set up steps ([602e1bd](https://github.com/agrc/wfrc-bike-map/commit/602e1bdb21bda477afc01ada44a3c2b200b80d73))
+
+
+### Styles
+
+* add a bit of vertical space between identify table rows ([29dbcfe](https://github.com/agrc/wfrc-bike-map/commit/29dbcfe9660826fe6a56c1e7e9428ea5ecf53d6e))
+* center road name in identify ([1a256ac](https://github.com/agrc/wfrc-bike-map/commit/1a256ac5e021afee7c891db35aba2e0cfa733853))
+* larger screen layout improvements ([b9fa358](https://github.com/agrc/wfrc-bike-map/commit/b9fa35815fdb4a54fa30438612a82b1a679a4047)), closes [#14](https://github.com/agrc/wfrc-bike-map/issues/14)
+
 ## [0.4.0-17](https://github.com/agrc/wfrc-bike-map/compare/v0.4.0-16...v0.4.0-17) (2025-05-05)
 
 
