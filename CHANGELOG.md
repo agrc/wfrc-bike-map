@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.0](https://github.com/agrc/wfrc-bike-map/compare/v0.4.0-18...v1.0.0) (2025-05-07)
+
+
+### Features
+
+First production release of the WFRC Bike Map.
+
 ## [0.4.0-18](https://github.com/agrc/wfrc-bike-map/compare/v0.3.0...v0.4.0-18) (2025-05-06)
 
 
