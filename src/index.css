@@ -80,5 +80,5 @@ calcite-button {
 .esri-basemap-toggle calcite-button,
 .esri-basemap-toggle__container,
 .esri-basemap-toggle__image {
-  @apply !size-[32px] !rounded-full;
+  @apply !size-8 !rounded-full;
 }

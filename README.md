@@ -16,10 +16,6 @@
 
 ## Deploy
 
-One-time tasks:
-
-- [ ] Update the analytics code in `index.html`
-
 This website is tested and deployed with GitHub Actions.
 
 ## Remote Configs

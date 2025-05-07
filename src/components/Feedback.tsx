@@ -42,6 +42,9 @@ export default function Feedback({
   const mutation = useMutation({
     mutationFn: submitFeedback,
     onError: (error) => {
+      logEvent('submit_feedback_error', {
+        error: error.message,
+      });
       console.error('error with call to function', error);
     },
   });

@@ -109,7 +109,7 @@ export function useMapSetup(
         popupEnabled: false,
       });
 
-      view.on('immediate-click', (event) => {
+      view.on('click', (event) => {
         view.closePopup();
         view.hitTest(event).then((response) => {
           const graphicHits = response.results.filter(
@@ -245,6 +245,7 @@ export function useMapSetup(
     feedbackButtonRef,
     dispatch,
     setCenter,
+    logEvent,
   ]);
 
   // update map padding when tray is open
