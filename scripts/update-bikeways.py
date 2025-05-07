@@ -908,7 +908,7 @@ def process_data(
     ]
     
     # reclassify links
-    bf_all.loc[(bf_all['MERGE_SRC'] == 'trails_lyr') & (bf_all['Status'].isin(['Construction', 'Planned', 'Proposed', 'Retired'])==False) & (bf_all['Class']=='Link'), 'CartoCode'] = '9'
+    bf_all.loc[(bf_all['MERGE_SRC'] == 'trails_lyr') & (bf_all['Status'].isin(['Construction', 'Planned', 'Proposed', 'Retired'])==False) & (bf_all['Class'].isin('Link', 'Sidewalk')), 'CartoCode'] = '9'
 
     # determine the bike feature order and side
     print("--determining primary bike feature and side")
