@@ -715,7 +715,7 @@ def process_data(
     trails_lyr = arcpy.MakeFeatureLayer_management(
         trails,
         "trails_lyr",
-        where_clause="""(CartoCode IN ('3 - Paved Shared Use', '3 - Shared Use Path', '8 - Bridge, Tunnel')) And (Status NOT IN ('CLOSED', 'PROPOSED', 'UPGRADE'))""",
+        where_clause="""(CartoCode IN ('3 - Paved Shared Use', '3 - Shared Use Path', '4 - Biking Only' , '8 - Bridge, Tunnel')) And (Status NOT IN ('CLOSED', 'PROPOSED', 'UPGRADE'))""",
     )
 
     if is_test:
