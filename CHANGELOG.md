@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.0.1](https://github.com/agrc/wfrc-bike-map/compare/v1.0.0...v1.0.1) (2025-05-08)
+
+
+### Features
+
+* **scripts:** include sidewalks ([#109](https://github.com/agrc/wfrc-bike-map/issues/109)) ([01d92da](https://github.com/agrc/wfrc-bike-map/commit/01d92da896dcdc76b24f987993bc60572b430f5c))
+
+
+### Bug Fixes
+
+* add '[]' for .isin syntax ([97a98ff](https://github.com/agrc/wfrc-bike-map/commit/97a98ffbc232a601fb25b6f92a009e0eb49e2fce))
+
 ## [1.0.0](https://github.com/agrc/wfrc-bike-map/compare/v0.4.0-18...v1.0.0) (2025-05-07)
 
 
