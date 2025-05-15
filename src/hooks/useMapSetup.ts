@@ -34,6 +34,7 @@ export function useMapSetup(
     trafficStress: null,
     trafficSignals: null,
     otherLinks: null,
+    bikeshareStations: null,
   });
   const mapIsInitialized = useRef<boolean>(false);
   const highlightHandle = useRef<__esri.Handle>(null);
@@ -224,6 +225,10 @@ export function useMapSetup(
           symbols: {
             otherLinks: (
               layers.current.otherLinks!.renderer as __esri.SimpleRenderer
+            ).symbol!,
+            bikeshareStations: (
+              layers.current.bikeshareStations!
+                .renderer as __esri.SimpleRenderer
             ).symbol!,
           },
         },

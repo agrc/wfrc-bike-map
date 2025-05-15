@@ -90,10 +90,38 @@ export default function Filter() {
               <LegendSwatch symbol={state.symbols.otherLinks} />
               <Label>Other Links</Label>
             </Checkbox>
+            <Checkbox
+              key="bikeshareStations-route-types"
+              isSelected={state.layerToggles.bikeshareStations}
+              onChange={() => {
+                logEvent('toggle_bikeshare_stations');
+                dispatch({
+                  type: 'TOGGLE_LAYER',
+                  payload: { layerKey: 'bikeshareStations' },
+                });
+              }}
+            >
+              <LegendSwatch symbol={state.symbols.bikeshareStations} />
+              <Label>Bikeshare Stations</Label>
+            </Checkbox>
           </>
         ) : (
           <>
             {getRendererClassCheckboxes('trafficStress')}
+            <Checkbox
+              key="bikeshareStations-traffic-stress"
+              isSelected={state.layerToggles.bikeshareStations}
+              onChange={() => {
+                logEvent('toggle_bikeshare_stations');
+                dispatch({
+                  type: 'TOGGLE_LAYER',
+                  payload: { layerKey: 'bikeshareStations' },
+                });
+              }}
+            >
+              <LegendSwatch symbol={state.symbols.bikeshareStations} />
+              <Label>Bikeshare Stations</Label>
+            </Checkbox>
             <div className="space-y-1.5 md:col-span-full md:grid md:grid-cols-2 md:gap-4">
               {getRendererClassCheckboxes('trafficSignals')}
             </div>
