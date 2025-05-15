@@ -25,8 +25,12 @@ export function useLayerFiltering(
     }
 
     const fieldNames = getConfig('fieldNames') as FieldNames;
+
+    // these layers are visible on both route types and traffic stress views
     layers.current.bikeshareStations.visible =
       state.layerToggles.bikeshareStations;
+    layers.current.otherLinks.visible = state.layerToggles.otherLinks;
+
     if (state.selectedFilterType === 'routeTypes') {
       const where = getWhereClause(
         state.routeTypes.selectedClasses!,
@@ -39,7 +43,6 @@ export function useLayerFiltering(
       setLayerViewFilter(layers.current.routeTypes, mapView.current, where);
 
       layers.current.routeTypes.visible = true;
-      layers.current.otherLinks.visible = state.layerToggles.otherLinks;
       layers.current.trafficStress.visible = false;
       layers.current.trafficSignals.visible = false;
     } else if (state.selectedFilterType === 'trafficStress') {
@@ -70,7 +73,6 @@ export function useLayerFiltering(
       layers.current.trafficStress.visible = true;
       layers.current.trafficSignals.visible = true;
       layers.current.routeTypes.visible = false;
-      layers.current.otherLinks.visible = false;
     }
   }, [state, mapView, layers, getConfig]);
 }
