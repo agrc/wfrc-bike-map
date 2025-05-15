@@ -25,9 +25,14 @@ export function setUrlParameter(
 export function getUrlParameter(
   name: ParameterNames,
   type: 'string' | 'boolean' | 'number[]' | 'number',
+  defaultValue?: string | boolean | number[] | number,
 ): string | boolean | number[] | number | null {
   const url = new URL(window.location.href);
   const value = url.searchParams.get(name);
+
+  if (value === null && defaultValue !== undefined) {
+    return defaultValue;
+  }
 
   if (type === 'boolean') {
     return value === 'true';

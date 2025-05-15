@@ -77,7 +77,8 @@ const initialState: FilterState = {
       (getUrlParameter('trafficSignals', 'number[]') as number[]) ?? null,
   },
   layerToggles: {
-    otherLinks: (getUrlParameter('otherLinks', 'boolean') as boolean) ?? true,
+    otherLinks:
+      (getUrlParameter('otherLinks', 'boolean', true) as boolean) ?? true,
   },
 };
 
