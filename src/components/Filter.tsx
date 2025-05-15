@@ -78,6 +78,7 @@ export default function Filter() {
           <>
             {getRendererClassCheckboxes('routeTypes')}
             <Checkbox
+              key="otherLinks-route-types"
               isSelected={state.layerToggles.otherLinks}
               onChange={() => {
                 logEvent('toggle_other_links');
@@ -108,6 +109,20 @@ export default function Filter() {
         ) : (
           <>
             {getRendererClassCheckboxes('trafficStress')}
+            <Checkbox
+              key="otherLinks-traffic-stress"
+              isSelected={state.layerToggles.otherLinks}
+              onChange={() => {
+                logEvent('toggle_other_links');
+                dispatch({
+                  type: 'TOGGLE_LAYER',
+                  payload: { layerKey: 'otherLinks' },
+                });
+              }}
+            >
+              <LegendSwatch symbol={state.symbols.otherLinks} />
+              <Label>Other Links</Label>
+            </Checkbox>
             <Checkbox
               key="bikeshareStations-traffic-stress"
               isSelected={state.layerToggles.bikeshareStations}
