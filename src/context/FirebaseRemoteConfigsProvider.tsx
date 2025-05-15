@@ -35,6 +35,7 @@ export type LayerNames = {
   trafficStress: string;
   trafficSignals: string;
   otherLinks: string;
+  bikeshareStations: string;
 };
 export type FieldNames = {
   facility1: string;

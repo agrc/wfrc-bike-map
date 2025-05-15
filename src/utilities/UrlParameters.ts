@@ -7,7 +7,9 @@ type ParameterNames =
   | 'trafficStress'
   | 'trafficSignals'
   | 'center'
-  | 'zoom';
+  | 'zoom'
+  | 'bikeshareStations';
+
 export function setUrlParameter(
   name: ParameterNames,
   value: string | boolean | number[] | number,

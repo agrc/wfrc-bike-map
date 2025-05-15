@@ -3,11 +3,13 @@ import { createContext, type Dispatch, type ReactNode } from 'react';
 import { useImmerReducer } from 'use-immer';
 import type { LayersWithRenderClassesKeys } from '../shared';
 import { getUrlParameter, setUrlParameter } from '../utilities/UrlParameters';
+import type { LayerNames } from './FirebaseRemoteConfigsProvider';
 
 type FilterState = {
   selectedFilterType: Omit<LayersWithRenderClassesKeys, 'trafficSignals'>;
   symbols: {
     otherLinks: __esri.SymbolUnion | nullish;
+    bikeshareStations: __esri.SymbolUnion | nullish;
   };
   routeTypes: {
     rendererClasses: __esri.UniqueValueClass[];
@@ -23,6 +25,7 @@ type FilterState = {
   };
   layerToggles: {
     otherLinks: boolean;
+    bikeshareStations: boolean;
   };
 };
 
@@ -35,6 +38,7 @@ type Action =
         trafficSignals: __esri.UniqueValueClass[];
         symbols: {
           otherLinks: __esri.SymbolUnion;
+          bikeshareStations: __esri.SymbolUnion;
         };
       };
     }
@@ -51,7 +55,7 @@ type Action =
   | {
       type: 'TOGGLE_LAYER';
       payload: {
-        layerKey: 'otherLinks';
+        layerKey: keyof Pick<LayerNames, 'otherLinks' | 'bikeshareStations'>;
       };
     };
 
@@ -60,6 +64,7 @@ const initialState: FilterState = {
     (getUrlParameter('filterType', 'string') as string) ?? 'routeTypes',
   symbols: {
     otherLinks: null,
+    bikeshareStations: null,
   },
   routeTypes: {
     rendererClasses: [],
@@ -79,6 +84,9 @@ const initialState: FilterState = {
   layerToggles: {
     otherLinks:
       (getUrlParameter('otherLinks', 'boolean', true) as boolean) ?? true,
+    bikeshareStations:
+      (getUrlParameter('bikeshareStations', 'boolean', true) as boolean) ??
+      true,
   },
 };
 

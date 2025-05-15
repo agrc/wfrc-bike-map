@@ -18,12 +18,15 @@ export function useLayerFiltering(
       !layers.current.trafficStress ||
       !layers.current.trafficSignals ||
       !layers.current.otherLinks ||
+      !layers.current.bikeshareStations ||
       !getConfig
     ) {
       return;
     }
 
     const fieldNames = getConfig('fieldNames') as FieldNames;
+    layers.current.bikeshareStations.visible =
+      state.layerToggles.bikeshareStations;
     if (state.selectedFilterType === 'routeTypes') {
       const where = getWhereClause(
         state.routeTypes.selectedClasses!,
