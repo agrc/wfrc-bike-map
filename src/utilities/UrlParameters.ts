@@ -8,7 +8,8 @@ type ParameterNames =
   | 'trafficSignals'
   | 'center'
   | 'zoom'
-  | 'bikeshareStations';
+  | 'bikeshareStations'
+  | 'basemap';
 
 export function setUrlParameter(
   name: ParameterNames,
