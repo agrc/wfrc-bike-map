@@ -1,5 +1,27 @@
 # Changelog
 
+## [1.0.1](https://github.com/agrc/wfrc-bike-map/compare/v1.0.0...v1.0.1) (2025-05-16)
+
+
+### Features
+
+* add "Other Links" checkbox to traffic stress filter ([bce55b8](https://github.com/agrc/wfrc-bike-map/commit/bce55b86e1d4611b47e4f0cad3c2514d30ad07f1)), closes [#112](https://github.com/agrc/wfrc-bike-map/issues/112)
+* add toggle checkboxes for bikeshare stations ([9cee71e](https://github.com/agrc/wfrc-bike-map/commit/9cee71ec44c2b480d95e8c272f13961d058a5ea3)), closes [#108](https://github.com/agrc/wfrc-bike-map/issues/108)
+* add url parameter for controlling the base map ([79d4600](https://github.com/agrc/wfrc-bike-map/commit/79d46007f1de906a0258165d03b0c41c4b117aed))
+* **scripts:** include sidewalks ([#109](https://github.com/agrc/wfrc-bike-map/issues/109)) ([01d92da](https://github.com/agrc/wfrc-bike-map/commit/01d92da896dcdc76b24f987993bc60572b430f5c))
+
+
+### Bug Fixes
+
+* add '[]' for .isin syntax ([97a98ff](https://github.com/agrc/wfrc-bike-map/commit/97a98ffbc232a601fb25b6f92a009e0eb49e2fce))
+* fix bug causing "Other Links" to default to off when there is no corresponding URL parameter ([e027183](https://github.com/agrc/wfrc-bike-map/commit/e0271834a6e60aaf4c5ad053318da6a1e55a5b2f))
+* prevent identify on bikeshare station features ([7706150](https://github.com/agrc/wfrc-bike-map/commit/7706150bb80f04961f6018d0723baca90fec44a6))
+
+
+### Dependencies
+
+* bump dependencies 🌲 ([0f8a6d4](https://github.com/agrc/wfrc-bike-map/commit/0f8a6d45aaca2bd4f129876747eabf6110211d14))
+
 ## [1.1.0-1](https://github.com/agrc/wfrc-bike-map/compare/v1.1.0-0...v1.1.0-1) (2025-05-16)
 
 
