@@ -121,7 +121,8 @@ export function useMapSetup(
             (result) =>
               result.type === 'graphic' &&
               result.layer?.type === 'feature' &&
-              result.layer.id !== layers.current!.trafficSignals!.id,
+              result.layer.id !== layers.current!.trafficSignals!.id &&
+              result.layer.id !== layers.current!.bikeshareStations!.id,
           );
           if (graphicHits.length > 0) {
             const graphic = (graphicHits[0] as __esri.GraphicHit)!.graphic;
