@@ -1,3 +1,4 @@
+import Basemap from '@arcgis/core/Basemap';
 import { watch } from '@arcgis/core/core/reactiveUtils';
 import MapView from '@arcgis/core/views/MapView';
 import WebMap from '@arcgis/core/WebMap';
@@ -14,6 +15,9 @@ import { useFilter } from './useFilter';
 import useRemoteConfigs from './useRemoteConfigs';
 
 type LayerNameKey = keyof LayerNames;
+
+const HYBRID_BASEMAP_PARAM = 'hybrid';
+const LITE_BASEMAP_PARAM = 'lite';
 
 export function useMapSetup(
   mapNodeRef: React.RefObject<HTMLDivElement | null>,
@@ -177,17 +181,43 @@ export function useMapSetup(
       view.ui.add(trackWidget, 'top-right');
       view.ui.add(zoomButtonRef.current!, 'top-right');
       view.ui.add(feedbackButtonRef.current!, 'top-right');
-      view.ui.add(
-        new BasemapToggle({
-          view,
-          nextBasemap: {
-            portalItem: {
-              id: getConfig('hybridId') as string,
-            },
+
+      const hybridBasemap = new Basemap({
+        id: HYBRID_BASEMAP_PARAM,
+        portalItem: {
+          id: getConfig('hybridId') as string,
+        },
+      });
+
+      const basemapToggle = new BasemapToggle({
+        view,
+        nextBasemap: hybridBasemap,
+      });
+
+      basemapToggle.when(() => {
+        watch(
+          () => basemapToggle.activeBasemap?.id,
+          (id) => {
+            if (!id) {
+              return;
+            }
+
+            setUrlParameter(
+              'basemap',
+              id === HYBRID_BASEMAP_PARAM ? id : LITE_BASEMAP_PARAM,
+            );
+
+            logEvent('basemap_toggle', { basemap: id });
           },
-        }),
-        'top-left',
-      );
+        );
+
+        const initialId = getUrlParameter('basemap', 'string');
+        if (initialId && initialId === hybridBasemap.id) {
+          basemapToggle.toggle();
+        }
+      });
+
+      view.ui.add(basemapToggle, 'top-left');
 
       const layerNames = getConfig('layerNames') as LayerNames;
       for (const layerName of Object.keys(layers.current) as LayerNameKey[]) {
