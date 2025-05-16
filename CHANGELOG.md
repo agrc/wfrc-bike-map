@@ -1,6 +1,6 @@
 # Changelog
 
-## [1.0.1](https://github.com/agrc/wfrc-bike-map/compare/v1.0.0...v1.0.1) (2025-05-16)
+## [1.1.0](https://github.com/agrc/wfrc-bike-map/compare/v1.0.0...v1.1.0) (2025-05-16)
 
 
 ### Features
