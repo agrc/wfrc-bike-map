@@ -31,3 +31,14 @@ If you add a new config, make sure to run `pnpm run download-configs:dev` so tha
 
 [!NOTE]
 JSON values can only contain a single level object. Nested objects are not supported by the react context component in this app at the moment.
+
+## Feedback
+
+User feedback is stored in the following feature services:
+
+- [Bikeways Feedback Points](https://utah.maps.arcgis.com/home/item.html?id=bc422cc920274012a65b4aada8120edc)
+- [Bikeways Feedback Lines](https://utah.maps.arcgis.com/home/item.html?id=b4605494496b4e9d95d160d8442f9522)
+- [Bikeways Feedback Points (Staging)](https://utah.maps.arcgis.com/home/item.html?id=14314a0df775464689f2712209039b0b)
+- [Bikeways Feedback Lines (Staging)](https://utah.maps.arcgis.com/home/item.html?id=9c9d5c765a1b4747ba542ca6f232aa5e)
+
+Feedback emails are sent to the following Google group: `gcp-dts-ugrc-wfrc-admins@utah.gov`
