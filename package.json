@@ -33,7 +33,7 @@
   "dependencies": {
     "@arcgis/core": "^4.32.10",
     "@arcgis/map-components": "^4.32.14",
-    "@esri/arcgis-rest-request": "^4.5.0",
+    "@esri/arcgis-rest-request": "^4.5.1",
     "@esri/calcite-components": "^3.2.0",
     "@tanstack/react-query": "^5.76.1",
     "@ugrc/esri-theme-toggle": "^1.1.1",
@@ -43,7 +43,7 @@
     "firebase": "^11.7.3",
     "immer": "^10.1.1",
     "lodash.debounce": "^4.0.8",
-    "lucide-react": "^0.510.0",
+    "lucide-react": "^0.511.0",
     "react": "^19.1.0",
     "react-aria": "^3.39.0",
     "react-aria-components": "^1.8.0",
