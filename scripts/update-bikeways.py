@@ -733,7 +733,7 @@ def process_data(
     )
     arcpy.management.AddField(bike_features, "UID", "LONG")
     arcpy.management.CalculateField(bike_features, "UID", "!OBJECTID!", "PYTHON3")
-
+    
     # Create AADT Buffer layer
     print("--spatial join: AADT")
     aadt_lyr = arcpy.MakeFeatureLayer_management(
@@ -869,7 +869,8 @@ def process_data(
             "GlobalID",
             "SHAPE",
         ]
-    ]
+    ].copy()
+    
     bf_all.loc[
         (bf_all["MERGE_SRC"] == "trails_lyr")
         & (bf_all["Status"].isin(["Future", "Proposed", "PROPOSED"]) == False),
@@ -912,8 +913,8 @@ def process_data(
 
     # determine the bike feature order and side
     print("--determining primary bike feature and side")
-    bf_all = bf_all[bf_all["CompassA"].isnull() != True]  # get rid of circles
-    bf_all_processed = bf_all.apply(determine_primary_bike_feature_and_side, axis=1)
+    bf_all = bf_all[bf_all["CompassA"].isnull() != True].copy()  # get rid of circles
+    bf_all_processed = bf_all.apply(determine_primary_bike_feature_and_side, axis=1).copy()
 
     # data formatting, split existing and planned features
     print("--splitting existing and planned features")
@@ -921,6 +922,14 @@ def process_data(
         {"CartoCode": "CARTOCODE", "GlobalID": "SOURCE_ID"}, axis=1, inplace=True
     )
     bf_all_processed["NOTES"] = '' #: changed to empty string instead of np.nan to force string field type instead of numeric
+
+    # Add length column
+    bf_all_processed.spatial.set_geometry('SHAPE')
+    bf_all_processed['LENGTH'] = GeoSeriesAccessor(bf_all_processed['SHAPE']).length
+
+    # dropping duplicated roads with the same length and attributes
+    bf_all_processed = bf_all_processed.drop_duplicates(['CARTOCODE','FULLNAME', 'BIKE_L', 'BIKE_R', 'BIKE_PLN_L', 'BIKE_PLN_R',  'SPEED_LMT', 'CITY', 'COUNTY', 'LENGTH'] , keep='first')
+    
     bf_all_processed.spatial.to_featureclass(
         location=os.path.join(scratch_gdb, "bf_all_processed"), sanitize_columns=False
     )
@@ -1027,6 +1036,10 @@ def process_data(
         multi_part="SINGLE_PART",
         unsplit_lines="UNSPLIT_LINES",
     )
+
+    # delete duplicate roads (some roads on municipal borders are represented twice)
+    arcpy.management.DeleteIdentical(in_dataset=existing_output_feature_class,  fields="Shape")
+    arcpy.management.DeleteIdentical(in_dataset=planned_output_feature_class,  fields="Shape")
 
     return (
         existing_output_feature_class,
