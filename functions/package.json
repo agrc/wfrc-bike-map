@@ -14,11 +14,11 @@
   },
   "dependencies": {
     "@esri/arcgis-rest-feature-service": "^4.1.0",
-    "@esri/arcgis-rest-request": "^4.5.0",
+    "@esri/arcgis-rest-request": "^4.6.0",
     "@google-cloud/functions-framework": "^4.0.0",
     "@sendgrid/mail": "^8.1.5",
     "firebase-admin": "^13.4.0",
-    "firebase-functions": "^6.3.2"
+    "firebase-functions": "^6.4.0"
   },
   "devDependencies": {
     "@total-typescript/tsconfig": "^1.0.4",
