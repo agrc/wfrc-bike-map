@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.1.1](https://github.com/agrc/wfrc-bike-map/compare/v1.1.0...v1.1.1) (2025-07-31)
+
+
+### Dependencies
+
+* bump the safe-dependencies group across 1 directory with 25 updates ([f237457](https://github.com/agrc/wfrc-bike-map/commit/f237457e23c7b895c380922e537092020b0d62cb))
+
+
+### Documentation
+
+* add notes about feedback ([b6d9df9](https://github.com/agrc/wfrc-bike-map/commit/b6d9df94c23fd79b950e46e8a958890a517291b2))
+
 ## [1.1.0](https://github.com/agrc/wfrc-bike-map/compare/v1.0.0...v1.1.0) (2025-05-16)
 
 
