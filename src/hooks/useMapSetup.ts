@@ -222,7 +222,7 @@ export function useMapSetup(
 
       const layerNames = getConfig('layerNames') as LayerNames;
       for (const layerName of Object.keys(layers.current) as LayerNameKey[]) {
-        const layer = view.map.layers.find(
+        const layer = view.map!.layers.find(
           (layer) => layer.title === layerNames[layerName],
         ) as __esri.FeatureLayer;
         if (!layer) {
