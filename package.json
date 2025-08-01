@@ -31,8 +31,8 @@
     ]
   },
   "dependencies": {
-    "@arcgis/core": "^4.33.9",
-    "@arcgis/map-components": "^4.33.10",
+    "@arcgis/core": "^4.33.10",
+    "@arcgis/map-components": "^4.33.11",
     "@esri/arcgis-rest-request": "^4.6.0",
     "@esri/calcite-components": "^3.2.1",
     "@tanstack/react-query": "^5.83.0",
@@ -61,7 +61,7 @@
     "@ugrc/eslint-config": "^1.2.3",
     "@ugrc/tailwind-preset": "^1.2.0",
     "@ugrc/tsconfigs": "^1.0.3",
-    "@vitejs/plugin-react": "^4.6.0",
+    "@vitejs/plugin-react": "^4.7.0",
     "autoprefixer": "^10.4.21",
     "cpy-cli": "^5.0.0",
     "eslint": "^9.31.0",
