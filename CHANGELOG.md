@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.3](https://github.com/agrc/wfrc-bike-map/compare/v1.1.2...v1.1.3) (2025-08-04)
+
+
+### Bug Fixes
+
+* refresh pnpm lock file ([b94e474](https://github.com/agrc/wfrc-bike-map/commit/b94e4743b745a9a5263723a93d69cf52d1eb4abd))
+
 ## [1.1.2](https://github.com/agrc/wfrc-bike-map/compare/v1.1.1...v1.1.2) (2025-08-01)
 
 
