@@ -709,7 +709,7 @@ def process_data(
     roads_lyr = arcpy.MakeFeatureLayer_management(
         roads,
         "roads_lyr",
-        where_clause="""(COUNTY_L IN ('49035', '49057', '49003', '49045', '49049') Or COUNTY_R IN ('49003', '49011', '49035', '49049', '49057', '49045')) And CARTOCODE NOT IN ('1', '7', '17', '16', '99')""",
+        where_clause="""(COUNTY_L IN ('49003', '49011', '49035', '49045', '49049', '49057') Or COUNTY_R IN ('49003', '49011', '49035', '49045', '49049', '49057')) And CARTOCODE NOT IN ('1', '7', '17', '16', '99')""",
     )
     print("--retrieving trails")
     trails_lyr = arcpy.MakeFeatureLayer_management(
