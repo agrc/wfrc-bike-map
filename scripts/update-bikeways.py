@@ -928,7 +928,7 @@ def process_data(
     bf_all_processed['LENGTH'] = GeoSeriesAccessor(bf_all_processed['SHAPE']).length
 
     # dropping duplicated roads with the same length and attributes
-    bf_all_processed = bf_all_processed.drop_duplicates(['CARTOCODE','FULLNAME', 'BIKE_L', 'BIKE_R', 'BIKE_PLN_L', 'BIKE_PLN_R',  'SPEED_LMT', 'CITY', 'COUNTY', 'LENGTH'] , keep='first')
+    # bf_all_processed = bf_all_processed.drop_duplicates(['CARTOCODE','FULLNAME', 'BIKE_L', 'BIKE_R', 'BIKE_PLN_L', 'BIKE_PLN_R',  'SPEED_LMT', 'CITY', 'COUNTY', 'LENGTH'] , keep='first')
     
     bf_all_processed.spatial.to_featureclass(
         location=os.path.join(scratch_gdb, "bf_all_processed"), sanitize_columns=False
