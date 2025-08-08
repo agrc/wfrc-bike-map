@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.4](https://github.com/agrc/wfrc-bike-map/compare/v1.1.3...v1.1.4) (2025-08-08)
+
+
+### Bug Fixes
+
+* comment out drop_duplicates call ([e2462c3](https://github.com/agrc/wfrc-bike-map/commit/e2462c3a3475cd4cc3f4c8567f2eda2abbcd97ad))
+
 ## [1.1.3](https://github.com/agrc/wfrc-bike-map/compare/v1.1.2...v1.1.3) (2025-08-04)
 
 
