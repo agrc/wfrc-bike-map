@@ -709,7 +709,7 @@ def process_data(
     roads_lyr = arcpy.MakeFeatureLayer_management(
         roads,
         "roads_lyr",
-        where_clause="CARTOCODE NOT IN ('1', '7', '17', '16', '99')",
+        where_clause="CARTOCODE NOT IN ('1', '7', '17', '16', '99') And (DOT_RTNAME LIKE '0%' Or DOT_RTNAME LIKE '1%' Or DOT_RTNAME LIKE '2%' Or DOT_RTNAME LIKE '3%' Or DOT_CLASS <> 'D')",
     )
     print("--retrieving trails")
     trails_lyr = arcpy.MakeFeatureLayer_management(
