@@ -29,8 +29,8 @@ Once any changes are published, the values should be reflected in the correspond
 
 If you add a new config, make sure to run `pnpm run download-configs:dev` so that you have the necessary default values during development. This is done automatically in CI.
 
-[!NOTE]
-JSON values can only contain a single level object. Nested objects are not supported by the react context component in this app at the moment.
+>[!NOTE]
+>JSON values can only contain a single level object. Nested objects are not supported by the react context component in this app at the moment.
 
 ## Feedback
 
