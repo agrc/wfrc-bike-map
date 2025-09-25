@@ -1,9 +1,10 @@
 import {
   Checkbox,
   Spinner,
-  Switch,
+  ToggleButton,
   useFirebaseAnalytics,
 } from '@ugrc/utah-design-system';
+import type { Key } from 'react-aria';
 import type { ClassOrders } from '../context/FirebaseRemoteConfigsProvider';
 import { useFilter } from '../hooks/useFilter';
 import useRemoteConfigs from '../hooks/useRemoteConfigs';
@@ -11,6 +12,7 @@ import type { LayersWithRenderClassesKeys } from '../shared';
 import Label from './Label';
 import LegendSwatch from './LegendSwatch';
 import RendererClassCheckbox from './RendererClassCheckbox';
+import { ToggleButtonGroup } from './ToggleButtonGroup';
 
 export default function Filter() {
   const { state, dispatch } = useFilter();
@@ -59,20 +61,23 @@ export default function Filter() {
 
   return (
     <div className="p-4">
-      <Switch
-        className="mb-3"
-        isSelected={isRouteTypes}
-        onChange={() => {
+      <ToggleButtonGroup
+        selectionMode="single"
+        selectedKeys={[state.selectedFilterType as Key]}
+        onSelectionChange={() => {
           logEvent('toggle_filter_type');
           dispatch({
             type: 'TOGGLE_FILTER_TYPE',
           });
         }}
+        aria-label="Filter Type"
+        className="mb-3 justify-center"
       >
-        <h2>
-          {isRouteTypes ? layerNames.routeTypes : layerNames.trafficStress}
-        </h2>
-      </Switch>
+        <ToggleButton id="routeTypes">{layerNames.routeTypes}</ToggleButton>
+        <ToggleButton id="trafficStress">
+          {layerNames.trafficStress}
+        </ToggleButton>
+      </ToggleButtonGroup>
       <div className="grid grid-cols-1 gap-y-1.5 md:grid-cols-2 md:gap-4">
         {isRouteTypes ? (
           <>
