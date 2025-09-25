@@ -65,6 +65,9 @@ importers:
       react-stately:
         specifier: ^3.39.0
         version: 3.40.0(react@19.1.1)
+      tailwind-merge:
+        specifier: ^3.3.1
+        version: 3.3.1
       use-immer:
         specifier: ^0.11.0
         version: 0.11.0(immer@10.1.1)(react@19.1.1)
@@ -185,15 +188,18 @@ packages:
 
   '@arcgis/components-utils@4.33.13':
     resolution: {integrity: sha512-6rBblq24lwQ/zTBVKkE675FB9pyBmyKGQSgGR9ot0izyW9u0Jh+ggxJ+54JG8medYPNgKxOwsLw/0ktTtuPF2Q==}
+    deprecated: This version is no longer supported. Upgrade to @latest
 
   '@arcgis/core@4.33.12':
     resolution: {integrity: sha512-ZHwS714nldC9r+RKIWDRk2PDJ9f6O3hAaulujOY3reZjbo9DZALRv4rjgdedas6U2Q6iGelPV8iHSPTHVgWjNw==}
 
   '@arcgis/lumina@4.33.13':
     resolution: {integrity: sha512-WOxHls8EN4u177ReNaFqRD0/LjXd59SggNBjAvOicDL2YO9Pr3doVnosaLP7/8TKzGah3fA+pvn/Nt266XitNg==}
+    deprecated: This version is no longer supported. Upgrade to @latest
 
   '@arcgis/map-components@4.33.13':
     resolution: {integrity: sha512-rrUE27xx1E+WnHTfFIgcLuPmhYqQE/TAcSSB3VjJ1Y1TwVQeqdiU1140p23fzznZXFU1/eVZUbqY6tQ0BX4VLQ==}
+    deprecated: This version is no longer supported. Upgrade to @latest
     peerDependencies:
       '@arcgis/core': ~4.33.0
       '@esri/calcite-components': ^3.2.1
@@ -4991,6 +4997,9 @@ packages:
 
   tailwind-merge@2.6.0:
     resolution: {integrity: sha512-P+Vu1qXfzediirmHOC3xKGAYeZtPcV9g76X+xg2FD4tYgR71ewMA35Y3sCz3zhiN/dwefRpJX0yBcgwi1fXNQA==}
+
+  tailwind-merge@3.3.1:
+    resolution: {integrity: sha512-gBXpgUm/3rp1lMZZrM/w7D8GKqshif0zAymAhbCyIt8KMe+0v9DQ7cdYLR4FHH/cKpdTXb+A/tKKU3eolfsI+g==}
 
   tailwind-variants@0.3.1:
     resolution: {integrity: sha512-krn67M3FpPwElg4FsZrOQd0U26o7UDH/QOkK8RNaiCCrr052f6YJPBUfNKnPo/s/xRzNPtv1Mldlxsg8Tb46BQ==}
@@ -11725,6 +11734,8 @@ snapshots:
   tailwind-merge@2.5.4: {}
 
   tailwind-merge@2.6.0: {}
+
+  tailwind-merge@3.3.1: {}
 
   tailwind-variants@0.3.1(tailwindcss@3.4.17):
     dependencies:
