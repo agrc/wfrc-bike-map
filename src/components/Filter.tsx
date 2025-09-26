@@ -73,10 +73,21 @@ export default function Filter() {
         aria-label="Filter Type"
         className="mb-3 justify-center"
       >
-        <ToggleButton id="routeTypes">{layerNames.routeTypes}</ToggleButton>
-        <ToggleButton id="trafficStress">
-          {layerNames.trafficStress}
-        </ToggleButton>
+        {state.selectedFilterType === 'routeTypes' ? (
+          <>
+            <ToggleButton id="routeTypes">{layerNames.routeTypes}</ToggleButton>
+            <ToggleButton id="trafficStress">
+              {layerNames.trafficStress}
+            </ToggleButton>
+          </>
+        ) : (
+          <>
+            <ToggleButton id="trafficStress">
+              {layerNames.trafficStress}
+            </ToggleButton>
+            <ToggleButton id="routeTypes">{layerNames.routeTypes}</ToggleButton>
+          </>
+        )}
       </ToggleButtonGroup>
       <div className="grid grid-cols-1 gap-y-1.5 md:grid-cols-2 md:gap-4">
         {isRouteTypes ? (
