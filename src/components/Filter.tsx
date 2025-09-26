@@ -1,7 +1,9 @@
 import {
   Checkbox,
   Spinner,
-  ToggleButton,
+  Tab,
+  TabList,
+  Tabs,
   useFirebaseAnalytics,
 } from '@ugrc/utah-design-system';
 import type { Key } from 'react-aria';
@@ -12,7 +14,6 @@ import type { LayersWithRenderClassesKeys } from '../shared';
 import Label from './Label';
 import LegendSwatch from './LegendSwatch';
 import RendererClassCheckbox from './RendererClassCheckbox';
-import { ToggleButtonGroup } from './ToggleButtonGroup';
 
 export default function Filter() {
   const { state, dispatch } = useFilter();
@@ -61,23 +62,23 @@ export default function Filter() {
 
   return (
     <div className="p-4">
-      <ToggleButtonGroup
-        selectionMode="single"
-        selectedKeys={[state.selectedFilterType as Key]}
+      <Tabs
+        selectedKey={state.selectedFilterType as Key}
         onSelectionChange={() => {
           logEvent('toggle_filter_type');
           dispatch({
             type: 'TOGGLE_FILTER_TYPE',
           });
         }}
-        aria-label="Filter Type"
-        className="mb-3 justify-center"
       >
-        <ToggleButton id="routeTypes">{layerNames.routeTypes}</ToggleButton>
-        <ToggleButton id="trafficStress">
-          {layerNames.trafficStress}
-        </ToggleButton>
-      </ToggleButtonGroup>
+        <TabList
+          aria-label="Filter Type Tabs"
+          className="mb-4 justify-center space-x-3"
+        >
+          <Tab id="routeTypes">{layerNames.routeTypes}</Tab>
+          <Tab id="trafficStress">{layerNames.trafficStress}</Tab>
+        </TabList>
+      </Tabs>
       <div className="grid grid-cols-1 gap-y-1.5 md:grid-cols-2 md:gap-4">
         {isRouteTypes ? (
           <>
