@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.5-rc.2](https://github.com/agrc/wfrc-bike-map/compare/v1.1.5-rc.1...v1.1.5-rc.2) (2025-09-29)
+
+
+### Bug Fixes
+
+* dynamically change background color, font bolding, and order of toggle buttons ([cb172e5](https://github.com/agrc/wfrc-bike-map/commit/cb172e5a8678cbbf0bb94d5423392c4b62311cdc))
+
 ## [1.1.5-rc.1](https://github.com/agrc/wfrc-bike-map/compare/v1.1.4...v1.1.5-rc.1) (2025-09-25)
 
 
