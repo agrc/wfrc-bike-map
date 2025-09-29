@@ -14,6 +14,9 @@ import LegendSwatch from './LegendSwatch';
 import RendererClassCheckbox from './RendererClassCheckbox';
 import { ToggleButtonGroup } from './ToggleButtonGroup';
 
+const toggleButtonClasses =
+  'data-[selected]:bg-blue-500 data-[selected]:dark:bg-blue-500 data-[selected]:dark:text-zinc-100 data-[selected]:hover:bg-blue-600 data-[selected]:pressed:bg-blue-700 data-[selected]:dark:hover:bg-blue-600 data-[selected]:dark:pressed:bg-blue-700 data-[selected]:font-extrabold bg-zinc-300 dark:hover:bg-zinc-700 dark:pressed:bg-zinc-800';
+
 export default function Filter() {
   const { state, dispatch } = useFilter();
   const isRouteTypes = state.selectedFilterType === 'routeTypes';
@@ -73,10 +76,25 @@ export default function Filter() {
         aria-label="Filter Type"
         className="mb-3 justify-center"
       >
-        <ToggleButton id="routeTypes">{layerNames.routeTypes}</ToggleButton>
-        <ToggleButton id="trafficStress">
-          {layerNames.trafficStress}
-        </ToggleButton>
+        {state.selectedFilterType === 'routeTypes' ? (
+          <>
+            <ToggleButton id="routeTypes" className={toggleButtonClasses}>
+              {layerNames.routeTypes}
+            </ToggleButton>
+            <ToggleButton id="trafficStress" className={toggleButtonClasses}>
+              {layerNames.trafficStress}
+            </ToggleButton>
+          </>
+        ) : (
+          <>
+            <ToggleButton id="trafficStress" className={toggleButtonClasses}>
+              {layerNames.trafficStress}
+            </ToggleButton>
+            <ToggleButton id="routeTypes" className={toggleButtonClasses}>
+              {layerNames.routeTypes}
+            </ToggleButton>
+          </>
+        )}
       </ToggleButtonGroup>
       <div className="grid grid-cols-1 gap-y-1.5 md:grid-cols-2 md:gap-4">
         {isRouteTypes ? (
