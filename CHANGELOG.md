@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.1.5](https://github.com/agrc/wfrc-bike-map/compare/v1.1.4...v1.1.5) (2025-09-29)
+
+
+### Bug Fixes
+
+* better SEO description and keywords ([536cb43](https://github.com/agrc/wfrc-bike-map/commit/536cb4392fc5246a4d75ca9cf558c424566df97c)), closes [#107](https://github.com/agrc/wfrc-bike-map/issues/107)
+* dynamically change background color, font bolding, and order of toggle buttons ([d34ddea](https://github.com/agrc/wfrc-bike-map/commit/d34ddea06b62a98b4cc457b50bb01b4df4fbaf47))
+* increase UX for filter type toggle ([1751e70](https://github.com/agrc/wfrc-bike-map/commit/1751e7055b784662182109ec2fd1bd78167b7198)), closes [#149](https://github.com/agrc/wfrc-bike-map/issues/149)
+
 ## [1.1.5-rc.2](https://github.com/agrc/wfrc-bike-map/compare/v1.1.5-rc.1...v1.1.5-rc.2) (2025-09-29)
 
 
