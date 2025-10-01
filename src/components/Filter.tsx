@@ -2,6 +2,7 @@ import {
   Checkbox,
   Spinner,
   ToggleButton,
+  ToggleButtonGroup,
   useFirebaseAnalytics,
 } from '@ugrc/utah-design-system';
 import type { Key } from 'react-aria';
@@ -12,7 +13,6 @@ import type { LayersWithRenderClassesKeys } from '../shared';
 import Label from './Label';
 import LegendSwatch from './LegendSwatch';
 import RendererClassCheckbox from './RendererClassCheckbox';
-import { ToggleButtonGroup } from './ToggleButtonGroup';
 
 const toggleButtonClasses =
   'data-[selected]:bg-blue-500 data-[selected]:dark:bg-blue-500 data-[selected]:dark:text-zinc-100 data-[selected]:hover:bg-blue-600 data-[selected]:pressed:bg-blue-700 data-[selected]:dark:hover:bg-blue-600 data-[selected]:dark:pressed:bg-blue-700 data-[selected]:font-extrabold bg-zinc-300 dark:hover:bg-zinc-700 dark:pressed:bg-zinc-800';

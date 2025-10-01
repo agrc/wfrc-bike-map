@@ -4,6 +4,9 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+overrides:
+  '@ugrc/utah-design-system': link:../kitchen-sink/packages/utah-design-system
+
 importers:
 
   .:
@@ -27,8 +30,8 @@ importers:
         specifier: ^1.1.1
         version: 1.1.1
       '@ugrc/utah-design-system':
-        specifier: ^1.27.3
-        version: 1.27.3(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(tailwindcss@3.4.17)
+        specifier: ^1.29.0
+        version: 1.29.0(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(tailwindcss@3.4.17)
       '@ugrc/utilities':
         specifier: ^3.0.4
         version: 3.0.4(react@19.1.1)
@@ -2146,13 +2149,18 @@ packages:
   '@ugrc/tsconfigs@1.0.3':
     resolution: {integrity: sha512-9Z84bZpLJ6wRi4sm6RWvckPHs/Q6XZCHW5yjeHZzboZi/1bsJUOoh3F5wT/qQ5EKewDcHk65WcvUTWPc+JYjtQ==}
 
-  '@ugrc/utah-design-system@1.27.3':
-    resolution: {integrity: sha512-c6fjVdCaQRbdO1v6C28a6AHlH21Q+U8nnXPiIyOhtogNXnHVDWWChYd767f0sIOsEDqC4HvtymVs+QNNNIeiYA==}
+  '@ugrc/utah-design-system@1.29.0':
+    resolution: {integrity: sha512-br6DW1KQqBuKHwF1HtblZKgIThV5876cxPhZ/zD4+VK9NTkW0XDUIhqq6gJ++fYn56xUuJjIy9XD2WeeUyzNiQ==}
     peerDependencies:
       react: '>=16.8'
 
   '@ugrc/utilities@3.0.4':
     resolution: {integrity: sha512-dn2DoUYlXIT61FZwx/bkqcQjBybApwpNc4OOzFchBKXSmxvwD2kmGfPvzVHn5Y8zIQTuwzMbiREKcQiRvh3UDQ==}
+    peerDependencies:
+      react: '>=16.8.0'
+
+  '@ugrc/utilities@3.1.0':
+    resolution: {integrity: sha512-BntLAOeVXI6bStTvjxlleO7ro+ibH93wuyCwRYEcGCjdKypkRMtSf8ut5dw6BWT7kL4bsSGBKUCk9B80BCgQbQ==}
     peerDependencies:
       react: '>=16.8.0'
 
@@ -8191,13 +8199,13 @@ snapshots:
     dependencies:
       '@total-typescript/tsconfig': 1.0.4
 
-  '@ugrc/utah-design-system@1.27.3(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(tailwindcss@3.4.17)':
+  '@ugrc/utah-design-system@1.29.0(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(tailwindcss@3.4.17)':
     dependencies:
       '@arcgis/core': 4.33.12
       '@esri/arcgis-rest-geocoding': 4.0.3(@esri/arcgis-rest-request@4.7.2)
       '@esri/arcgis-rest-request': 4.7.2
       '@types/lodash-es': 4.17.12
-      '@ugrc/utilities': 3.0.4(react@19.1.1)
+      '@ugrc/utilities': 3.1.0(react@19.1.1)
       firebase: 11.10.0
       ky: 1.8.2
       lodash-es: 4.17.21
@@ -8215,6 +8223,12 @@ snapshots:
       - tailwindcss
 
   '@ugrc/utilities@3.0.4(react@19.1.1)':
+    dependencies:
+      '@arcgis/core': 4.33.12
+      ky: 1.8.2
+      react: 19.1.1
+
+  '@ugrc/utilities@3.1.0(react@19.1.1)':
     dependencies:
       '@arcgis/core': 4.33.12
       ky: 1.8.2
