@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.6](https://github.com/agrc/wfrc-bike-map/compare/v1.1.5...v1.1.6) (2025-10-01)
+
+
+### Dependencies
+
+* switch to uds version of ToggleButtonGroup ([030a07b](https://github.com/agrc/wfrc-bike-map/commit/030a07b4bc64bd141b80a8534f48461e312f6df1))
+
 ## [1.1.5](https://github.com/agrc/wfrc-bike-map/compare/v1.1.4...v1.1.5) (2025-09-29)
 
 
