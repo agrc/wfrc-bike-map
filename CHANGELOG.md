@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.1.8-rc.1](https://github.com/agrc/wfrc-bike-map/compare/v1.1.7...v1.1.8-rc.1) (2026-02-04)
+
+
+### Bug Fixes
+
+* a11y improvements ([c58fcaf](https://github.com/agrc/wfrc-bike-map/commit/c58fcaf22c2bb3342e70c57c6531b339c4108db0))
+* add third-party notices ([c64232e](https://github.com/agrc/wfrc-bike-map/commit/c64232e24321fa8db5ac242d76833579e3098c0f))
+
+
+### Dependencies
+
+* bump design system to latest version ([3b1dbd8](https://github.com/agrc/wfrc-bike-map/commit/3b1dbd8b686e729da5598a5f2487463b776708b7))
+* bump npm dependencies 🌲 ([189b527](https://github.com/agrc/wfrc-bike-map/commit/189b5278b3c9143d27c750133c8eac6eab22a9a2))
+
 ## [1.1.7](https://github.com/agrc/wfrc-bike-map/compare/v1.1.6...v1.1.7) (2025-11-05)
 
 
