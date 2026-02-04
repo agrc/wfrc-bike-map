@@ -19,3 +19,4 @@ npm-debug.log*
 /public/assets
 .env.local
 firebase-debug.log
+public/ThirdPartyNotices.txt
