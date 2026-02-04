@@ -1,4 +1,5 @@
 import { Checkbox, useFirebaseAnalytics } from '@ugrc/utah-design-system';
+import { useId } from 'react';
 import { useFilter } from '../hooks/useFilter';
 import type { LayersWithRenderClassesKeys } from '../shared';
 import Label from './Label';
@@ -16,6 +17,7 @@ export default function RendererClassCheckbox({
   layerKey,
 }: RendererClassCheckboxProps) {
   const { state, dispatch } = useFilter();
+  const id = useId();
 
   const logEvent = useFirebaseAnalytics();
 
@@ -39,9 +41,10 @@ export default function RendererClassCheckbox({
       value={rendererClass.values!.join(',')}
       onChange={handleCheckboxChange}
       isSelected={state[layerKey].selectedClasses!.includes(classIndex)}
+      id={id}
     >
       <LegendSwatch symbol={rendererClass.symbol} />
-      <Label>{rendererClass.label}</Label>
+      <Label htmlFor={id}>{rendererClass.label}</Label>
     </Checkbox>
   );
 }
