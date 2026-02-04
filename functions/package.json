@@ -13,9 +13,9 @@
     "start": "pnpm run shell"
   },
   "dependencies": {
-    "@esri/arcgis-rest-feature-service": "^4.4.1",
-    "@esri/arcgis-rest-request": "^4.7.3",
-    "@google-cloud/functions-framework": "^4.0.0",
+    "@esri/arcgis-rest-feature-service": "^4.8.0",
+    "@esri/arcgis-rest-request": "^4.8.0",
+    "@google-cloud/functions-framework": "^5.0.0",
     "@sendgrid/mail": "^8.1.6",
     "firebase-admin": "^13.5.0",
     "firebase-functions": "^6.6.0"
