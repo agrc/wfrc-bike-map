@@ -7,7 +7,11 @@ import {
 } from '@ugrc/utah-design-system';
 import React from 'react';
 import { createRoot } from 'react-dom/client';
-import { ErrorBoundary } from 'react-error-boundary';
+import {
+  ErrorBoundary,
+  getErrorMessage,
+  type FallbackProps,
+} from 'react-error-boundary';
 import App from './App';
 import FirebaseRemoteConfigsProvider from './context/FirebaseRemoteConfigsProvider';
 import './index.css';
@@ -21,11 +25,11 @@ const firebaseConfig = JSON.parse(import.meta.env.VITE_FIREBASE_CONFIG);
 esriConfig.assetsPath = './assets';
 initializeTheme();
 
-const ErrorFallback = ({ error }: { error: Error }) => {
+const ErrorFallback = ({ error }: FallbackProps) => {
   return (
     <div role="alert">
       <p>Something went wrong:</p>
-      <pre style={{ color: 'red' }}>{error.message}</pre>
+      <pre style={{ color: 'red' }}>{getErrorMessage(error)}</pre>
     </div>
   );
 };
