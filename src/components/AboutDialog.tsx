@@ -1,4 +1,10 @@
-import { Button, Checkbox, Dialog, Modal } from '@ugrc/utah-design-system';
+import {
+  Button,
+  Checkbox,
+  Dialog,
+  ExternalLink,
+  Modal,
+} from '@ugrc/utah-design-system';
 import { useLocalStorage } from '@ugrc/utilities/hooks';
 import { HelpCircle } from 'lucide-react';
 import { DialogTrigger } from 'react-aria-components';
@@ -34,6 +40,12 @@ export default function AboutDialog({
             className="space-y-3"
             dangerouslySetInnerHTML={{ __html: getConfig('aboutContent') }}
           />
+
+          <p>
+            <ExternalLink href="/ThirdPartyNotices.txt">
+              Third-party Notices
+            </ExternalLink>
+          </p>
 
           <Checkbox isSelected={hideOnLoad} onChange={setHideOnLoad}>
             Don{`'`}t show this dialog again
