@@ -41,12 +41,6 @@ export default function AboutDialog({
             dangerouslySetInnerHTML={{ __html: getConfig('aboutContent') }}
           />
 
-          <p>
-            <ExternalLink href="/ThirdPartyNotices.txt">
-              Third-party Notices
-            </ExternalLink>
-          </p>
-
           <Checkbox isSelected={hideOnLoad} onChange={setHideOnLoad}>
             Don{`'`}t show this dialog again
           </Checkbox>
@@ -61,6 +55,12 @@ export default function AboutDialog({
           <Button slot="close" className="w-full">
             Close
           </Button>
+
+          <p className="flex justify-end text-sm">
+            <ExternalLink href="/ThirdPartyNotices.txt">
+              Third-party Notices
+            </ExternalLink>
+          </p>
         </Dialog>
       </Modal>
     </DialogTrigger>
