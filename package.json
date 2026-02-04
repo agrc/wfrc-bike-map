@@ -7,7 +7,7 @@
     "build": "vite build",
     "check": "tsc -b",
     "copy:arcgis": "cpy \"./node_modules/@arcgis/core/assets/**\" ./public/assets",
-    "dev:firebase-emulators": "firebase emulators:start --only functions",
+    "dev:firebase-emulators": "./scripts/start-emulators.sh",
     "dev:vite": "vite",
     "download-configs:dev": "npx firebase-tools remoteconfig:get -o src/remote_config_defaults.json --project ut-dts-agrc-wfrc-bike-map-dev",
     "download-configs:prod": "npx firebase-tools remoteconfig:get -o src/remote_config_defaults.json --project ut-dts-agrc-wfrc-bike-map-prod",
