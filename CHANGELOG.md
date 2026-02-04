@@ -1,5 +1,22 @@
 # Changelog
 
+## [1.1.8](https://github.com/agrc/wfrc-bike-map/compare/v1.1.7...v1.1.8) (2026-02-04)
+
+
+### Bug Fixes
+
+* a11y improvements ([86ca6c1](https://github.com/agrc/wfrc-bike-map/commit/86ca6c10b38b936fdc421cbb64bb03d738245900))
+* add third-party notices ([ca061b7](https://github.com/agrc/wfrc-bike-map/commit/ca061b7981ec30b8d9e050b7d213cb4b8bf20964))
+
+
+### Dependencies
+
+* bump design system to latest version ([fff2063](https://github.com/agrc/wfrc-bike-map/commit/fff2063e72f0e8cba4f8519b2326c8121864bc26))
+* bump firebase-functions ([f3ae694](https://github.com/agrc/wfrc-bike-map/commit/f3ae6947de06f099fc94cb71975856386997c878))
+* bump npm dependencies 🌲 ([ea466b6](https://github.com/agrc/wfrc-bike-map/commit/ea466b64a1367cdb5fa0a3f95ee36da3d24903e1))
+* bump npm deps ([612b25b](https://github.com/agrc/wfrc-bike-map/commit/612b25b870df7f86fd4e2a2b9a01de8baf74e3bc))
+* bump the safe-dependencies group across 1 directory with 12 updates ([9700a8c](https://github.com/agrc/wfrc-bike-map/commit/9700a8cd157294ba72c7a63b07313ccbb52174db))
+
 ## [1.1.8-rc.1](https://github.com/agrc/wfrc-bike-map/compare/v1.1.7...v1.1.8-rc.1) (2026-02-04)
 
 
