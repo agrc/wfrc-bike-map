@@ -15,7 +15,7 @@ import LegendSwatch from './LegendSwatch';
 import RendererClassCheckbox from './RendererClassCheckbox';
 
 const toggleButtonClasses =
-  'data-[selected]:bg-blue-500 data-[selected]:dark:bg-blue-500 data-[selected]:dark:text-zinc-100 data-[selected]:hover:bg-blue-600 data-[selected]:pressed:bg-blue-700 data-[selected]:dark:hover:bg-blue-600 data-[selected]:dark:pressed:bg-blue-700 data-[selected]:font-extrabold bg-zinc-300 dark:hover:bg-zinc-700 dark:pressed:bg-zinc-800';
+  'data-[selected]:bg-blue-600 data-[selected]:dark:bg-blue-600 data-[selected]:dark:text-zinc-100 data-[selected]:hover:bg-blue-700 data-[selected]:pressed:bg-blue-700 data-[selected]:dark:hover:bg-blue-700 data-[selected]:dark:pressed:bg-blue-800 data-[selected]:font-extrabold bg-zinc-300 dark:hover:bg-zinc-700 dark:pressed:bg-zinc-800';
 
 export default function Filter() {
   const { state, dispatch } = useFilter();
@@ -63,7 +63,8 @@ export default function Filter() {
   };
 
   return (
-    <div className="p-4">
+    <div id="main-content" className="p-4">
+      <h1 className="sr-only">Filter Options</h1>
       <ToggleButtonGroup
         selectionMode="single"
         selectedKeys={[state.selectedFilterType as Key]}
@@ -110,9 +111,10 @@ export default function Filter() {
                   payload: { layerKey: 'otherLinks' },
                 });
               }}
+              id="otherLinks-route-types"
             >
               <LegendSwatch symbol={state.symbols.otherLinks} />
-              <Label>Other Links</Label>
+              <Label htmlFor="otherLinks-route-types">Other Links</Label>
             </Checkbox>
             <Checkbox
               key="bikeshareStations-route-types"
@@ -124,9 +126,12 @@ export default function Filter() {
                   payload: { layerKey: 'bikeshareStations' },
                 });
               }}
+              id="bikeshareStations-route-types"
             >
               <LegendSwatch symbol={state.symbols.bikeshareStations} />
-              <Label>Bikeshare Stations</Label>
+              <Label htmlFor="bikeshareStations-route-types">
+                Bikeshare Stations
+              </Label>
             </Checkbox>
           </>
         ) : (
@@ -142,9 +147,10 @@ export default function Filter() {
                   payload: { layerKey: 'otherLinks' },
                 });
               }}
+              id="otherLinks-traffic-stress"
             >
               <LegendSwatch symbol={state.symbols.otherLinks} />
-              <Label>Other Links</Label>
+              <Label htmlFor="otherLinks-traffic-stress">Other Links</Label>
             </Checkbox>
             <Checkbox
               key="bikeshareStations-traffic-stress"
@@ -156,9 +162,12 @@ export default function Filter() {
                   payload: { layerKey: 'bikeshareStations' },
                 });
               }}
+              id="bikeshareStations-traffic-stress"
             >
               <LegendSwatch symbol={state.symbols.bikeshareStations} />
-              <Label>Bikeshare Stations</Label>
+              <Label htmlFor="bikeshareStations-traffic-stress">
+                Bikeshare Stations
+              </Label>
             </Checkbox>
             <div className="space-y-1.5 md:col-span-full md:grid md:grid-cols-2 md:gap-4">
               {getRendererClassCheckboxes('trafficSignals')}
