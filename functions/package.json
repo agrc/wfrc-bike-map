@@ -6,10 +6,10 @@
   "scripts": {
     "build": "tsc",
     "build:watch": "tsc --watch",
-    "deploy": "firebase deploy --only functions",
-    "logs": "firebase functions:log",
-    "serve": "pnpm run build && firebase emulators:start --only functions",
-    "shell": "pnpm run build && firebase functions:shell",
+    "deploy": "pnpm exec firebase deploy --only functions",
+    "logs": "pnpm exec firebase functions:log",
+    "serve": "pnpm run build && pnpm exec firebase emulators:start --only functions",
+    "shell": "pnpm run build && pnpm exec firebase functions:shell",
     "start": "pnpm run shell"
   },
   "dependencies": {
