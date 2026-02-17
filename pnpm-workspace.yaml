@@ -8,6 +8,8 @@ onlyBuiltDependencies:
   - '@firebase/util'
   - esbuild
   - protobufjs
+  - re2
+  - unrs-resolver
 
 overrides:
   body-parser@>=2.2.0 <2.2.1: '>=2.2.1'
