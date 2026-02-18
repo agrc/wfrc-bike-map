@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.9](https://github.com/agrc/wfrc-bike-map/compare/v1.1.8...v1.1.9) (2026-02-18)
+
+
+### Dependencies
+
+* **dev:** bump happy-dom from 20.5.0 to 20.6.1 ([3d308d7](https://github.com/agrc/wfrc-bike-map/commit/3d308d7be1a711bdf13c43f2b1e887015ba1a9ae))
+
 ## [1.1.8](https://github.com/agrc/wfrc-bike-map/compare/v1.1.7...v1.1.8) (2026-02-04)
 
 
