@@ -28,9 +28,13 @@ export default function Identify({ graphic, clear }: IdentifyProps) {
       <div className="size-full overflow-y-auto">
         <arcgis-feature
           ref={featureComponentRef}
-          className="p-3"
+          className="bg-transparent p-3"
           graphic={graphic}
           autoDestroyDisabled={true}
+          style={{
+            '--calcite-color-background': 'transparent',
+            '--calcite-color-foreground-1': 'transparent',
+          }}
         />
         <div className="px-3 pb-4">
           {showFeedback ? (
