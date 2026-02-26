@@ -39,6 +39,7 @@ export function useMapSetup(
     trafficSignals: null,
     otherLinks: null,
     bikeshareStations: null,
+    udotAlrs: null,
   });
   const mapIsInitialized = useRef<boolean>(false);
   const highlightHandle = useRef<__esri.Handle>(null);
@@ -116,13 +117,17 @@ export function useMapSetup(
 
       view.on('click', (event) => {
         view.closePopup();
+        const popupDisabledLayersIds = [
+          layers.current.trafficSignals!.id,
+          layers.current.bikeshareStations!.id,
+          layers.current.udotAlrs!.id,
+        ];
         view.hitTest(event).then((response) => {
           const graphicHits = response.results.filter(
             (result) =>
               result.type === 'graphic' &&
               result.layer?.type === 'feature' &&
-              result.layer.id !== layers.current!.trafficSignals!.id &&
-              result.layer.id !== layers.current!.bikeshareStations!.id,
+              !popupDisabledLayersIds.includes(result.layer.id),
           );
           if (graphicHits.length > 0) {
             const graphic = (graphicHits[0] as __esri.GraphicHit)!.graphic;

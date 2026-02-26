@@ -36,6 +36,7 @@ export type LayerNames = {
   trafficSignals: string;
   otherLinks: string;
   bikeshareStations: string;
+  udotAlrs: string;
 };
 export type FieldNames = {
   facility1: string;
