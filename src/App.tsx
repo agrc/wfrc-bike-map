@@ -50,7 +50,7 @@ export default function App() {
   const isSmallWidth = windowWidth < config.BREAKPOINTS.md;
 
   return (
-    <main className="flex size-full flex-col">
+    <main id="main-content" className="flex size-full flex-col">
       <Header>
         <div className="flex h-full grow items-center gap-3">
           <img src="/logo.svg" alt="Utah Bikeways Logo" className="h-12 w-12" />
