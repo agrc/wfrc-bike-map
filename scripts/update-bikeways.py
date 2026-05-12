@@ -1061,6 +1061,8 @@ def update_feature_services(
     existing_df["SHAPE"] = existing_df["SHAPE"].apply(
         lambda x: x.generalize(max_offset=max_offset)
     )
+    #: Reassign geometry field after generalize step
+    existing_df.spatial.set_geometry('SHAPE')
     updater.truncate_and_load(existing_df, True)
 
     print("--updating planned bikeways feature service")
@@ -1069,6 +1071,8 @@ def update_feature_services(
     planned_df["SHAPE"] = planned_df["SHAPE"].apply(
         lambda x: x.generalize(max_offset=max_offset)
     )
+    #: Reassign geometry field after generalize step
+    planned_df.spatial.set_geometry('SHAPE')
     updater.truncate_and_load(planned_df, True)
 
 
