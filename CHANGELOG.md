@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.10](https://github.com/agrc/wfrc-bike-map/compare/v1.1.9...v1.1.10) (2026-05-13)
+
+
+### Bug Fixes
+
+* reassign geom field ([680bcf8](https://github.com/agrc/wfrc-bike-map/commit/680bcf88b094866a096db1576f61c254f9792a39))
+
 ## [1.1.9](https://github.com/agrc/wfrc-bike-map/compare/v1.1.9...v1.1.9) (2026-02-27)
 
 
