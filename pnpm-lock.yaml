@@ -6688,10 +6688,6 @@ packages:
     resolution: {integrity: sha512-MFO/QzvtAOmJbkhOaCTvbGcFN9L9b+JunIsDwaKljSOdcLMea3NJ1k9Usz/rjdfSXTq4dfzfeS7W4p4YOAAHeA==}
     engines: {node: '>=18'}
 
-  tar@7.5.9:
-    resolution: {integrity: sha512-BTLcK0xsDh2+PUe9F6c2TlRp4zOOBMTkoQHQIWSIzI0R7KG46uEwq4OPk2W7bZcprBMsuaeFsqwYr7pjh6CuHg==}
-    engines: {node: '>=18'}
-
   tcp-port-used@1.0.2:
     resolution: {integrity: sha512-l7ar8lLUD3XS1V2lfoJlCBaeoaWo/2xfYt81hM7VlvR4RrMVFqfmzfhLVk40hAb368uitje5gPtBRL1m/DGvLA==}
 
@@ -8805,7 +8801,7 @@ snapshots:
     dependencies:
       '@hono/node-server': 1.19.9(hono@4.11.9)
       ajv: 8.18.0
-      ajv-formats: 3.0.1
+      ajv-formats: 3.0.1(ajv@8.18.0)
       content-type: 1.0.5
       cors: 2.8.6
       cross-spawn: 7.0.6
@@ -10485,8 +10481,8 @@ snapshots:
     optionalDependencies:
       ajv: 8.18.0
 
-  ajv-formats@3.0.1:
-    dependencies:
+  ajv-formats@3.0.1(ajv@8.18.0):
+    optionalDependencies:
       ajv: 8.18.0
 
   ajv@6.12.6:
@@ -12216,7 +12212,7 @@ snapshots:
       '@modelcontextprotocol/sdk': 1.26.0(supports-color@8.1.1)(zod@4.6.7)
       abort-controller: 3.0.0
       ajv: 8.18.0
-      ajv-formats: 3.0.1
+      ajv-formats: 3.0.1(ajv@8.18.0)
       archiver: 7.0.1
       async-lock: 1.4.1
       body-parser: 1.20.4(supports-color@8.1.1)
@@ -13894,7 +13890,7 @@ snapshots:
       nopt: 9.0.0
       proc-log: 6.1.0
       semver: 7.7.4
-      tar: 7.5.9
+      tar: 7.5.22
       tinyglobby: 0.2.15
       which: 6.0.1
     transitivePeerDependencies:
@@ -15294,15 +15290,6 @@ snapshots:
       minipass: 7.1.2
       minizlib: 3.1.0
       yallist: 5.0.0
-
-  tar@7.5.9:
-    dependencies:
-      '@isaacs/fs-minipass': 4.0.1
-      chownr: 3.0.0
-      minipass: 7.1.2
-      minizlib: 3.1.0
-      yallist: 5.0.0
-    optional: true
 
   tcp-port-used@1.0.2(supports-color@8.1.1):
     dependencies:
