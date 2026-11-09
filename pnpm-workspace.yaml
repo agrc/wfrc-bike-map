@@ -1,15 +1,13 @@
 packages:
   - functions
 
-ignoredBuiltDependencies:
-  - '@vaadin/vaadin-usage-statistics'
-
-onlyBuiltDependencies:
-  - '@firebase/util'
-  - esbuild
-  - protobufjs
-  - re2
-  - unrs-resolver
+allowBuilds:
+  '@firebase/util': true
+  '@vaadin/vaadin-usage-statistics': false
+  esbuild: true
+  protobufjs: true
+  re2: true
+  unrs-resolver: true
 
 overrides:
   body-parser@>=2.2.0 <2.2.1: '>=2.2.1'
