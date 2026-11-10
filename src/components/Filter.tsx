@@ -61,7 +61,7 @@ export default function Filter() {
   };
 
   return (
-    <div id="main-content" className="p-4">
+    <div className="p-4">
       <h1 className="sr-only">Filter Options</h1>
       <ToggleButtonGroup
         selectionMode="single"
