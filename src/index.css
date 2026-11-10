@@ -2,6 +2,14 @@
 @import '@ugrc/tailwind-preset';
 @source '../node_modules/@ugrc';
 
+#utah-header-target .utds-title-wrapper__title {
+  color: var(--gray-color);
+}
+
+body > .fixed.z-20:has([role='dialog'][aria-label='About']) {
+  z-index: 4000;
+}
+
 @theme {
   --font-heading:
     'SourceSansPro-Black', 'Source Sans Pro', 'Arial', 'Helvetica', sans-serif;

@@ -14,6 +14,7 @@ import { enableShadowDOM } from 'react-stately/private/flags/flags';
 import App from './App';
 import FirebaseRemoteConfigsProvider from './context/FirebaseRemoteConfigsProvider';
 import './index.css';
+import '@utahdts/utah-design-system-header/css';
 
 if (!import.meta.env.VITE_FIREBASE_CONFIG) {
   throw new Error('VITE_FIREBASE_CONFIG is not defined!');

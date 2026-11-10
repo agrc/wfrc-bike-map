@@ -1,10 +1,8 @@
 import { Button } from '@ugrc/utah-design-system/components/Button';
 import { Checkbox } from '@ugrc/utah-design-system/components/Checkbox';
 import { Dialog } from '@ugrc/utah-design-system/components/Dialog';
-import { ExternalLink } from '@ugrc/utah-design-system/components/Link';
 import { Modal } from '@ugrc/utah-design-system/components/Modal';
 import useLocalStorage from '@ugrc/utilities/hooks/useLocalStorage';
-import { HelpCircle } from 'lucide-react';
 import { DialogTrigger } from 'react-aria-components/Dialog';
 import useRemoteConfigs from '../hooks/useRemoteConfigs';
 
@@ -29,9 +27,12 @@ export default function AboutDialog({
 
   return (
     <DialogTrigger defaultOpen={!hideOnLoad}>
-      <Button variant="icon" aria-label="About">
-        <HelpCircle />
-      </Button>
+      <Button
+        id="about-dialog-trigger"
+        variant="icon"
+        aria-label="About"
+        className="hidden"
+      />
       <Modal>
         <Dialog className="space-y-3" aria-label="About">
           <div
@@ -53,12 +54,6 @@ export default function AboutDialog({
           <Button slot="close" className="w-full">
             Close
           </Button>
-
-          <p className="flex justify-end text-sm">
-            <ExternalLink href="/ThirdPartyNotices.txt">
-              Third-party Notices
-            </ExternalLink>
-          </p>
         </Dialog>
       </Modal>
     </DialogTrigger>
