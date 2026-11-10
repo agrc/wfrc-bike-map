@@ -1,4 +1,7 @@
 {
   "extends": "@ugrc/tsconfigs/vite-config",
+  "compilerOptions": {
+    "types": ["node"]
+  },
   "include": ["vite.config.ts"]
 }

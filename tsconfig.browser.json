@@ -1,4 +1,7 @@
 {
   "extends": "@ugrc/tsconfigs/browser",
+  "compilerOptions": {
+    "types": ["node"]
+  },
   "include": ["src", "shared"]
 }

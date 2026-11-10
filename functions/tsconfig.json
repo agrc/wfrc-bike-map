@@ -1,7 +1,9 @@
 {
   "extends": "@total-typescript/tsconfig/tsc/no-dom/app",
   "compilerOptions": {
-    "outDir": "lib"
+    "outDir": "lib",
+    "rootDir": "..",
+    "types": ["node"]
   },
   "compileOnSave": true,
   "include": ["src", "../shared"]
