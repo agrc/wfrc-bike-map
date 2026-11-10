@@ -23,7 +23,7 @@
   "devDependencies": {
     "@total-typescript/tsconfig": "^1.0.4",
     "firebase-functions-test": "^3.5.0",
-    "typescript": "^5.9.3"
+    "typescript": "^6.0.3"
   },
   "engines": {
     "node": "22"
