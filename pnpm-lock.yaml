@@ -47,6 +47,9 @@ importers:
       '@ugrc/utilities':
         specifier: ^5.0.1
         version: 5.0.1(@arcgis/core@5.1.27)(react@19.3.1)
+      '@utahdts/utah-design-system-header':
+        specifier: ^5.3.0
+        version: 5.3.0
       concurrently:
         specifier: ^10.0.6
         version: 10.0.6
@@ -2385,6 +2388,9 @@ packages:
     resolution: {integrity: sha512-DpLMlAqlrk4zBVK3DiDjwKD0oq7pZNy+8BiIBRuByqb6dm5jsdoLMhIiyh/xR7+WejaW/1Ui+XgbgMNa4+zWJg==}
     cpu: [x64]
     os: [win32]
+
+  '@utahdts/utah-design-system-header@5.3.0':
+    resolution: {integrity: sha512-3m6acuBXppbvBEtK0qR6CHgetS+9OHJ7D9V/ixfJvL/npW1ZYkRr4eXjPj0yLrw2Z2hQu/Jh96N+LPHPx8rg8w==}
 
   '@vaadin/a11y-base@25.1.14':
     resolution: {integrity: sha512-YpS8DCJTziSuCVvEh7K7AWM4TVFxWKu1V/Q4lx8+cbTb3qLqGngR2w1i03bxsI+mPVk8r0h/qF1xuC6Kftv2cg==}
@@ -9265,6 +9271,10 @@ snapshots:
 
   '@unrs/resolver-binding-win32-x64-msvc@1.13.0':
     optional: true
+
+  '@utahdts/utah-design-system-header@5.3.0':
+    dependencies:
+      '@floating-ui/dom': 1.8.0
 
   '@vaadin/a11y-base@25.1.14':
     dependencies:
