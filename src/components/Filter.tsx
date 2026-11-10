@@ -1,10 +1,8 @@
-import {
-  Checkbox,
-  Spinner,
-  ToggleButton,
-  ToggleButtonGroup,
-  useFirebaseAnalytics,
-} from '@ugrc/utah-design-system';
+import { Checkbox } from '@ugrc/utah-design-system/components/Checkbox';
+import { Spinner } from '@ugrc/utah-design-system/components/Spinner';
+import { ToggleButton } from '@ugrc/utah-design-system/components/ToggleButton';
+import { ToggleButtonGroup } from '@ugrc/utah-design-system/components/ToggleButtonGroup';
+import { useFirebaseAnalytics } from '@ugrc/utah-design-system/contexts/FirebaseAnalyticsProvider';
 import type { Key } from 'react-aria';
 import type { ClassOrders } from '../context/FirebaseRemoteConfigsProvider';
 import { useFilter } from '../hooks/useFilter';

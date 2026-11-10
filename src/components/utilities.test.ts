@@ -1,3 +1,6 @@
+import type FeatureLayer from '@arcgis/core/layers/FeatureLayer';
+import type UniqueValueClass from '@arcgis/core/renderers/support/UniqueValueClass';
+import type MapView from '@arcgis/core/views/MapView';
 import { describe, expect, it, vi } from 'vitest';
 import { getWhereClause, setLayerViewFilter } from './utilities';
 
@@ -7,7 +10,7 @@ describe('getWhereClause', () => {
     const rendererClasses = [
       { values: [{ value: 'A' }, { value: 'B' }] },
       { values: [{ value: 'C' }] },
-    ] as __esri.UniqueValueClass[];
+    ] as UniqueValueClass[];
     const fieldName = 'field';
 
     const result = getWhereClause(
@@ -24,7 +27,7 @@ describe('getWhereClause', () => {
     const rendererClasses = [
       { values: [{ value: 'A' }, { value: 'B' }] },
       { values: [{ value: 'C' }] },
-    ] as __esri.UniqueValueClass[];
+    ] as UniqueValueClass[];
     const fieldName = 'field';
 
     const result = getWhereClause(
@@ -41,7 +44,7 @@ describe('getWhereClause', () => {
     const rendererClasses = [
       { values: [{ value: 1 }, { value: 2 }] },
       { values: [{ value: 3 }] },
-    ] as __esri.UniqueValueClass[];
+    ] as UniqueValueClass[];
     const fieldName = 'field';
 
     const result = getWhereClause(
@@ -56,13 +59,13 @@ describe('getWhereClause', () => {
 
 describe('setLayerViewFilter', () => {
   it('should set the correct filter on the layer view', async () => {
-    const layer = { title: 'Test Layer' } as __esri.FeatureLayer;
+    const layer = { title: 'Test Layer' } as FeatureLayer;
     const mapView = {
       whenLayerView: () =>
         Promise.resolve({
           filter: null,
         }),
-    } as unknown as __esri.MapView;
+    } as unknown as MapView;
     const where = "field IN ('A', 'B')";
 
     const consoleLogSpy = vi.spyOn(console, 'log');
@@ -75,10 +78,10 @@ describe('setLayerViewFilter', () => {
   });
 
   it('should log an error if setting the filter fails', async () => {
-    const layer = { title: 'Test Layer' } as __esri.FeatureLayer;
+    const layer = { title: 'Test Layer' } as FeatureLayer;
     const mapView = {
       whenLayerView: () => Promise.reject(new Error('Test Error')),
-    } as unknown as __esri.MapView;
+    } as unknown as MapView;
 
     const consoleErrorSpy = vi.spyOn(console, 'error');
     await setLayerViewFilter(layer, mapView, 'where clause');

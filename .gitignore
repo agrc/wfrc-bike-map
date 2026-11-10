@@ -20,3 +20,4 @@ npm-debug.log*
 .env.local
 firebase-debug.log
 public/ThirdPartyNotices.txt
+.playwright*/

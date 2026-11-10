@@ -3,3 +3,5 @@
 /public/assets
 CHANGELOG.md
 /scripts
+pnpm-lock.yaml
+remote_config_defaults.json

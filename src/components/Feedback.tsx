@@ -1,20 +1,20 @@
+import type Graphic from '@arcgis/core/Graphic';
+import type FeatureLayer from '@arcgis/core/layers/FeatureLayer';
 import { useMutation } from '@tanstack/react-query';
-import {
-  Banner,
-  Button,
-  TextArea,
-  TextField,
-  useFirebaseAnalytics,
-  useFirebaseFunctions,
-} from '@ugrc/utah-design-system';
+import { Banner } from '@ugrc/utah-design-system/components/Banner';
+import { Button } from '@ugrc/utah-design-system/components/Button';
+import { TextArea } from '@ugrc/utah-design-system/components/TextArea';
+import { TextField } from '@ugrc/utah-design-system/components/TextField';
+import { useFirebaseAnalytics } from '@ugrc/utah-design-system/contexts/FirebaseAnalyticsProvider';
+import { useFirebaseFunctions } from '@ugrc/utah-design-system/contexts/FirebaseFunctionsProvider';
 import { httpsCallable } from 'firebase/functions';
 import { useEffect, useRef, useState } from 'react';
 import type { FeedbackResponse, FeedbackSubmission } from '../../shared/types';
 
 type FeedbackProps = {
   onCancel: () => void;
-  graphic?: __esri.Graphic;
-  genericPoint?: __esri.Graphic;
+  graphic?: Graphic;
+  genericPoint?: Graphic;
 };
 export default function Feedback({
   onCancel,
@@ -69,9 +69,7 @@ export default function Feedback({
       layer: graphic?.layer?.title ?? undefined,
       name:
         graphic?.layer &&
-        graphic.attributes[
-          (graphic.layer! as __esri.FeatureLayer).displayField!
-        ],
+        graphic.attributes[(graphic.layer! as FeatureLayer).displayField!],
       url: window.location.href,
     });
   };

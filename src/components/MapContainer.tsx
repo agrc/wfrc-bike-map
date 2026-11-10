@@ -1,5 +1,13 @@
-import { BusyBar, useFirebaseAnalytics } from '@ugrc/utah-design-system';
-import { useGraphicManager, useViewLoading } from '@ugrc/utilities/hooks';
+import type Graphic from '@arcgis/core/Graphic';
+import '@arcgis/map-components/components/arcgis-basemap-toggle';
+import '@arcgis/map-components/components/arcgis-home';
+import '@arcgis/map-components/components/arcgis-map';
+import '@arcgis/map-components/components/arcgis-track';
+import { BusyBar } from '@ugrc/utah-design-system/components/Spinner';
+import { useFirebaseAnalytics } from '@ugrc/utah-design-system/contexts/FirebaseAnalyticsProvider';
+import useGraphicManager from '@ugrc/utilities/hooks/useGraphicManager';
+import useViewLoading from '@ugrc/utilities/hooks/useViewLoading';
+import { Minus, Plus } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { useWindowSize } from 'usehooks-ts';
@@ -13,12 +21,12 @@ import { getCoarseLocation, getFeedbackGraphic } from './mapUtils';
 const popupRoot = document.createElement('div');
 
 type MapContainerProps = {
-  onFeatureIdentify: (graphic: __esri.Graphic | null) => void;
+  onFeatureIdentify: (graphic: Graphic | null) => void;
   trayIsOpen: boolean;
   useMyLocationOnLoad: boolean;
-  genericFeedbackPoint: __esri.Graphic | null;
-  setGenericFeedbackPoint: (point: __esri.Graphic | null) => void;
-  identifyGraphic: __esri.Graphic | null;
+  genericFeedbackPoint: Graphic | null;
+  setGenericFeedbackPoint: (point: Graphic | null) => void;
+  identifyGraphic: Graphic | null;
 };
 
 export const MapContainer = ({
@@ -29,9 +37,8 @@ export const MapContainer = ({
   setGenericFeedbackPoint,
   identifyGraphic,
 }: MapContainerProps) => {
-  const mapNode = useRef<HTMLDivElement>(null);
-  const feedbackButtonRef = useRef<HTMLDivElement>(null);
-  const zoomButtonRef = useRef<HTMLDivElement>(null);
+  const mapNode = useRef<HTMLArcgisMapElement>(null);
+  const basemapToggleRef = useRef<HTMLArcgisBasemapToggleElement>(null);
 
   const { width: windowWidth = 0 } = useWindowSize();
   const isSmallScreen = windowWidth < config.BREAKPOINTS.md;
@@ -49,8 +56,7 @@ export const MapContainer = ({
     isSmallScreen,
     onFeatureIdentify,
     popupRoot,
-    feedbackButtonRef,
-    zoomButtonRef,
+    basemapToggleRef,
     setCenter,
   );
 
@@ -116,28 +122,68 @@ export const MapContainer = ({
     });
   };
 
+  const changeZoom = (delta: number) => {
+    const view = mapView.current;
+    if (view) {
+      void view.goTo({ zoom: view.zoom + delta });
+    }
+  };
+
   return (
     <>
-      <div ref={mapNode} className="relative size-full">
+      <div className="relative size-full">
+        <arcgis-map ref={mapNode} className="size-full">
+          <arcgis-home
+            slot="top-right"
+            onarcgisGo={() => logEvent('home_button_click')}
+          />
+          <arcgis-track
+            slot="top-right"
+            onClick={() => logEvent('track_button_click')}
+          />
+          {!isSmallScreen && (
+            <div slot="top-left" className="map-control-group">
+              <button
+                type="button"
+                className="map-control-button"
+                aria-label="Zoom in"
+                title="Zoom in"
+                onClick={() => changeZoom(1)}
+              >
+                <Plus aria-hidden="true" size={16} />
+              </button>
+              <button
+                type="button"
+                className="map-control-button"
+                aria-label="Zoom out"
+                title="Zoom out"
+                onClick={() => changeZoom(-1)}
+              >
+                <Minus aria-hidden="true" size={16} />
+              </button>
+            </div>
+          )}
+          <arcgis-basemap-toggle ref={basemapToggleRef} slot="top-left" />
+          <div slot="top-right" className="esri-component esri-widget">
+            <calcite-button
+              kind="neutral"
+              className="esri-widget--button"
+              icon-start="pencil"
+              label="add feedback"
+              onClick={handleFeedbackClick}
+            ></calcite-button>
+          </div>
+          <div slot="top-right" className="esri-component esri-widget">
+            <calcite-button
+              kind="neutral"
+              className="esri-widget--button"
+              icon-start="zoom-to-object"
+              label="zoom to my location"
+              onClick={handleZoomToLocation}
+            ></calcite-button>
+          </div>
+        </arcgis-map>
         {mapView.current && <BusyBar busy={isDrawing} />}
-      </div>
-      <div className="esri-component esri-widget" ref={feedbackButtonRef}>
-        <calcite-button
-          kind="neutral"
-          className="esri-widget--button"
-          icon-start="pencil"
-          label="add feedback"
-          onClick={handleFeedbackClick}
-        ></calcite-button>
-      </div>
-      <div className="esri-component esri-widget" ref={zoomButtonRef}>
-        <calcite-button
-          kind="neutral"
-          className="esri-widget--button"
-          icon-start="zoom-to-object"
-          label="zoom to my location"
-          onClick={handleZoomToLocation}
-        ></calcite-button>
       </div>
       {!isSmallScreen && identifyGraphic
         ? createPortal(
