@@ -10,6 +10,7 @@ import {
   getErrorMessage,
   type FallbackProps,
 } from 'react-error-boundary';
+import { enableShadowDOM } from 'react-stately/private/flags/flags';
 import App from './App';
 import FirebaseRemoteConfigsProvider from './context/FirebaseRemoteConfigsProvider';
 import './index.css';
@@ -22,6 +23,8 @@ const firebaseConfig = JSON.parse(import.meta.env.VITE_FIREBASE_CONFIG);
 
 esriConfig.assetsPath = './assets';
 initializeTheme();
+// React Aria's private opt-in is required for buttons inside ArcGIS popup shadow roots.
+enableShadowDOM();
 
 const ErrorFallback = ({ error }: FallbackProps) => {
   return (

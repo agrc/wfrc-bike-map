@@ -106,15 +106,6 @@ export function useMapSetup(
           id: getConfig('hybridId') as string,
         },
       });
-      const basemapToggleReady = new Promise<void>((resolve) => {
-        if (basemapToggle.state !== 'disabled') {
-          resolve();
-        } else {
-          basemapToggle.addEventListener('arcgisReady', () => resolve(), {
-            once: true,
-          });
-        }
-      });
 
       mapElement.center = center;
       mapElement.zoom = zoomUrlParam ?? INITIAL_MAP_ZOOM;
@@ -127,7 +118,7 @@ export function useMapSetup(
       basemapToggle.nextBasemap = hybridBasemap;
       mapElement.map = map.current;
 
-      await Promise.all([mapElement.viewOnReady(), basemapToggleReady]);
+      await mapElement.viewOnReady();
 
       const view = mapElement.view;
       view.popup = new Popup({
