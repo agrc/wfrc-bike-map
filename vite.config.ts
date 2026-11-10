@@ -4,8 +4,16 @@ import loadVersion from 'vite-plugin-package-version';
 
 export default defineConfig({
   plugins: [react(), loadVersion()],
+  optimizeDeps: {
+    include: [
+      'react-aria > use-sync-external-store/shim/index.js',
+      'firebase/app',
+      'firebase/analytics',
+      'firebase/functions',
+      'firebase/remote-config',
+    ],
+  },
   resolve: {
-    // this should only be enabled when pnpm-linking the utah-design-package
-    // dedupe: ['firebase', '@arcgis/core'],
+    dedupe: ['firebase'],
   },
 });

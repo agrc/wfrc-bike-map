@@ -1,6 +1,9 @@
+import type Graphic from '@arcgis/core/Graphic';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { Drawer, Header, useFirebaseAnalytics } from '@ugrc/utah-design-system';
-import { useLocalStorage } from '@ugrc/utilities/hooks';
+import { Drawer } from '@ugrc/utah-design-system/components/Drawer';
+import { Header } from '@ugrc/utah-design-system/components/Header';
+import { useFirebaseAnalytics } from '@ugrc/utah-design-system/contexts/FirebaseAnalyticsProvider';
+import useLocalStorage from '@ugrc/utilities/hooks/useLocalStorage';
 import { useState } from 'react';
 import { useOverlayTrigger } from 'react-aria';
 import { useOverlayTriggerState } from 'react-stately';
@@ -23,16 +26,14 @@ export default function App() {
     },
     trayState,
   );
-  const [identifyGraphic, setIdentifyGraphic] = useState<__esri.Graphic | null>(
-    null,
-  );
+  const [identifyGraphic, setIdentifyGraphic] = useState<Graphic | null>(null);
   const [genericFeedbackPoint, setGenericFeedbackPoint] =
-    useState<__esri.Graphic | null>(null);
+    useState<Graphic | null>(null);
 
   const clearIdentify = () => setIdentifyGraphic(null);
 
   const logEvent = useFirebaseAnalytics();
-  const onFeatureIdentify = (graphic: __esri.Graphic | null) => {
+  const onFeatureIdentify = (graphic: Graphic | null) => {
     logEvent('identify');
     if (graphic) {
       trayState.open();
