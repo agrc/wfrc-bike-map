@@ -164,7 +164,10 @@ export const MapContainer = ({
             </div>
           )}
           <arcgis-basemap-toggle ref={basemapToggleRef} slot="top-left" />
-          <div slot="top-right" className="esri-component esri-widget">
+          <div
+            slot="top-right"
+            className="esri-component esri-widget map-control"
+          >
             <calcite-button
               kind="neutral"
               className="esri-widget--button"
@@ -173,7 +176,10 @@ export const MapContainer = ({
               onClick={handleFeedbackClick}
             ></calcite-button>
           </div>
-          <div slot="top-right" className="esri-component esri-widget">
+          <div
+            slot="top-right"
+            className="esri-component esri-widget map-control"
+          >
             <calcite-button
               kind="neutral"
               className="esri-widget--button"

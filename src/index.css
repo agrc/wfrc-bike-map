@@ -1,6 +1,11 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+@import '@ugrc/tailwind-preset';
+@source '../node_modules/@ugrc';
+
+@theme {
+  --font-heading:
+    'SourceSansPro-Black', 'Source Sans Pro', 'Arial', 'Helvetica', sans-serif;
+}
 
 html,
 body {
@@ -96,10 +101,38 @@ arcgis-basemap-toggle {
   height: 2rem;
 }
 
+arcgis-home,
+arcgis-track,
+arcgis-basemap-toggle,
+.map-control,
+.map-control-button {
+  box-shadow: 0 1px 2px rgb(0 0 0 / 30.2%);
+}
+
+.map-control calcite-button {
+  --calcite-button-background-color: var(--calcite-color-foreground-1);
+  --calcite-icon-color: var(--calcite-color-text-3);
+}
+
+.map-control calcite-button:hover {
+  --calcite-button-background-color: var(--calcite-color-transparent-hover);
+  --calcite-icon-color: var(--calcite-color-text-1);
+}
+
 .map-control-group {
   @apply flex flex-col gap-2;
 }
 
 .map-control-button {
-  @apply grid size-8 place-items-center rounded-full border border-gray-300 bg-white text-gray-800 shadow-sm transition-colors hover:bg-gray-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-900;
+  @apply focus-visible:outline-primary-900 grid size-8 place-items-center rounded-full transition-colors focus-visible:outline-2 focus-visible:outline-offset-2;
+  background-color: var(--calcite-color-foreground-1);
+  color: var(--calcite-color-text-3);
+}
+
+.map-control-button:hover {
+  background-image: linear-gradient(
+    var(--calcite-color-transparent-hover),
+    var(--calcite-color-transparent-hover)
+  );
+  color: var(--calcite-color-text-1);
 }
