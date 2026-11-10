@@ -1,14 +1,17 @@
+import type FeatureLayer from '@arcgis/core/layers/FeatureLayer';
+import type FeatureFilter from '@arcgis/core/layers/support/FeatureFilter';
+import type UniqueValueClass from '@arcgis/core/renderers/support/UniqueValueClass';
+import type MapView from '@arcgis/core/views/MapView';
+
 export function getWhereClause(
   selectedClasses: number[],
-  rendererClasses: __esri.UniqueValueClass[],
+  rendererClasses: UniqueValueClass[],
   fieldName: string,
   isString: boolean,
 ): string {
   const values = selectedClasses.reduce<(number | string)[]>(
     (previous, classIndex) => {
-      const classRenderer = rendererClasses[
-        classIndex
-      ] as __esri.UniqueValueClass;
+      const classRenderer = rendererClasses[classIndex];
       const values = classRenderer!.values!.map(
         (value) => value.value as string | number,
       );
@@ -30,15 +33,15 @@ export function getWhereClause(
 }
 
 export async function setLayerViewFilter(
-  layer: __esri.FeatureLayer,
-  mapView: __esri.MapView,
+  layer: FeatureLayer,
+  mapView: MapView,
   where: string,
 ): Promise<void> {
   try {
     const layerView = await mapView.whenLayerView(layer);
     layerView.filter = {
       where,
-    } as __esri.FeatureFilter;
+    } as FeatureFilter;
 
     console.log(`${layer.title}: ${where}`);
   } catch (error) {

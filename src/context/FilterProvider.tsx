@@ -1,4 +1,6 @@
-import { type Draft } from 'immer';
+import type UniqueValueClass from '@arcgis/core/renderers/support/UniqueValueClass';
+import type { SymbolUnion } from '@arcgis/core/symbols/types';
+import { castDraft, type Draft } from 'immer';
 import { createContext, type Dispatch, type ReactNode } from 'react';
 import { useImmerReducer } from 'use-immer';
 import type { LayersWithRenderClassesKeys } from '../shared';
@@ -8,19 +10,19 @@ import type { LayerNames } from './FirebaseRemoteConfigsProvider';
 type FilterState = {
   selectedFilterType: Omit<LayersWithRenderClassesKeys, 'trafficSignals'>;
   symbols: {
-    otherLinks: __esri.SymbolUnion | nullish;
-    bikeshareStations: __esri.SymbolUnion | nullish;
+    otherLinks: SymbolUnion | null | undefined;
+    bikeshareStations: SymbolUnion | null | undefined;
   };
   routeTypes: {
-    rendererClasses: __esri.UniqueValueClass[];
+    rendererClasses: UniqueValueClass[];
     selectedClasses: number[] | null;
   };
   trafficStress: {
-    rendererClasses: __esri.UniqueValueClass[];
+    rendererClasses: UniqueValueClass[];
     selectedClasses: number[] | null;
   };
   trafficSignals: {
-    rendererClasses: __esri.UniqueValueClass[];
+    rendererClasses: UniqueValueClass[];
     selectedClasses: number[] | null;
   };
   layerToggles: {
@@ -33,12 +35,12 @@ type Action =
   | {
       type: 'MAP_LOADED';
       payload: {
-        routeTypes: __esri.UniqueValueClass[];
-        trafficStress: __esri.UniqueValueClass[];
-        trafficSignals: __esri.UniqueValueClass[];
+        routeTypes: UniqueValueClass[];
+        trafficStress: UniqueValueClass[];
+        trafficSignals: UniqueValueClass[];
         symbols: {
-          otherLinks: __esri.SymbolUnion;
-          bikeshareStations: __esri.SymbolUnion;
+          otherLinks: SymbolUnion;
+          bikeshareStations: SymbolUnion;
         };
       };
     }
@@ -93,7 +95,7 @@ const initialState: FilterState = {
 function reducer(draft: Draft<FilterState>, action: Action): void {
   switch (action.type) {
     case 'MAP_LOADED':
-      draft.routeTypes.rendererClasses = action.payload.routeTypes;
+      draft.routeTypes.rendererClasses = castDraft(action.payload.routeTypes);
       if (draft.routeTypes.selectedClasses === null) {
         draft.routeTypes.selectedClasses = Array.from(
           { length: action.payload.routeTypes.length },
@@ -101,7 +103,9 @@ function reducer(draft: Draft<FilterState>, action: Action): void {
         );
       }
 
-      draft.trafficStress.rendererClasses = action.payload.trafficStress;
+      draft.trafficStress.rendererClasses = castDraft(
+        action.payload.trafficStress,
+      );
       if (draft.trafficStress.selectedClasses === null) {
         draft.trafficStress.selectedClasses = Array.from(
           { length: action.payload.trafficStress.length },
@@ -109,7 +113,9 @@ function reducer(draft: Draft<FilterState>, action: Action): void {
         );
       }
 
-      draft.trafficSignals.rendererClasses = action.payload.trafficSignals;
+      draft.trafficSignals.rendererClasses = castDraft(
+        action.payload.trafficSignals,
+      );
       if (draft.trafficSignals.selectedClasses === null) {
         draft.trafficSignals.selectedClasses = Array.from(
           { length: action.payload.trafficSignals.length },
@@ -117,7 +123,7 @@ function reducer(draft: Draft<FilterState>, action: Action): void {
         );
       }
 
-      draft.symbols = action.payload.symbols;
+      draft.symbols = castDraft(action.payload.symbols);
 
       break;
 

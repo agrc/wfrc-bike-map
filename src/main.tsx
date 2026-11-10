@@ -1,10 +1,8 @@
 import esriConfig from '@arcgis/core/config';
 import initializeTheme from '@ugrc/esri-theme-toggle';
-import {
-  FirebaseAnalyticsProvider,
-  FirebaseAppProvider,
-  FirebaseFunctionsProvider,
-} from '@ugrc/utah-design-system';
+import { FirebaseAnalyticsProvider } from '@ugrc/utah-design-system/contexts/FirebaseAnalyticsProvider';
+import { FirebaseAppProvider } from '@ugrc/utah-design-system/contexts/FirebaseAppProvider';
+import { FirebaseFunctionsProvider } from '@ugrc/utah-design-system/contexts/FirebaseFunctionsProvider';
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import {

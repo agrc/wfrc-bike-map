@@ -1,11 +1,9 @@
-import {
-  Button,
-  Checkbox,
-  Dialog,
-  ExternalLink,
-  Modal,
-} from '@ugrc/utah-design-system';
-import { useLocalStorage } from '@ugrc/utilities/hooks';
+import { Button } from '@ugrc/utah-design-system/components/Button';
+import { Checkbox } from '@ugrc/utah-design-system/components/Checkbox';
+import { Dialog } from '@ugrc/utah-design-system/components/Dialog';
+import { ExternalLink } from '@ugrc/utah-design-system/components/Link';
+import { Modal } from '@ugrc/utah-design-system/components/Modal';
+import useLocalStorage from '@ugrc/utilities/hooks/useLocalStorage';
 import { HelpCircle } from 'lucide-react';
 import { DialogTrigger } from 'react-aria-components';
 import useRemoteConfigs from '../hooks/useRemoteConfigs';

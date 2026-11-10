@@ -1,11 +1,15 @@
 import Basemap from '@arcgis/core/Basemap';
 import { watch } from '@arcgis/core/core/reactiveUtils';
-import MapView from '@arcgis/core/views/MapView';
+import Point from '@arcgis/core/geometry/Point';
+import type Graphic from '@arcgis/core/Graphic';
+import type FeatureLayer from '@arcgis/core/layers/FeatureLayer';
+import type SimpleRenderer from '@arcgis/core/renderers/SimpleRenderer';
+import type UniqueValueRenderer from '@arcgis/core/renderers/UniqueValueRenderer';
+import type FeatureLayerView from '@arcgis/core/views/layers/FeatureLayerView';
+import type MapView from '@arcgis/core/views/MapView';
 import WebMap from '@arcgis/core/WebMap';
-import BasemapToggle from '@arcgis/core/widgets/BasemapToggle.js';
-import Home from '@arcgis/core/widgets/Home';
-import Track from '@arcgis/core/widgets/Track';
-import { useFirebaseAnalytics } from '@ugrc/utah-design-system';
+import Popup from '@arcgis/core/widgets/Popup';
+import { useFirebaseAnalytics } from '@ugrc/utah-design-system/contexts/FirebaseAnalyticsProvider';
 import debounce from 'lodash.debounce';
 import { useEffect, useRef } from 'react';
 import { getCoarseLocation, INITIAL_MAP_ZOOM } from '../components/mapUtils';
@@ -20,20 +24,19 @@ const HYBRID_BASEMAP_PARAM = 'hybrid';
 const LITE_BASEMAP_PARAM = 'lite';
 
 export function useMapSetup(
-  mapNodeRef: React.RefObject<HTMLDivElement | null>,
+  mapNodeRef: React.RefObject<HTMLArcgisMapElement | null>,
   trayIsOpen: boolean,
   useMyLocationOnLoad: boolean,
   isSmallScreen: boolean,
-  onFeatureIdentify: (graphic: __esri.Graphic | null) => void,
+  onFeatureIdentify: (graphic: Graphic | null) => void,
   popupRoot: HTMLDivElement,
-  feedbackButtonRef: React.RefObject<HTMLDivElement | null>,
-  zoomButtonRef: React.RefObject<HTMLDivElement | null>,
+  basemapToggleRef: React.RefObject<HTMLArcgisBasemapToggleElement | null>,
   setCenter: (center: number[]) => void,
 ) {
   const getConfig = useRemoteConfigs();
   const map = useRef<WebMap | null>(null);
   const mapView = useRef<MapView>(null);
-  const layers = useRef<Record<LayerNameKey, __esri.FeatureLayer | null>>({
+  const layers = useRef<Record<LayerNameKey, FeatureLayer | null>>({
     routeTypes: null,
     trafficStress: null,
     trafficSignals: null,
@@ -42,14 +45,21 @@ export function useMapSetup(
     udotAlrs: null,
   });
   const mapIsInitialized = useRef<boolean>(false);
-  const highlightHandle = useRef<__esri.Handle>(null);
+  const highlightHandle = useRef<ReturnType<
+    FeatureLayerView['highlight']
+  > | null>(null);
   const { dispatch } = useFilter();
 
   const logEvent = useFirebaseAnalytics();
 
   // set up map
   useEffect(() => {
-    if (!mapNodeRef.current || mapIsInitialized.current || !getConfig) {
+    if (
+      !mapNodeRef.current ||
+      !basemapToggleRef.current ||
+      mapIsInitialized.current ||
+      !getConfig
+    ) {
       return;
     }
 
@@ -62,25 +72,25 @@ export function useMapSetup(
         },
       });
 
-      let center: __esri.PointProperties | number[] = {
+      let center: Point | [number, number] = new Point({
         // SLC
         x: -12455376,
         y: 4978678,
         spatialReference: {
           wkid: 102100,
         },
-      };
+      });
 
       const xyUrlParam = getUrlParameter('center', 'number[]') as number[];
       const zoomUrlParam = getUrlParameter('zoom', 'number') as number;
       if (xyUrlParam) {
-        center = {
+        center = new Point({
           x: xyUrlParam[0],
           y: xyUrlParam[1],
           spatialReference: {
             wkid: 3857,
           },
-        };
+        });
       } else if (useMyLocationOnLoad) {
         const location = await getCoarseLocation();
         if (location) {
@@ -88,32 +98,52 @@ export function useMapSetup(
         }
       }
 
-      const view = new MapView({
-        container: mapNodeRef.current,
-        center,
-        zoom: zoomUrlParam ?? INITIAL_MAP_ZOOM,
-        ui: {
-          components: isSmallScreen ? [] : ['zoom'],
+      const mapElement = mapNodeRef.current!;
+      const basemapToggle = basemapToggleRef.current!;
+      const hybridBasemap = new Basemap({
+        id: HYBRID_BASEMAP_PARAM,
+        portalItem: {
+          id: getConfig('hybridId') as string,
         },
-        map: map.current,
-        padding: {
-          bottom: trayIsOpen ? 320 : 0,
-        },
-        popup: {
-          actions: [],
-          dockEnabled: false,
-          dockOptions: {
-            breakpoint: false,
-            buttonEnabled: false,
-          },
-          visibleElements: {
-            actionBar: false,
-            heading: false,
-            closeButton: false,
-          },
-        },
-        popupEnabled: false,
       });
+      const basemapToggleReady = new Promise<void>((resolve) => {
+        if (basemapToggle.state !== 'disabled') {
+          resolve();
+        } else {
+          basemapToggle.addEventListener('arcgisReady', () => resolve(), {
+            once: true,
+          });
+        }
+      });
+
+      mapElement.center = center;
+      mapElement.zoom = zoomUrlParam ?? INITIAL_MAP_ZOOM;
+      mapElement.padding = {
+        bottom: trayIsOpen ? 320 : 0,
+        left: 0,
+        right: 0,
+        top: 0,
+      };
+      basemapToggle.nextBasemap = hybridBasemap;
+      mapElement.map = map.current;
+
+      await Promise.all([mapElement.viewOnReady(), basemapToggleReady]);
+
+      const view = mapElement.view;
+      view.popup = new Popup({
+        actions: [],
+        dockEnabled: false,
+        dockOptions: {
+          breakpoint: false,
+          buttonEnabled: false,
+        },
+        visibleElements: {
+          actionBar: false,
+          heading: false,
+          closeButton: false,
+        },
+      });
+      view.popupEnabled = false;
 
       view.on('click', (event) => {
         view.closePopup();
@@ -130,7 +160,7 @@ export function useMapSetup(
               !popupDisabledLayersIds.includes(result.layer.id),
           );
           if (graphicHits.length > 0) {
-            const graphic = (graphicHits[0] as __esri.GraphicHit)!.graphic;
+            const graphic = (graphicHits[0] as { graphic: Graphic }).graphic;
 
             onFeatureIdentify(graphic);
 
@@ -144,8 +174,8 @@ export function useMapSetup(
             }
 
             view
-              .whenLayerView(graphic.layer as __esri.FeatureLayer)
-              .then((layerView: __esri.FeatureLayerView) => {
+              .whenLayerView(graphic.layer as FeatureLayer)
+              .then((layerView: FeatureLayerView) => {
                 if (highlightHandle.current) {
                   highlightHandle.current.remove();
                 }
@@ -177,59 +207,32 @@ export function useMapSetup(
         }, debounceTime),
       );
 
-      await view.when();
+      watch(
+        () => basemapToggle.activeBasemap?.id,
+        (id) => {
+          if (!id) {
+            return;
+          }
 
-      const homeWidget = new Home({ view });
-      homeWidget.on('go', () => logEvent('home_button_click'));
-      const trackWidget = new Track({ view });
-      trackWidget.on('track', () => logEvent('track_button_click'));
-      view.ui.add(homeWidget, 'top-right');
-      view.ui.add(trackWidget, 'top-right');
-      view.ui.add(zoomButtonRef.current!, 'top-right');
-      view.ui.add(feedbackButtonRef.current!, 'top-right');
+          setUrlParameter(
+            'basemap',
+            id === HYBRID_BASEMAP_PARAM ? id : LITE_BASEMAP_PARAM,
+          );
 
-      const hybridBasemap = new Basemap({
-        id: HYBRID_BASEMAP_PARAM,
-        portalItem: {
-          id: getConfig('hybridId') as string,
+          logEvent('basemap_toggle', { basemap: id });
         },
-      });
+      );
 
-      const basemapToggle = new BasemapToggle({
-        view,
-        nextBasemap: hybridBasemap,
-      });
-
-      basemapToggle.when(() => {
-        watch(
-          () => basemapToggle.activeBasemap?.id,
-          (id) => {
-            if (!id) {
-              return;
-            }
-
-            setUrlParameter(
-              'basemap',
-              id === HYBRID_BASEMAP_PARAM ? id : LITE_BASEMAP_PARAM,
-            );
-
-            logEvent('basemap_toggle', { basemap: id });
-          },
-        );
-
-        const initialId = getUrlParameter('basemap', 'string');
-        if (initialId && initialId === hybridBasemap.id) {
-          basemapToggle.toggle();
-        }
-      });
-
-      view.ui.add(basemapToggle, 'top-left');
+      const initialId = getUrlParameter('basemap', 'string');
+      if (initialId && initialId === hybridBasemap.id) {
+        void basemapToggle.toggle();
+      }
 
       const layerNames = getConfig('layerNames') as LayerNames;
       for (const layerName of Object.keys(layers.current) as LayerNameKey[]) {
         const layer = view.map!.layers.find(
           (layer) => layer.title === layerNames[layerName],
-        ) as __esri.FeatureLayer;
+        ) as FeatureLayer;
         if (!layer) {
           throw new Error(`Could not find layer: ${layerName}`);
         }
@@ -246,25 +249,19 @@ export function useMapSetup(
         type: 'MAP_LOADED',
         payload: {
           routeTypes:
-            (layers.current.routeTypes!.renderer as __esri.UniqueValueRenderer)
+            (layers.current.routeTypes!.renderer as UniqueValueRenderer)
               .uniqueValueGroups?.[0]?.classes ?? [],
           trafficStress:
-            (
-              layers.current.trafficStress!
-                .renderer as __esri.UniqueValueRenderer
-            ).uniqueValueGroups?.[0]?.classes ?? [],
+            (layers.current.trafficStress!.renderer as UniqueValueRenderer)
+              .uniqueValueGroups?.[0]?.classes ?? [],
           trafficSignals:
-            (
-              layers.current.trafficSignals!
-                .renderer as __esri.UniqueValueRenderer
-            ).uniqueValueGroups?.[0]?.classes ?? [],
+            (layers.current.trafficSignals!.renderer as UniqueValueRenderer)
+              .uniqueValueGroups?.[0]?.classes ?? [],
           symbols: {
-            otherLinks: (
-              layers.current.otherLinks!.renderer as __esri.SimpleRenderer
-            ).symbol!,
+            otherLinks: (layers.current.otherLinks!.renderer as SimpleRenderer)
+              .symbol!,
             bikeshareStations: (
-              layers.current.bikeshareStations!
-                .renderer as __esri.SimpleRenderer
+              layers.current.bikeshareStations!.renderer as SimpleRenderer
             ).symbol!,
           },
         },
@@ -282,8 +279,7 @@ export function useMapSetup(
     isSmallScreen,
     onFeatureIdentify,
     popupRoot,
-    zoomButtonRef,
-    feedbackButtonRef,
+    basemapToggleRef,
     dispatch,
     setCenter,
     logEvent,

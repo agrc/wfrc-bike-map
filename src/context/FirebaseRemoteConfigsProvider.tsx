@@ -1,4 +1,4 @@
-import { useFirebaseApp } from '@ugrc/utah-design-system';
+import { useFirebaseApp } from '@ugrc/utah-design-system/contexts/FirebaseAppProvider';
 import {
   fetchAndActivate,
   getRemoteConfig,
@@ -12,12 +12,7 @@ import type { LayersWithRenderClassesKeys } from '../shared';
 type ConfigName = keyof typeof remoteConfigDefaults.parameters;
 type ValueTypeName = 'STRING' | 'NUMBER' | 'BOOLEAN' | 'JSON';
 type ValueType =
-  | string
-  | number
-  | boolean
-  | LayerNames
-  | FieldNames
-  | ClassOrders;
+  string | number | boolean | LayerNames | FieldNames | ClassOrders;
 type Defaults = {
   [key in ConfigName]: string;
 };

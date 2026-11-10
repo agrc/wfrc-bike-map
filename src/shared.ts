@@ -1,4 +1,2 @@
 export type LayersWithRenderClassesKeys =
-  | 'routeTypes'
-  | 'trafficStress'
-  | 'trafficSignals';
+  'routeTypes' | 'trafficStress' | 'trafficSignals';

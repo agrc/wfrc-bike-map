@@ -1,8 +1,9 @@
 import { renderPreviewHTML } from '@arcgis/core/symbols/support/symbolUtils';
+import type { SymbolUnion } from '@arcgis/core/symbols/types';
 import { useEffect, useRef } from 'react';
 
 type LegendSwatchProps = {
-  symbol: __esri.SymbolUnion | nullish;
+  symbol: SymbolUnion | null | undefined;
 };
 
 export default function LegendSwatch({ symbol }: LegendSwatchProps) {

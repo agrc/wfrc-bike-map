@@ -1,3 +1,5 @@
+import type FeatureLayer from '@arcgis/core/layers/FeatureLayer';
+import type MapView from '@arcgis/core/views/MapView';
 import { useEffect, type RefObject } from 'react';
 import { getWhereClause, setLayerViewFilter } from '../components/utilities';
 import type { FieldNames } from '../context/FirebaseRemoteConfigsProvider';
@@ -5,8 +7,8 @@ import { useFilter } from './useFilter';
 import useRemoteConfigs from './useRemoteConfigs';
 
 export function useLayerFiltering(
-  mapView: RefObject<__esri.MapView | null>,
-  layers: RefObject<Record<string, __esri.FeatureLayer | null>>,
+  mapView: RefObject<MapView | null>,
+  layers: RefObject<Record<string, FeatureLayer | null>>,
 ) {
   const { state } = useFilter();
   const getConfig = useRemoteConfigs();

@@ -1,4 +1,6 @@
-import { Checkbox, useFirebaseAnalytics } from '@ugrc/utah-design-system';
+import type UniqueValueClass from '@arcgis/core/renderers/support/UniqueValueClass';
+import { Checkbox } from '@ugrc/utah-design-system/components/Checkbox';
+import { useFirebaseAnalytics } from '@ugrc/utah-design-system/contexts/FirebaseAnalyticsProvider';
 import { useId } from 'react';
 import { useFilter } from '../hooks/useFilter';
 import type { LayersWithRenderClassesKeys } from '../shared';
@@ -6,7 +8,7 @@ import Label from './Label';
 import LegendSwatch from './LegendSwatch';
 
 type RendererClassCheckboxProps = {
-  rendererClass: __esri.UniqueValueClass;
+  rendererClass: UniqueValueClass;
   classIndex: number;
   layerKey: LayersWithRenderClassesKeys;
 };

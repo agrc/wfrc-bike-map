@@ -1,4 +1,4 @@
-import { Label as UDSLabel } from '@ugrc/utah-design-system';
+import { Label as UDSLabel } from '@ugrc/utah-design-system/components/Field';
 
 type LabelProps = {
   children: React.ReactNode;
