@@ -5,7 +5,7 @@ import { ExternalLink } from '@ugrc/utah-design-system/components/Link';
 import { Modal } from '@ugrc/utah-design-system/components/Modal';
 import useLocalStorage from '@ugrc/utilities/hooks/useLocalStorage';
 import { HelpCircle } from 'lucide-react';
-import { DialogTrigger } from 'react-aria-components';
+import { DialogTrigger } from 'react-aria-components/Dialog';
 import useRemoteConfigs from '../hooks/useRemoteConfigs';
 
 type HelpDialogProps = {

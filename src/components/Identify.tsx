@@ -28,6 +28,10 @@ export default function Identify({ graphic, clear }: IdentifyProps) {
           width: 400px !important;
         }
 
+        .esri-features__content-container:has(.identify-popup) {
+          padding: 4px !important;
+        }
+
         .identify-popup {
           position: relative;
           width: 100%;
@@ -40,8 +44,8 @@ export default function Identify({ graphic, clear }: IdentifyProps) {
 
         .identify-popup__close {
           position: absolute;
-          top: -0.25rem;
-          left: -0.25rem;
+          top: 0;
+          left: 0;
           z-index: 1;
           display: grid;
           width: 32px;
@@ -72,13 +76,15 @@ export default function Identify({ graphic, clear }: IdentifyProps) {
         }
 
         .identify-popup__feature {
+          position: relative;
+          z-index: 0;
           display: block;
-          padding: 12px;
+          padding: 20px 12px 8px;
           box-sizing: border-box;
         }
 
         .identify-popup__feedback {
-          padding: 0 12px 16px;
+          padding: 0 12px 8px;
         }
 
         .identify-popup__feedback button {
@@ -87,7 +93,8 @@ export default function Identify({ graphic, clear }: IdentifyProps) {
           justify-content: center;
           gap: 8px;
           min-height: 36px;
-          padding: 0 32px;
+          padding: 6px 12px;
+          box-sizing: border-box;
           border: 1px solid rgb(0 0 0 / 10%);
           border-radius: 9999px;
           background: #4d2a54;
@@ -190,8 +197,9 @@ export default function Identify({ graphic, clear }: IdentifyProps) {
       `}</style>
       <div className="identify-popup">
         <Button
-          className="identify-popup__close"
           variant="icon"
+          className="identify-popup__close"
+          aria-label="Close identified feature"
           onPress={clear}
         >
           <CircleX />
