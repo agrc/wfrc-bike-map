@@ -21,3 +21,4 @@ npm-debug.log*
 firebase-debug.log
 public/ThirdPartyNotices.txt
 .playwright*/
+test-results/

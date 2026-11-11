@@ -16,7 +16,8 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "start": "concurrently 'cd functions && pnpm run build:watch' 'wait-on http://127.0.0.1:4000 && pnpm run dev:vite' 'pnpm run dev:firebase-emulators'",
-    "test": "vitest"
+    "test": "vitest",
+    "test:e2e": "playwright test"
   },
   "browserslist": {
     "production": [
@@ -57,6 +58,7 @@
     "wait-on": "^9.5.1"
   },
   "devDependencies": {
+    "@playwright/test": "^1.64.1",
     "@tailwindcss/vite": "^4.3.4",
     "@types/lodash.debounce": "^4.0.9",
     "@types/node": "^24.19.2",
