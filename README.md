@@ -18,6 +18,10 @@
 
 This website is tested and deployed with GitHub Actions.
 
+## End-to-end tests
+
+Install the Playwright browser once with `pnpm exec playwright install chromium`, then run the suite with `pnpm run test:e2e`. The tests start Vite with a test-only Firebase configuration; they do not need local secrets or submit feedback.
+
 ## Remote Configs
 
 This app is configurable via [Firebase Remote Configs](https://firebase.google.com/docs/remote-config). This allows admins to update various parts of the application without having to deploy a new build.
