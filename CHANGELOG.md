@@ -1,5 +1,26 @@
 # Changelog
 
+## [1.1.10-rc.1](https://github.com/agrc/wfrc-bike-map/compare/v1.1.9...v1.1.10-rc.1) (2026-11-12)
+
+
+### Bug Fixes
+
+* migrate pnpm build approvals ([38ce7bd](https://github.com/agrc/wfrc-bike-map/commit/38ce7bd881f9331602bea57a8fbf14110240c9b1))
+* reassign geom field ([680bcf8](https://github.com/agrc/wfrc-bike-map/commit/680bcf88b094866a096db1576f61c254f9792a39))
+* restore compatible React Aria versions ([b895b8c](https://github.com/agrc/wfrc-bike-map/commit/b895b8c59af950500afc28ad85eb71de3a0d3578))
+* upgrade to official header ([90782ee](https://github.com/agrc/wfrc-bike-map/commit/90782ee2e2bb55dce5a79cf88ccca010a7d3eb4e))
+
+
+### Dependencies
+
+* @arcgis/core v4 -&gt; v5 ([49b8b8a](https://github.com/agrc/wfrc-bike-map/commit/49b8b8aa728a9cdce4c7f1de4cd9c408b2d901cf))
+* bump major NPM dependencies 🌲 ([d4890a0](https://github.com/agrc/wfrc-bike-map/commit/d4890a0d229a5c252f000a7ca2a1531ed320b7d8))
+* bump safe NPM dependencies 🌲 ([bfd14af](https://github.com/agrc/wfrc-bike-map/commit/bfd14af9b937ff4115c6582fc8c2d4bd65eea6e3))
+* bump the safe-dependencies group across 1 directory with 27 updates ([6aeb529](https://github.com/agrc/wfrc-bike-map/commit/6aeb52998f060209e17492f6098e05f6299ba766))
+* **functions:** node v22 -&gt; v24 ([a604020](https://github.com/agrc/wfrc-bike-map/commit/a6040204d93e990501c8819f0c08258ccb0cbab8))
+* tailwind v3 -&gt; v4 ([e45a7a3](https://github.com/agrc/wfrc-bike-map/commit/e45a7a3a2dcf68f107a469a2f1a87d50875d9511))
+* typescript v5 -&gt; v6¡¡ ([f2cbb38](https://github.com/agrc/wfrc-bike-map/commit/f2cbb3893553462ea176d54022c50bc0e5b9c128))
+
 ## [1.1.9](https://github.com/agrc/wfrc-bike-map/compare/v1.1.9...v1.1.9) (2026-02-27)
 
 
