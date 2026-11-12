@@ -1089,8 +1089,8 @@ packages:
   '@hapi/topo@6.0.2':
     resolution: {integrity: sha512-KR3rD5inZbGMrHmgPxsJ9dbi6zEK+C3ZwUwTa+eMwWLz7oijWUTWD2pMSNNYJAU6Qq+65NkxXjqHr/7LM2Xkqg==}
 
-  '@hono/node-server@1.19.9':
-    resolution: {integrity: sha512-vHL6w3ecZsky+8P5MD+eFfaGTyCeOHUIFYMGpQGbrBTSmNNoxv0if69rEZ5giu36weC5saFuznL411gRX7bJDw==}
+  '@hono/node-server@1.19.19':
+    resolution: {integrity: sha512-Fy9R7PACOzHU9LDpfnuzVyuVYevKQRcEG2mZhmfc+DRdmayEd3RVfa2XOt2IgGcPNgA77Yk63KBszepcMFK5Ng==}
     engines: {node: '>=18.14.1'}
     peerDependencies:
       hono: ^4
@@ -8403,7 +8403,7 @@ snapshots:
     dependencies:
       '@hapi/hoek': 11.0.7
 
-  '@hono/node-server@1.19.9(hono@4.11.9)':
+  '@hono/node-server@1.19.19(hono@4.11.9)':
     dependencies:
       hono: 4.11.9
 
@@ -8803,9 +8803,9 @@ snapshots:
 
   '@modelcontextprotocol/sdk@1.26.0(supports-color@8.1.1)(zod@4.6.7)':
     dependencies:
-      '@hono/node-server': 1.19.9(hono@4.11.9)
+      '@hono/node-server': 1.19.19(hono@4.11.9)
       ajv: 8.18.0
-      ajv-formats: 3.0.1
+      ajv-formats: 3.0.1(ajv@8.18.0)
       content-type: 1.0.5
       cors: 2.8.6
       cross-spawn: 7.0.6
@@ -10485,8 +10485,8 @@ snapshots:
     optionalDependencies:
       ajv: 8.18.0
 
-  ajv-formats@3.0.1:
-    dependencies:
+  ajv-formats@3.0.1(ajv@8.18.0):
+    optionalDependencies:
       ajv: 8.18.0
 
   ajv@6.12.6:
@@ -12216,7 +12216,7 @@ snapshots:
       '@modelcontextprotocol/sdk': 1.26.0(supports-color@8.1.1)(zod@4.6.7)
       abort-controller: 3.0.0
       ajv: 8.18.0
-      ajv-formats: 3.0.1
+      ajv-formats: 3.0.1(ajv@8.18.0)
       archiver: 7.0.1
       async-lock: 1.4.1
       body-parser: 1.20.4(supports-color@8.1.1)
