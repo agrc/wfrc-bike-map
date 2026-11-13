@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.10-rc.2](https://github.com/agrc/wfrc-bike-map/compare/v1.1.10-rc.1...v1.1.10-rc.2) (2026-11-13)
+
+
+### Bug Fixes
+
+* fix dependency conflict ([6b221fb](https://github.com/agrc/wfrc-bike-map/commit/6b221fb047ec192f5fa8ab75022d8cdef62a6098))
+
 ## [1.1.10-rc.1](https://github.com/agrc/wfrc-bike-map/compare/v1.1.9...v1.1.10-rc.1) (2026-11-12)
 
 
